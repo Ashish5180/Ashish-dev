@@ -129,7 +129,7 @@ export default function StageDrawer({ stageIndex, statuses, durations, stageLogs
             {logs.map((entry, i) => (
               <div key={i} className="flex gap-3 leading-relaxed">
                 <span className="text-[#d3d1c7] shrink-0 select-none">{String(i + 1).padStart(2, ' ')}</span>
-                <span className="text-[#b4b2a9] shrink-0">{entry.ts}</span>
+                <span className="text-[#b4b2a9] shrink-0" suppressHydrationWarning>{entry.ts}</span>
                 <span className={typeColors[entry.type]}>{entry.msg}</span>
               </div>
             ))}

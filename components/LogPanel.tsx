@@ -48,7 +48,7 @@ export default function LogPanel({ logs, title, running }: LogPanelProps) {
             key={i}
             className="flex gap-3 font-mono text-[11px] leading-relaxed animate-logslide"
           >
-            <span className="text-[#b4b2a9] shrink-0">{entry.ts}</span>
+            <span className="text-[#b4b2a9] shrink-0" suppressHydrationWarning>{entry.ts}</span>
             <span className={typeColors[entry.type]}>{entry.msg}</span>
           </div>
         ))}

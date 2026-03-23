@@ -1,17 +1,16 @@
-import { TracingBeamDemo } from "@/components/TracingLine";
+import { ExperienceUI } from "@/components/ExperienceUI";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Work Experience | Ashish Yaduvanshi",
+  description: "Explore the professional journey of Ashish Yaduvanshi, a Full Stack Developer specializing in AI platforms, enterprise ERPs, and scalable web solutions.",
+  keywords: ["Full Stack Developer", "Experience", "Ashish Yaduvanshi", "Next.js", "AI Developer", "Scalable Products"],
+};
 
 export default function ExperiencePage() {
   return (
-    <main className="pt-24 min-h-screen bg-white">
-      <div className="max-w-4xl mx-auto px-6 mb-12">
-        <h1 className="text-4xl md:text-5xl font-bold text-neutral-800 tracking-tight">
-          Work Experience
-        </h1>
-        <p className="mt-4 text-neutral-600 max-w-2xl text-lg">
-          My professional journey and some of the key milestones I&apos;ve hit along the way.
-        </p>
-      </div>
-      <TracingBeamDemo />
+    <main className="min-h-screen">
+      <ExperienceUI />
     </main>
   );
 }
