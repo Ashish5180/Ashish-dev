@@ -4,9 +4,6 @@ import React, { useRef, useState, useEffect } from "react";
 import {
     motion,
     useInView,
-    useScroll,
-    useTransform,
-    useSpring,
     AnimatePresence,
 } from "framer-motion";
 import {
@@ -222,8 +219,8 @@ function TerminalDemo({ lines, accent }: { lines: TerminalLine[]; accent: string
 
     useEffect(() => {
         if (!inView) return;
-        setVisibleLines(0);
-        const timers: NodeJS.Timeout[] = [];
+        const initTimer = setTimeout(() => setVisibleLines(0), 0);
+        const timers: NodeJS.Timeout[] = [initTimer];
         lines.forEach((_, i) => {
             timers.push(setTimeout(() => setVisibleLines(i + 1), 400 + i * 320));
         });
@@ -402,9 +399,9 @@ function BrowserDemo({
                             <motion.div
                                 animate={{ top: ["0%", "100%", "0%"] }}
                                 transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-                                style={browserStyles.scanLine(accent)}
+                                style={browserFunctions.scanLine(accent)}
                             />
-                            <div style={browserStyles.scanBadge(accent)}>
+                            <div style={browserFunctions.scanBadge(accent)}>
                                 <Search size={12} />
                                 <span>AI Scanning DOM...</span>
                             </div>
@@ -484,7 +481,7 @@ function BrowserDemo({
     );
 }
 
-const browserStyles: Record<string, any> = {
+const browserStyles: Record<string, React.CSSProperties> = {
     wrapper: {
         borderRadius: 14,
         overflow: "hidden",
@@ -543,7 +540,10 @@ const browserStyles: Record<string, any> = {
         borderRadius: 0,
         overflow: "hidden" as const,
     },
-    scanLine: (accent: string) => ({
+};
+
+const browserFunctions = {
+    scanLine: (accent: string): React.CSSProperties => ({
         position: "absolute" as const,
         left: 0,
         width: "100%",
@@ -551,7 +551,7 @@ const browserStyles: Record<string, any> = {
         background: `linear-gradient(90deg, transparent, ${accent}, transparent)`,
         boxShadow: `0 0 20px ${accent}40`,
     }),
-    scanBadge: (accent: string) => ({
+    scanBadge: (accent: string): React.CSSProperties => ({
         position: "absolute" as const,
         top: "50%",
         left: "50%",
@@ -856,14 +856,6 @@ export default function ProjectsSection() {
     const headerRef = useRef<HTMLDivElement>(null);
     const headerInView = useInView(headerRef, { once: true, margin: "-80px" });
 
-    const { scrollYProgress } = useScroll({
-        target: sectionRef,
-        offset: ["start end", "end start"],
-    });
-
-    const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "8%"]);
-    const smoothBgY = useSpring(bgY, { stiffness: 60, damping: 20 });
-
     const S: React.CSSProperties = { fontFamily: "'Plus Jakarta Sans', sans-serif" };
 
     return (
@@ -972,7 +964,7 @@ export default function ProjectsSection() {
                         margin: "0 0 16px",
                     }}
                 >
-                    <RevealText>Things I've built</RevealText>
+                    <RevealText>Things I&apos;ve built</RevealText>
                     <br />
                     <span style={{ fontWeight: 300, fontStyle: "italic", color: "#888" }}>
                         <RevealText delay={0.3}>that actually work.</RevealText>

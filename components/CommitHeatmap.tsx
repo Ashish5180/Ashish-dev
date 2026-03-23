@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { GitCommit, Star, GitPullRequest, Code2 } from "lucide-react";
+import { GitCommit, Star, Code2 } from "lucide-react";
 
 export default function CommitHeatmap() {
     // Generate 56 boxes (8 weeks * 7 days)
@@ -12,9 +12,12 @@ export default function CommitHeatmap() {
     const [levelsData, setLevelsData] = useState<number[]>([]);
 
     useEffect(() => {
-        // Generate random levels only on the client
-        const data = Array.from({ length: 14 * 7 }, () => Math.floor(Math.random() * 5));
-        setLevelsData(data);
+        // Generate random levels only on the client after initial render
+        const timer = setTimeout(() => {
+            const data = Array.from({ length: 14 * 7 }, () => Math.floor(Math.random() * 5));
+            setLevelsData(data);
+        }, 10);
+        return () => clearTimeout(timer);
     }, []);
 
     const getColor = (level: number) => {

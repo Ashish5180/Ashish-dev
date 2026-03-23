@@ -8,7 +8,7 @@ export default function ExperiencePage() {
           Work Experience
         </h1>
         <p className="mt-4 text-neutral-600 max-w-2xl text-lg">
-          My professional journey and some of the key milestones I've hit along the way.
+          My professional journey and some of the key milestones I&apos;ve hit along the way.
         </p>
       </div>
       <TracingBeamDemo />

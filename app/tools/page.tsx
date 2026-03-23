@@ -2,8 +2,16 @@
 
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import Image from 'next/image';
 
-const TOOLS = [
+interface Tool {
+   name: string;
+   path: string;
+   category: string;
+   val: string;
+}
+
+const TOOLS: Tool[] = [
    { name: 'MacBook Pro', path: '/mac.webp', category: 'Computing', val: '01' },
    { name: 'iPhone 15 Pro', path: '/iphone.webp', category: 'Mobile', val: '02' },
    { name: 'Apple Watch', path: '/iwatch.webp', category: 'Wearables', val: '03' },
@@ -126,7 +134,7 @@ export default function MyToolsPage() {
    );
 }
 
-function ToolPan({ tool, index }: { tool: any, index: number }) {
+function ToolPan({ tool, index }: { tool: Tool, index: number }) {
    return (
       <motion.div
          initial={{ opacity: 0, scale: 0.9 }}
@@ -142,7 +150,7 @@ function ToolPan({ tool, index }: { tool: any, index: number }) {
          <div className="relative w-full h-full rounded-[3.5rem] overflow-hidden border border-white/10 flex flex-col justify-end p-10 bg-neutral-900 group-hover:border-indigo-500/50 transition-colors duration-700">
 
             <div className="absolute inset-0 grayscale group-hover:grayscale-0 scale-100 group-hover:scale-110 transition-all duration-1000 opacity-40 group-hover:opacity-70 overflow-hidden">
-               <img src={tool.path} alt={tool.name} className="w-full h-full object-cover" />
+               <Image src={tool.path} alt={tool.name} fill className="object-cover" />
             </div>
 
             {/* Gradient Overlay */}

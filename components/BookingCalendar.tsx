@@ -34,21 +34,20 @@ export default function BookingCalendar() {
     const month = currentDate.getMonth();
     const year = currentDate.getFullYear();
 
-    const firstDayOfMonth = new Date(year, month, 1).getDay();
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-
     const calendarDays = useMemo(() => {
+        const firstDay = new Date(year, month, 1).getDay();
+        const daysCount = new Date(year, month + 1, 0).getDate();
         const days = [];
         // Fill empty slots for previous month
-        for (let i = 0; i < firstDayOfMonth; i++) {
+        for (let i = 0; i < firstDay; i++) {
             days.push(null);
         }
         // Current month days
-        for (let i = 1; i <= daysInMonth; i++) {
+        for (let i = 1; i <= daysCount; i++) {
             days.push(i);
         }
         return days;
-    }, [firstDayOfMonth, daysInMonth]);
+    }, [year, month]);
 
     const handlePrevMonth = () => {
         setCurrentDate(new Date(year, month - 1, 1));
@@ -348,7 +347,7 @@ export default function BookingCalendar() {
                         >
                             <CheckCircle2 size={32} color="#fff" />
                         </motion.div>
-                        <h3 style={{ fontSize: "20px", fontWeight: 800, color: "#0E0E0E", marginBottom: "12px" }}>You're all set!</h3>
+                        <h3 style={{ fontSize: "20px", fontWeight: 800, color: "#0E0E0E", marginBottom: "12px" }}>You&apos;re all set!</h3>
                         <p style={{ fontSize: "14px", color: "#666", maxWidth: "240px", lineHeight: "1.6" }}>
                             Check your inbox for the calendar invite and meeting link.
                         </p>

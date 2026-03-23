@@ -1,7 +1,6 @@
 'use client';
 
-import React, { useCallback, useState, useEffect } from 'react';
-import StaggeredMenu from './StaggeredMenu';
+import React, { useState, useEffect } from 'react';
 
 const NAV_ITEMS = [
     { label: 'Home', link: '/', ariaLabel: 'Go to Home page' },
@@ -10,12 +9,6 @@ const NAV_ITEMS = [
     { label: 'Experience', link: '/experience', ariaLabel: 'Go to Experience page' },
     { label: 'My Tools', link: '/tools', ariaLabel: 'Go to Tools page' },
     { label: 'Contact', link: '/contact', ariaLabel: 'Go to Contact page' },
-];
-
-const SOCIAL_ITEMS = [
-    { label: 'GitHub', link: 'https://github.com' },
-    { label: 'LinkedIn', link: 'https://linkedin.com' },
-    { label: 'Twitter', link: 'https://twitter.com' },
 ];
 
 export default function Navbar() {
@@ -27,9 +20,6 @@ export default function Navbar() {
         handleScroll();
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
-
-    const handleMenuOpen = useCallback(() => { document.body.style.overflow = 'hidden'; }, []);
-    const handleMenuClose = useCallback(() => { document.body.style.overflow = ''; }, []);
 
     return (
         <>

@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 import { calsans } from "@/fonts/calsans";
 
 import { twMerge } from "tailwind-merge";
@@ -21,7 +22,7 @@ export function TracingBeamDemo() {
 
                         <div className="text-sm  prose prose-sm dark:prose-invert">
                             {item?.image && (
-                                <img
+                                <Image
                                     src={item.image}
                                     alt="blog thumbnail"
                                     height="1000"

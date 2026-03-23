@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 import { ContainerScroll } from "./ui/container-scroll-animation";
 
 export function HeroScrollDemo() {
@@ -23,7 +24,7 @@ export function HeroScrollDemo() {
                     rel="noopener noreferrer"
                     className="block h-full w-full"
                 >
-                    <img
+                    <Image
                         src={`/Github.png`}
                         alt="hero"
                         height={720}

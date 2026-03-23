@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
-import { motion, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue } from "framer-motion";
 import {
     Zap, Code2, Server, Database, GitBranch, Coffee,
-    Bug, Rocket, Lock, Cloud, Layers, Activity,
-    Sparkles, ArrowRight, CheckCircle, AlertCircle,
+    Bug, Lock, Cloud, Layers, Activity,
+    ArrowRight, AlertCircle,
     RefreshCw, Terminal, Package, Wifi, Star,
-    ChevronRight, X, PartyPopper, CalendarDays, BarChart3, MessageSquare
+    ChevronRight, PartyPopper, CalendarDays, BarChart3, MessageSquare
 } from "lucide-react";
 import BookingCalendar from "./BookingCalendar";
 import CommitHeatmap from "./CommitHeatmap";
@@ -101,16 +101,25 @@ const TICKER_ITEMS = [
 ];
 
 // ─── Confetti ─────────────────────────────────────────────────────────────────
+interface Particle {
+    x: number; y: number; vx: number; vy: number;
+    w: number; h: number; color: string;
+    rot: number; rotV: number; life: number;
+}
+
 function useConfetti() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const particles = useRef<any[]>([]);
+    const particles = useRef<Particle[]>([]);
     const rafRef = useRef<number>(0);
 
-    const run = useCallback(() => {
+    const tick = useCallback(function tick() {
         const canvas = canvasRef.current;
         if (!canvas) return;
-        const ctx = canvas.getContext("2d")!;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return;
+
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
         particles.current = particles.current.filter((p) => {
             p.x += p.vx; p.y += p.vy; p.vy += 0.09;
             p.rot += p.rotV; p.life -= 0.009;
@@ -124,8 +133,12 @@ function useConfetti() {
             ctx.restore();
             return true;
         });
-        if (particles.current.length > 0) rafRef.current = requestAnimationFrame(run);
-        else ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        if (particles.current.length > 0) {
+            rafRef.current = requestAnimationFrame(tick);
+        } else {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
     }, []);
 
     const boom = useCallback(() => {
@@ -149,8 +162,8 @@ function useConfetti() {
             });
         }
         cancelAnimationFrame(rafRef.current);
-        run();
-    }, [run]);
+        tick();
+    }, [tick]);
 
     return { canvasRef, boom };
 }
@@ -480,7 +493,7 @@ export default function AboutMe() {
                             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
                                 <Star size={12} color="#999" />
                                 <span style={{ ...S, fontSize: 10, letterSpacing: 3, textTransform: "uppercase", color: "#999" }}>
-                                    Click a skill. Go on. You can't stop.
+                                    Click a skill. Go on. You can&apos;t stop.
                                 </span>
                             </div>
                             <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
@@ -547,7 +560,7 @@ export default function AboutMe() {
                                 </span>
                             </div>
                             <p style={{ ...S, fontSize: 12, color: "#bbb", marginBottom: 14 }}>
-                                Seriously, drag them — it's oddly satisfying
+                                Seriously, drag them — it&apos;s oddly satisfying
                             </p>
                             <div style={{ position: "relative", height: 210 }}>
                                 {FACTS.map((f, i) => (
@@ -618,8 +631,8 @@ export default function AboutMe() {
                                 <Lock size={16} color="#0E0E0E" />
                             </div>
                             <div style={{ flex: 1 }}>
-                                <div style={{ ...S, fontWeight: 600, fontSize: 13, color: "#0E0E0E" }}>There's a secret here.</div>
-                                <div style={{ ...S, fontSize: 11, color: "#aaa", marginTop: 2 }}>Click to find it. Or don't. Your loss.</div>
+                                <div style={{ ...S, fontWeight: 600, fontSize: 13, color: "#0E0E0E" }}>There&apos;s a secret here.</div>
+                                <div style={{ ...S, fontSize: 11, color: "#aaa", marginTop: 2 }}>Click to find it. Or don&apos;t. Your loss.</div>
                             </div>
                             <ChevronRight size={14} color="#bbb" />
                         </motion.button>
@@ -641,7 +654,7 @@ export default function AboutMe() {
                                     transition: "background .25s, color .25s",
                                 }}
                             >
-                                Let's actually build something
+                                Let&apos;s actually build something
                                 <motion.span
                                     animate={{ x: [0, 5, 0] }}
                                     transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
@@ -686,14 +699,14 @@ export default function AboutMe() {
                                 <CalendarDays size={20} color="#fff" />
                             </div>
                             <div>
-                                <h2 style={{ ...S, fontWeight: 800, fontSize: "32px", color: "#0E0E0E", letterSpacing: "-1px" }}>Let's talk shop.</h2>
+                                <h2 style={{ ...S, fontWeight: 800, fontSize: "32px", color: "#0E0E0E", letterSpacing: "-1px" }}>Let&apos;s talk shop.</h2>
                                 <p style={{ ...S, fontSize: "14px", color: "#666", fontWeight: 500 }}>No boring meetings, just high-bandwidth talk.</p>
                             </div>
                         </div>
                         
                         <p style={{ ...S, fontSize: "16px", lineHeight: "1.7", color: "#444" }}>
-                            I'm always looking for ambitious projects, engineering deep-dives, or just chatting about the future of the web. 
-                            If you have a clear vision and need help shipping it, let's connect.
+                            I&apos;m always looking for ambitious projects, engineering deep-dives, or just chatting about the future of the web. 
+                            If you have a clear vision and need help shipping it, let&apos;s connect.
                         </p>
 
                         <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginTop: "12px" }}>

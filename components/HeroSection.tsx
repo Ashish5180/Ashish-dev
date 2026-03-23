@@ -5,12 +5,14 @@ import { useEffect, useRef, useState } from "react";
 /* ─────────────────────────────────────────────
    CONSTELLATION
 ───────────────────────────────────────────── */
+const SKILLS = ["Next.js", "Flutter", "AWS", "OpenAI", "Firebase", "TypeScript", "Docker", "n8n"];
+const CX = 150;
+const CY = 150;
+const RADII = [68, 96, 118];
+
 function Constellation() {
     const svgRef = useRef<SVGSVGElement>(null);
-    const animRef = useRef<number>();
-
-    const skills = ["Next.js", "Flutter", "AWS", "OpenAI", "Firebase", "TypeScript", "Docker", "n8n"];
-    const cx = 150, cy = 150, radii = [68, 96, 118];
+    const animRef = useRef<number>(0);
 
     useEffect(() => {
         const svg = svgRef.current;
@@ -19,10 +21,10 @@ function Constellation() {
         while (svg.firstChild) svg.removeChild(svg.firstChild);
 
         // Rings
-        radii.forEach((r, i) => {
+        RADII.forEach((r, i) => {
             const c = document.createElementNS(ns, "circle");
-            c.setAttribute("cx", String(cx));
-            c.setAttribute("cy", String(cy));
+            c.setAttribute("cx", String(CX));
+            c.setAttribute("cy", String(CY));
             c.setAttribute("r", String(r));
             c.setAttribute("fill", "none");
             c.setAttribute("stroke-width", "1");
@@ -32,14 +34,14 @@ function Constellation() {
         });
 
         // Nodes
-        skills.forEach((skill, i) => {
-            const angle = (i / skills.length) * Math.PI * 2 - Math.PI / 2;
-            const ri = radii[i % 3];
-            const x = cx + ri * Math.cos(angle);
-            const y = cy + ri * Math.sin(angle);
+        SKILLS.forEach((skill, i) => {
+            const angle = (i / SKILLS.length) * Math.PI * 2 - Math.PI / 2;
+            const ri = RADII[i % 3];
+            const x = CX + ri * Math.cos(angle);
+            const y = CY + ri * Math.sin(angle);
 
             const line = document.createElementNS(ns, "line");
-            line.setAttribute("x1", String(cx)); line.setAttribute("y1", String(cy));
+            line.setAttribute("x1", String(CX)); line.setAttribute("y1", String(CY));
             line.setAttribute("x2", String(x)); line.setAttribute("y2", String(y));
             line.setAttribute("stroke", "rgba(0,0,0,.06)");
             line.setAttribute("stroke-width", "1");
@@ -53,8 +55,8 @@ function Constellation() {
             svg.appendChild(dot);
 
             const txt = document.createElementNS(ns, "text");
-            const lx = cx + (ri + 16) * Math.cos(angle);
-            const ly = cy + (ri + 16) * Math.sin(angle);
+            const lx = CX + (ri + 16) * Math.cos(angle);
+            const ly = CY + (ri + 16) * Math.sin(angle);
             txt.setAttribute("x", String(lx)); txt.setAttribute("y", String(ly));
             txt.setAttribute("text-anchor", "middle");
             txt.setAttribute("dominant-baseline", "middle");
