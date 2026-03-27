@@ -119,7 +119,7 @@ function useConfetti() {
         if (!ctx) return;
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
+
         particles.current = particles.current.filter((p) => {
             p.x += p.vx; p.y += p.vy; p.vy += 0.09;
             p.rot += p.rotV; p.life -= 0.009;
@@ -703,9 +703,9 @@ export default function AboutMe() {
                                 <p style={{ ...S, fontSize: "14px", color: "#666", fontWeight: 500 }}>No boring meetings, just high-bandwidth talk.</p>
                             </div>
                         </div>
-                        
+
                         <p style={{ ...S, fontSize: "16px", lineHeight: "1.7", color: "#444" }}>
-                            I&apos;m always looking for ambitious projects, engineering deep-dives, or just chatting about the future of the web. 
+                            I&apos;m always looking for ambitious projects, engineering deep-dives, or just chatting about the future of the web.
                             If you have a clear vision and need help shipping it, let&apos;s connect.
                         </p>
 
@@ -731,7 +731,7 @@ export default function AboutMe() {
                         </div>
 
                         <div style={{ marginTop: "12px", display: "flex", gap: "12px" }}>
-                             <motion.a
+                            <motion.a
                                 href="mailto:hello@example.com"
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
@@ -758,22 +758,8 @@ export default function AboutMe() {
                     {/* Middle: Activity Stat */}
                     <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
                         <CommitHeatmap />
-                        
-                        <div style={{ padding: "24px", borderRadius: "24px", border: "1.5px solid #E8E6E0", background: "#fff", ...S }}>
-                            <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "16px" }}>
-                                <motion.div 
-                                    animate={{ scale: [1, 1.2, 1] }}
-                                    transition={{ duration: 2, repeat: Infinity }}
-                                    style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#22c55e", boxShadow: "0 0 10px #22c55e" }} 
-                                />
-                                <span style={{ fontSize: "11px", fontWeight: 700, color: "#0E0E0E", textTransform: "uppercase", letterSpacing: "1px" }}>Current Project Status</span>
-                            </div>
-                            <h4 style={{ fontSize: "18px", fontWeight: 800, color: "#0E0E0E", marginBottom: "8px" }}>Building AI Agents</h4>
-                            <p style={{ fontSize: "13px", color: "#666", lineHeight: "1.6" }}>
-                                Experimenting with autonomous coding agents and LLM-integrated developer tools. (A bit meta, right?).
-                                Currently focused on multi-agent collaboration.
-                            </p>
-                        </div>
+
+
                     </div>
 
                     {/* Right: Booking */}
