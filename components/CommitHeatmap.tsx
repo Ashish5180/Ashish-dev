@@ -6,7 +6,6 @@ import { GitCommit, Star, Code2, Flame, TrendingUp } from "lucide-react";
 
 // ─── CONFIG ───────────────────────────────────────────────────────────────────
 const GITHUB_USERNAME = "Ashish5180";
-const GITHUB_TOKEN = process.env.NEXT_PUBLIC_GITHUB_TOKEN || "";
 // ─────────────────────────────────────────────────────────────────────────────
 
 interface ContribDay {
@@ -29,26 +28,7 @@ interface HeatmapData {
     busiest: { date: string; count: number };
 }
 
-const GQL_CONTRIBS = `
-query($username: String!) {
-  user(login: $username) {
-    contributionsCollection {
-      contributionCalendar {
-        totalContributions
-        weeks {
-          contributionDays { date contributionCount weekday }
-        }
-      }
-    }
-    repositories(first: 100, ownerAffiliations: OWNER, isFork: false, orderBy: {field: UPDATED_AT, direction: DESC}) {
-      nodes {
-        primaryLanguage { name }
-        stargazerCount
-      }
-      totalCount
-    }
-  }
-}`;
+// GraphQL query moved to server-side API route for security.
 
 function computeStreaks(weeks: Week[]) {
     const days = weeks.flatMap(w => w.contributionDays).sort((a, b) => a.date.localeCompare(b.date));
@@ -108,10 +88,9 @@ export default function CommitHeatmap() {
     const [hovered, setHovered] = useState<string | null>(null);
 
     useEffect(() => {
-        fetch("https://api.github.com/graphql", {
+        fetch("/api/github-stats", {
             method: "POST",
-            headers: { "Content-Type": "application/json", Authorization: `Bearer ${GITHUB_TOKEN}` },
-            body: JSON.stringify({ query: GQL_CONTRIBS, variables: { username: GITHUB_USERNAME } }),
+            headers: { "Content-Type": "application/json" },
         })
             .then(r => r.json())
             .then(json => {
