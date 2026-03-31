@@ -7,7 +7,6 @@ const NAV_ITEMS = [
     { label: 'About', link: '/#about', ariaLabel: 'Go to About section' },
     { label: 'Projects', link: '/projects', ariaLabel: 'Go to Projects page' },
     { label: 'Experience', link: '/experience', ariaLabel: 'Go to Experience page' },
-    { label: 'My Tools', link: '/tools', ariaLabel: 'Go to Tools page' },
     { label: 'Contact', link: '/contact', ariaLabel: 'Go to Contact page' },
 ];
 

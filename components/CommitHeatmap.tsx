@@ -6,7 +6,7 @@ import { GitCommit, Star, Code2, Flame, TrendingUp } from "lucide-react";
 
 // ─── CONFIG ───────────────────────────────────────────────────────────────────
 const GITHUB_USERNAME = "Ashish5180";
-const GITHUB_TOKEN = "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";
+const GITHUB_TOKEN = "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";
 // ─────────────────────────────────────────────────────────────────────────────
 
 interface ContribDay {

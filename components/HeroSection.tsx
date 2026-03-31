@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-/* ─────────────────────────────────────────────
+/* ──────────────────────────────────────────
    CONSTELLATION
 ───────────────────────────────────────────── */
 const SKILLS = ["Next.js", "Flutter", "AWS", "OpenAI", "Firebase", "TypeScript", "Docker", "n8n"];

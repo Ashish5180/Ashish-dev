@@ -7,8 +7,10 @@ import {
     Bug, Lock, Cloud, Layers, Activity,
     ArrowRight, AlertCircle,
     RefreshCw, Terminal, Package, Wifi, Star,
-    ChevronRight, PartyPopper, CalendarDays, BarChart3, MessageSquare
+    ChevronRight, PartyPopper, CalendarDays, BarChart3, MessageSquare,
+    Smartphone
 } from "lucide-react";
+
 import BookingCalendar from "./BookingCalendar";
 import CommitHeatmap from "./CommitHeatmap";
 
@@ -59,14 +61,15 @@ const SKILLS = [
     { name: "Next.js", icon: <Layers size={13} />, bg: "#0E0E0E", fg: "#fff" },
     { name: "TypeScript", icon: <Code2 size={13} />, bg: "#3178c6", fg: "#fff" },
     { name: "React", icon: <Activity size={13} />, bg: "#20232a", fg: "#61dafb" },
-    { name: "Node.js", icon: <Server size={13} />, bg: "#2d5a27", fg: "#a3e635" },
+    { name: "Node", icon: <Server size={13} />, bg: "#2d5a27", fg: "#a3e635" },
     { name: "PostgreSQL", icon: <Database size={13} />, bg: "#336791", fg: "#fff" },
     { name: "Redis", icon: <Zap size={13} />, bg: "#8b1a1a", fg: "#fca5a5" },
     { name: "Docker", icon: <Package size={13} />, bg: "#1a3a5c", fg: "#7dd3fc" },
-    { name: "GraphQL", icon: <GitBranch size={13} />, bg: "#5a0033", fg: "#f9a8d4" },
-    { name: "Tailwind", icon: <Wifi size={13} />, bg: "#0c4a6e", fg: "#7dd3fc" },
+    { name: "Go Lang", icon: <Terminal size={13} />, bg: "#00add8", fg: "#fff" },
+    { name: "Flutter", icon: <Smartphone size={13} />, bg: "#02569b", fg: "#fff" },
     { name: "AWS", icon: <Cloud size={13} />, bg: "#7c2d12", fg: "#fdba74" },
 ];
+
 
 const HEADLINES = [
     ["I build things", "that don't explode."],
@@ -92,13 +95,14 @@ const COFFEE_MSGS = [
 ];
 
 const TICKER_ITEMS = [
-    "Next.js", "TypeScript", "React", "Node.js",
+    "Next.js", "TypeScript", "React", "Node",
     "Built with love, shipped with caffeine",
     "PostgreSQL", "Redis", "Docker",
     "Available to hire",
-    "GraphQL", "AWS", "Tailwind",
+    "Go Lang", "AWS", "Flutter",
     "Zero downtime or your money back",
 ];
+
 
 // ─── Confetti ─────────────────────────────────────────────────────────────────
 interface Particle {

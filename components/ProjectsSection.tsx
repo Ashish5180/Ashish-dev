@@ -80,9 +80,9 @@ const PROJECTS: Project[] = [
         subtitle: "AI-Powered CLI Personal Operating System",
         stack: ["Go", "RAG", "SQLite", "OpenAI", "Bubble Tea"],
         icon: <Terminal size={22} />,
-        accent: "#10b981",
-        accentLight: "rgba(16, 185, 129, 0.08)",
-        accentBorder: "rgba(16, 185, 129, 0.25)",
+        accent: "#0a0a0a",
+        accentLight: "rgba(10, 10, 10, 0.04)",
+        accentBorder: "rgba(10, 10, 10, 0.1)",
         badge: "PRODUCTION",
         bullets: [
             {
@@ -125,9 +125,9 @@ const PROJECTS: Project[] = [
         subtitle: "Chrome Extension — Real-time AI Answer Detection",
         stack: ["JS", "Claude API", "Manifest V3", "MutationObserver", "CSS Injection"],
         icon: <Chrome size={22} />,
-        accent: "#6366f1",
-        accentLight: "rgba(99, 102, 241, 0.08)",
-        accentBorder: "rgba(99, 102, 241, 0.25)",
+        accent: "#4f46e5",
+        accentLight: "rgba(79, 70, 229, 0.04)",
+        accentBorder: "rgba(79, 70, 229, 0.12)",
         badge: "EXTENSION",
         bullets: [
             {
@@ -252,12 +252,12 @@ function TerminalDemo({ lines, accent }: { lines: TerminalLine[]; accent: string
                             fontFamily: "'Roboto Mono', 'SF Mono', monospace",
                             fontSize: 12.5,
                             lineHeight: 1.85,
-                            color: line.type === "prompt" ? accent : "#a0a0a0",
+                            color: line.type === "prompt" ? "#3b82f6" : "#a0a0a0",
                             fontWeight: line.type === "prompt" ? 600 : 400,
                         }}
                     >
                         {line.type === "prompt" && (
-                            <span style={{ color: accent, marginRight: 0 }}>
+                            <span style={{ color: "#3b82f6", marginRight: 0 }}>
                                 {""}
                             </span>
                         )}
@@ -394,16 +394,19 @@ function BrowserDemo({
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            style={browserStyles.scanOverlay}
+                            style={{
+                                ...browserStyles.scanOverlay,
+                                background: `linear-gradient(to bottom, ${accent}05, ${accent}10)`,
+                            }}
                         >
                             <motion.div
                                 animate={{ top: ["0%", "100%", "0%"] }}
-                                transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+                                transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
                                 style={browserFunctions.scanLine(accent)}
                             />
                             <div style={browserFunctions.scanBadge(accent)}>
-                                <Search size={12} />
-                                <span>AI Scanning DOM...</span>
+                                <Sparkles size={14} style={{ animation: 'glow-pulse 2s infinite' }} />
+                                <span>AI ANALYZING DOM...</span>
                             </div>
                         </motion.div>
                     )}
@@ -429,23 +432,24 @@ function BrowserDemo({
                                     <motion.div
                                         key={oi}
                                         animate={revealed ? {
-                                            background: [`rgba(99,102,241,0)`, `rgba(99,102,241,0.08)`, `rgba(99,102,241,0.12)`],
-                                            borderColor: [accent + "00", accent + "40", accent + "80"],
+                                            background: [`${accent}00`, `${accent}08`, `${accent}05`],
+                                            borderColor: [`${accent}00`, `${accent}40`, `${accent}25`],
                                         } : {}}
-                                        transition={{ duration: 0.6, delay: qi * 0.2 }}
+                                        transition={{ duration: 0.8, delay: qi * 0.2 }}
                                         style={{
-                                            padding: "9px 14px",
-                                            borderRadius: 8,
-                                            border: `1.5px solid ${revealed ? accent : "#e5e5e5"}`,
-                                            background: revealed ? `${accent}12` : "#fafafa",
+                                            padding: "10px 14px",
+                                            borderRadius: 10,
+                                            border: `1px solid ${revealed ? accent + "40" : "rgba(0,0,0,0.08)"}`,
+                                            background: revealed ? `${accent}05` : "#fff",
                                             fontFamily: "'Plus Jakarta Sans', sans-serif",
-                                            fontSize: 12,
-                                            color: revealed ? accent : "#666",
+                                            fontSize: 12.5,
+                                            color: revealed ? accent : "#444",
                                             fontWeight: revealed ? 600 : 400,
                                             display: "flex",
                                             alignItems: "center",
-                                            gap: 8,
+                                            gap: 10,
                                             position: "relative",
+                                            transition: "all 0.4s ease",
                                         }}
                                     >
                                         <span style={{
@@ -461,14 +465,28 @@ function BrowserDemo({
                                         </span>
                                         {opt}
                                         {revealed && (
-                                            <motion.span
-                                                initial={{ scale: 0, opacity: 0 }}
-                                                animate={{ scale: 1, opacity: 1 }}
-                                                transition={{ delay: 0.3 + qi * 0.2, type: "spring", stiffness: 300 }}
-                                                style={{ marginLeft: "auto" }}
+                                            <motion.div
+                                                initial={{ x: 10, opacity: 0 }}
+                                                animate={{ x: 0, opacity: 1 }}
+                                                transition={{ delay: 0.4 + qi * 0.2 }}
+                                                style={{ 
+                                                    marginLeft: "auto", 
+                                                    display: "flex", 
+                                                    alignItems: "center", 
+                                                    gap: 4,
+                                                    fontSize: 9,
+                                                    fontWeight: 800,
+                                                    letterSpacing: 0.5,
+                                                    color: accent,
+                                                    background: `${accent}15`,
+                                                    padding: "3px 8px",
+                                                    borderRadius: 6,
+                                                    textTransform: 'uppercase'
+                                                }}
                                             >
-                                                <Sparkles size={13} color={accent} />
-                                            </motion.span>
+                                                AI MATCH
+                                                <Sparkles size={11} />
+                                            </motion.div>
                                         )}
                                     </motion.div>
                                 );
@@ -483,11 +501,11 @@ function BrowserDemo({
 
 const browserStyles: Record<string, React.CSSProperties> = {
     wrapper: {
-        borderRadius: 14,
+        borderRadius: 18,
         overflow: "hidden",
         background: "#fff",
-        border: "1px solid #e0e0e0",
-        boxShadow: "0 20px 60px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.02) inset",
+        border: "1px solid rgba(0,0,0,0.08)",
+        boxShadow: "0 25px 80px -20px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.02) inset",
     },
     chrome: {
         display: "flex",
@@ -535,10 +553,10 @@ const browserStyles: Record<string, React.CSSProperties> = {
     scanOverlay: {
         position: "absolute" as const,
         inset: 0,
-        background: "rgba(99,102,241,0.03)",
         zIndex: 5,
         borderRadius: 0,
         overflow: "hidden" as const,
+        backdropFilter: 'blur(0.5px)',
     },
 };
 
@@ -547,9 +565,10 @@ const browserFunctions = {
         position: "absolute" as const,
         left: 0,
         width: "100%",
-        height: 3,
+        height: 2,
         background: `linear-gradient(90deg, transparent, ${accent}, transparent)`,
-        boxShadow: `0 0 20px ${accent}40`,
+        boxShadow: `0 0 15px ${accent}`,
+        opacity: 0.8,
     }),
     scanBadge: (accent: string): React.CSSProperties => ({
         position: "absolute" as const,
@@ -558,15 +577,17 @@ const browserFunctions = {
         transform: "translate(-50%, -50%)",
         display: "flex",
         alignItems: "center",
-        gap: 8,
-        padding: "10px 20px",
-        borderRadius: 10,
-        background: "#fff",
-        border: `1.5px solid ${accent}40`,
-        boxShadow: `0 8px 32px ${accent}20`,
+        gap: 10,
+        padding: "12px 24px",
+        borderRadius: 12,
+        background: "rgba(255,255,255,0.9)",
+        backdropFilter: 'blur(10px)',
+        border: `1px solid rgba(0,0,0,0.06)`,
+        boxShadow: `0 10px 40px rgba(0,0,0,0.1)`,
         fontFamily: "'Plus Jakarta Sans', sans-serif",
-        fontSize: 12,
-        fontWeight: 600,
+        fontSize: 10,
+        fontWeight: 800,
+        letterSpacing: 2,
         color: accent,
     }),
 };
@@ -596,14 +617,14 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                 gridTemplateColumns: index % 2 === 0 ? "1fr 1fr" : "1fr 1fr",
                 gap: 0,
                 background: "#fff",
-                borderRadius: 20,
-                border: "1.5px solid #E8E6E0",
+                borderRadius: 24,
+                border: "1px solid rgba(0,0,0,0.06)",
                 overflow: "hidden",
-                transition: "border-color 0.4s, box-shadow 0.4s",
-                borderColor: hovered ? project.accentBorder : "#E8E6E0",
+                transition: "all 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+                borderColor: hovered ? project.accentBorder : "rgba(0,0,0,0.06)",
                 boxShadow: hovered
-                    ? `0 30px 80px ${project.accent}15, 0 0 0 1px ${project.accentBorder}`
-                    : "0 4px 24px rgba(0,0,0,0.04)",
+                    ? `0 40px 100px -20px ${project.id === 'ashos' ? 'rgba(0,0,0,0.1)' : 'rgba(79, 70, 229, 0.12)'}`
+                    : "0 10px 40px -15px rgba(0,0,0,0.03)",
             }}
         >
             {/* ── LEFT: Info ── */}
@@ -728,7 +749,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                         display: "flex",
                         gap: 0,
                         borderRadius: 12,
-                        border: "1.5px solid #E8E6E0",
+                        border: "1.5px solid rgba(0,0,0,0.06)",
                         overflow: "hidden",
                         marginTop: "auto",
                     }}
@@ -743,7 +764,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                                 flex: 1,
                                 textAlign: "center",
                                 padding: "16px 10px",
-                                borderRight: si < project.stats.length - 1 ? "1px solid #E8E6E0" : "none",
+                                borderRight: si < project.stats.length - 1 ? "1px solid rgba(0,0,0,0.06)" : "none",
                             }}
                         >
                             <div style={{ ...S, fontWeight: 800, fontSize: 22, color: project.accent, letterSpacing: -0.5 }}>
@@ -1022,8 +1043,8 @@ export default function ProjectsSection() {
             >
                 <div
                     style={{
-                        borderTop: "1px solid #E8E6E0",
-                        borderBottom: "1px solid #E8E6E0",
+                        borderTop: "1px solid rgba(0,0,0,0.06)",
+                        borderBottom: "1px solid rgba(0,0,0,0.06)",
                         padding: "18px 0",
                         overflow: "hidden",
                         maskImage: "linear-gradient(to right, transparent, black 8%, black 92%, transparent)",
