@@ -281,7 +281,7 @@ export default function HeroSection() {
                 </div>
 
                 {/* Mid */}
-                <div style={{ flex: 1, position: "relative", padding: "0 32px" }}>
+                <div style={{ flex: 1, position: "relative", padding: "0 32px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
 
                     {/* Headline */}
                     <div style={{ paddingTop: 14, position: "relative", zIndex: 5 }}>
@@ -291,6 +291,59 @@ export default function HeroSection() {
                         <div style={{ overflow: "hidden", lineHeight: .87 }}>
                             <span ref={hw1Ref} className="h-hw2" style={headStyle}>Engineer.</span>
                         </div>
+                    </div>
+
+                    {/* Middle Strategic Focus Card (Out-of-the-box addition) */}
+                    <div className="h-fup" style={{
+                        position: "relative",
+                        zIndex: 20,
+                        maxWidth: "400px",
+                        marginTop: "auto",
+                        marginBottom: "auto",
+                    }}>
+                        {/* Background Architecture Visual (The Requested 'Some Visual') */}
+                        <div style={{ position: "absolute", top: "-40px", left: "-60px", width: "400px", height: "400px", zIndex: -1, opacity: 0.04, pointerEvents: "none" }}>
+                            <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="100" cy="100" r="80" stroke="black" strokeWidth="0.5" strokeDasharray="2 2" />
+                                <circle cx="100" cy="100" r="40" stroke="black" strokeWidth="0.5" />
+                                <path d="M100 20V180M20 100H180" stroke="black" strokeWidth="0.2" />
+                                <rect x="80" y="80" width="40" height="40" stroke="black" strokeWidth="0.5" />
+                                <circle cx="100" cy="20" r="2" fill="black" />
+                                <circle cx="100" cy="180" r="2" fill="black" />
+                                <circle cx="20" cy="100" r="2" fill="black" />
+                                <circle cx="180" cy="100" r="2" fill="black" />
+                                <path d="M60 60L140 140M140 60L60 140" stroke="black" strokeWidth="0.2" />
+                            </svg>
+                        </div>
+
+                        <div style={{
+                            background: "rgba(255,255,255,0.4)",
+                            backdropFilter: "blur(20px)",
+                            border: "1px solid rgba(0,0,0,0.05)",
+                            padding: "32px",
+                            borderRadius: "2px",
+                            boxShadow: "0 20px 40px rgba(0,0,0,0.02)",
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "16px"
+                        }}>
+                            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                                <div style={{ width: 10, height: 10, background: "#0a0a0a", borderRadius: "50%" }} />
+                                <span style={{ fontSize: 10, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.2em", color: "#0a0a0a" }}>Strategic Focus</span>
+                            </div>
+                            <p style={{ fontSize: 13, fontWeight: 400, color: "#444", lineHeight: 1.6, letterSpacing: "-0.01em" }}>
+                                Architecting high-throughput systems and AI platforms with a focus on <span style={{ color: "#0a0a0a", fontWeight: 600 }}>industrial-grade scalability</span> and operational intelligence.
+                            </p>
+                            <div style={{ display: "flex", gap: "12px", paddingTop: 10 }}>
+                                {["AI Eng", "Cloud Native", "Product Tech"].map(tag => (
+                                    <span key={tag} style={{ fontSize: 9, fontWeight: 700, color: "#888", borderBottom: "1.5px solid rgba(0,0,0,0.05)", paddingBottom: 4, textTransform: "uppercase", letterSpacing: "0.1em" }}>{tag}</span>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Decorative background lines for "furnishing" */}
+                        <div style={{ position: "absolute", top: "50%", left: "-60px", width: "40px", height: 1, borderTop: "1px dashed rgba(0,0,0,0.1)", zIndex: -1 }} />
+                        <div style={{ position: "absolute", top: "50%", right: "-60px", width: "100vw", height: 1, borderTop: "1px solid rgba(0,0,0,0.03)", zIndex: -1 }} />
                     </div>
 
                     {/* Constellation — bigger, lower, more left */}

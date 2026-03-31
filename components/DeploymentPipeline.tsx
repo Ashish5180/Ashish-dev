@@ -184,7 +184,12 @@ export default function DeploymentPipeline() {
 
   return (
     <>
-      <div className="bg-[#f7f6f3] rounded-xl p-6 font-mono max-w-2xl mx-auto">
+      <div className="bg-neutral-50/40 backdrop-blur-sm rounded-2xl p-8 font-mono max-w-2xl mx-auto border border-neutral-200/50 relative">
+        <div className="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+          </svg>
+        </div>
 
         {/* Top bar */}
         <div className="flex items-center gap-2 mb-2">

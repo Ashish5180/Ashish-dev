@@ -9,6 +9,7 @@ export const EXPERIENCES = [
   {
     id: 1,
     company: "ASOasis Tech",
+    website: "https://asoasis.tech/",
     role: "Full Stack Developer",
     type: "Full-Time",
     duration: "Aug 2025 – Present",
@@ -56,6 +57,7 @@ export const EXPERIENCES = [
   {
     id: 2,
     company: "Elastomech Rubber Industry",
+    website: "https://www.elastomech.in/",
     role: "Backend Developer",
     type: "Part-Time",
     duration: "Nov 2024 – Mar 2025",
@@ -139,6 +141,7 @@ export const EXPERIENCES = [
         tags: ["Figma", "Vercel", "AWS", "Project Management"],
       },
     ],
+    website: "https://www.swipeit.in/",
   },
 ];
 

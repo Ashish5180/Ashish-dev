@@ -42,11 +42,11 @@ export default function Navbar() {
                     pointerEvents: 'none',
                 }}
             >
-                {/* ── Floating pill ── */}
+                {/* ── Minimalist Glass Pill ── */}
                 <div
                     style={{
                         position: 'absolute',
-                        top: '20px',
+                        top: '24px',
                         left: '50%',
                         transform: 'translateX(-50%)',
                         pointerEvents: 'auto',
@@ -54,46 +54,32 @@ export default function Navbar() {
                         /* pill shape */
                         display: 'flex',
                         alignItems: 'center',
-                        justifyContent: 'space-between',
-                        gap: '32px',
-                        padding: '10px 10px 10px 24px',
+                        justifyContent: 'center',
+                        gap: '4px',
+                        padding: '6px 10px',
                         borderRadius: '100px',
                         whiteSpace: 'nowrap',
 
-                        /* glass */
+                        /* premium glass architecture */
                         background: scrolled
-                            ? 'rgba(255,255,255,0.88)'
-                            : 'rgba(255,255,255,0.72)',
-                        backdropFilter: 'blur(18px)',
-                        WebkitBackdropFilter: 'blur(18px)',
-                        border: scrolled
-                            ? '1px solid rgba(0,0,0,0.10)'
-                            : '1px solid rgba(0,0,0,0.07)',
+                            ? 'rgba(255,255,255,0.7)'
+                            : 'rgba(255,255,255,0.4)',
+                        backdropFilter: 'blur(24px) saturate(180%)',
+                        WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+                        border: '1px solid rgba(255,255,255,0.3)',
                         boxShadow: scrolled
-                            ? '0 8px 32px rgba(0,0,0,0.10), 0 1px 0 rgba(255,255,255,0.6) inset'
-                            : '0 4px 24px rgba(0,0,0,0.07), 0 1px 0 rgba(255,255,255,0.5) inset',
+                            ? '0 10px 30px -10px rgba(0,0,0,0.1), 0 1px 0 rgba(255,255,255,0.8) inset'
+                            : '0 4px 20px -5px rgba(0,0,0,0.05), 0 1px 0 rgba(255,255,255,0.5) inset',
 
-                        transition: 'background .35s ease, border .35s ease, box-shadow .35s ease',
-                        animation: 'nb-drop .6s cubic-bezier(.16,1,.3,1) .1s both',
+                        transition: 'all .4s cubic-bezier(.16,1,.3,1)',
+                        animation: 'nb-drop .8s cubic-bezier(.16,1,.3,1) both',
                     }}
                 >
-                    {/* Logo */}
-                    <span style={{
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: '14px',
-                        fontWeight: 700,
-                        color: '#0a0a0a',
-                        letterSpacing: '-.02em',
-                        flexShrink: 0,
-                    }}>
-                        Ashish.
-                    </span>
-
-                    {/* Nav links — desktop */}
+                    {/* Nav links — desktop focus */}
                     <div style={{
                         display: 'flex',
                         alignItems: 'center',
-                        gap: '4px',
+                        gap: '2px',
                     }}>
                         {NAV_ITEMS.map((item) => (
                             <a
@@ -102,48 +88,29 @@ export default function Navbar() {
                                 aria-label={item.ariaLabel}
                                 style={{
                                     fontFamily: "'Inter', sans-serif",
-                                    fontSize: '12px',
-                                    fontWeight: 500,
-                                    color: '#444',
-                                    letterSpacing: '.02em',
+                                    fontSize: '11px',
+                                    fontWeight: 600,
+                                    color: '#1a1a1a',
+                                    letterSpacing: '.04em',
+                                    textTransform: 'uppercase',
                                     textDecoration: 'none',
-                                    padding: '6px 14px',
+                                    padding: '8px 18px',
                                     borderRadius: '100px',
-                                    transition: 'background .18s, color .18s',
+                                    transition: 'all .25s ease',
                                 }}
                                 onMouseEnter={e => {
-                                    (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(0,0,0,.06)';
-                                    (e.currentTarget as HTMLAnchorElement).style.color = '#0a0a0a';
+                                    (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(0,0,0,.04)';
+                                    (e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(-1px)';
                                 }}
                                 onMouseLeave={e => {
                                     (e.currentTarget as HTMLAnchorElement).style.background = 'transparent';
-                                    (e.currentTarget as HTMLAnchorElement).style.color = '#444';
+                                    (e.currentTarget as HTMLAnchorElement).style.transform = 'none';
                                 }}
                             >
                                 {item.label}
                             </a>
                         ))}
                     </div>
-
-                    {/* StaggeredMenu burger — right cap
-                    <div style={{ flexShrink: 0 }}>
-                        <StaggeredMenu
-                            position="right"
-                            colors={['#f5f5f5', '#e8e8e8']}
-                            items={NAV_ITEMS}
-                            socialItems={SOCIAL_ITEMS}
-                            displaySocials={true}
-                            displayItemNumbering={true}
-                            menuButtonColor="#111"
-                            openMenuButtonColor="#111"
-                            accentColor="#111"
-                            changeMenuColorOnOpen={false}
-                            isFixed={false}
-                            closeOnClickAway={true}
-                            onMenuOpen={handleMenuOpen}
-                            onMenuClose={handleMenuClose}
-                        />
-                    </div> */}
                 </div>
             </nav>
         </>
