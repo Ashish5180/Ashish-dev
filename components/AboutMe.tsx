@@ -6,7 +6,7 @@ import {
     Zap, Code2, Server, Database, GitBranch, Coffee,
     Bug, Lock, Cloud, Layers, Activity,
     ArrowRight, AlertCircle,
-    RefreshCw, Terminal, Package, Wifi, Star,
+    RefreshCw, Terminal, Package, Star,
     ChevronRight, PartyPopper, CalendarDays, BarChart3, MessageSquare,
     Smartphone
 } from "lucide-react";
@@ -332,6 +332,97 @@ export default function AboutMe() {
           from { transform: translateX(0); }
           to   { transform: translateX(-50%); }
         }
+
+        /* ── Tablet (≤1024px) ── */
+        @media (max-width: 1024px) {
+          .ab-stage {
+            grid-template-columns: 1fr !important;
+          }
+          .ab-left-panel {
+            border-right: none !important;
+            border-bottom: 1px solid #E8E6E0 !important;
+            padding: 36px 32px 32px !important;
+          }
+          .ab-right-panel {
+            padding: 36px 32px 32px !important;
+          }
+          .ab-top-bar {
+            padding: 16px 32px !important;
+          }
+          .ab-connect {
+            padding: 56px 32px !important;
+            grid-template-columns: 1fr !important;
+          }
+          .ab-connect-left {
+            max-width: 100% !important;
+          }
+          .ab-connect-child {
+            min-width: 0 !important;
+            overflow: hidden !important;
+          }
+          .ab-drag-area {
+            height: 220px !important;
+          }
+          .ab-hire-row {
+            flex-direction: column !important;
+          }
+          .ab-hire-row > a,
+          .ab-hire-row > button {
+            width: 100% !important;
+          }
+        }
+
+        /* ── Mobile (≤640px) ── */
+        @media (max-width: 640px) {
+          .ab-top-bar {
+            padding: 14px 16px !important;
+            gap: 8px !important;
+          }
+          .ab-top-bar > span:first-child {
+            font-size: 9px !important;
+            letter-spacing: 1.5px !important;
+          }
+          .ab-left-panel {
+            padding: 28px 18px 24px !important;
+            gap: 24px !important;
+          }
+          .ab-right-panel {
+            padding: 28px 18px 24px !important;
+            gap: 24px !important;
+          }
+          .ab-connect {
+            padding: 32px 16px !important;
+            gap: 28px !important;
+            grid-template-columns: 1fr !important;
+          }
+          .ab-connect-left {
+            max-width: 100% !important;
+          }
+          .ab-connect-heading {
+            font-size: 24px !important;
+          }
+          .ab-connect-desc {
+            font-size: 14px !important;
+          }
+          .ab-connect-child {
+            min-width: 0 !important;
+            overflow: hidden !important;
+          }
+          .ab-connect-btns {
+            flex-direction: column !important;
+          }
+          .ab-connect-btns > a {
+            width: 100% !important;
+            justify-content: center !important;
+          }
+          .ab-connect-feature {
+            padding: 12px !important;
+            border-radius: 14px !important;
+          }
+          .ab-drag-area {
+            height: 260px !important;
+          }
+        }
       `}</style>
 
             {/* Confetti canvas */}
@@ -385,6 +476,7 @@ export default function AboutMe() {
 
                 {/* ── TOP BAR ── */}
                 <motion.div
+                    className="ab-top-bar"
                     initial={{ opacity: 0, y: -12 }} animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
                     style={{
@@ -410,14 +502,14 @@ export default function AboutMe() {
                 </motion.div>
 
                 {/* ── STAGE ── */}
-                <div style={{
+                <div className="ab-stage" style={{
                     flex: 1, display: "grid",
                     gridTemplateColumns: "1fr 1fr",
                     gap: 0,
                 }}>
 
                     {/* ════ LEFT ════ */}
-                    <div style={{
+                    <div className="ab-left-panel" style={{
                         padding: "48px 48px 40px",
                         display: "flex", flexDirection: "column", gap: 32,
                         borderRight: "1px solid #E8E6E0",
@@ -550,7 +642,7 @@ export default function AboutMe() {
                     </div>
 
                     {/* ════ RIGHT ════ */}
-                    <div style={{
+                    <div className="ab-right-panel" style={{
                         padding: "48px 48px 40px",
                         display: "flex", flexDirection: "column", gap: 32,
                     }}>
@@ -566,7 +658,7 @@ export default function AboutMe() {
                             <p style={{ ...S, fontSize: 12, color: "#bbb", marginBottom: 14 }}>
                                 Seriously, drag them — it&apos;s oddly satisfying
                             </p>
-                            <div style={{ position: "relative", height: 210 }}>
+                            <div className="ab-drag-area" style={{ position: "relative", height: 210 }}>
                                 {FACTS.map((f, i) => (
                                     <DragCard
                                         key={i}
@@ -642,7 +734,7 @@ export default function AboutMe() {
                         </motion.button>
 
                         {/* Hire Row */}
-                        <div style={{ display: "flex", gap: 10 }}>
+                        <div className="ab-hire-row" style={{ display: "flex", gap: 10 }}>
                             <motion.a
                                 href="#"
 
@@ -687,34 +779,34 @@ export default function AboutMe() {
                 </div>
 
                 {/* ── THE CONNECT LOUNGE ── */}
-                <div style={{
+                <div className="ab-connect" style={{
                     padding: "80px 48px",
                     borderTop: "1px solid #E8E6E0",
                     background: "#F9F9F8",
                     display: "grid",
-                    gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
                     gap: "48px",
                     alignItems: "start"
                 }}>
                     {/* Left: Branding & Intent */}
-                    <div style={{ display: "flex", flexDirection: "column", gap: "24px", maxWidth: "450px" }}>
+                    <div className="ab-connect-left" style={{ display: "flex", flexDirection: "column", gap: "24px", maxWidth: "450px" }}>
                         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                             <div style={{ width: "42px", height: "42px", borderRadius: "14px", background: "#0E0E0E", display: "flex", alignItems: "center", justifyContent: "center" }}>
                                 <CalendarDays size={20} color="#fff" />
                             </div>
                             <div>
-                                <h2 style={{ ...S, fontWeight: 800, fontSize: "32px", color: "#0E0E0E", letterSpacing: "-1px" }}>Let&apos;s talk shop.</h2>
+                                <h2 className="ab-connect-heading" style={{ ...S, fontWeight: 800, fontSize: "32px", color: "#0E0E0E", letterSpacing: "-1px" }}>Let&apos;s talk shop.</h2>
                                 <p style={{ ...S, fontSize: "14px", color: "#666", fontWeight: 500 }}>No boring meetings, just high-bandwidth talk.</p>
                             </div>
                         </div>
 
-                        <p style={{ ...S, fontSize: "16px", lineHeight: "1.7", color: "#444" }}>
+                        <p className="ab-connect-desc" style={{ ...S, fontSize: "16px", lineHeight: "1.7", color: "#444" }}>
                             I&apos;m always looking for ambitious projects, engineering deep-dives, or just chatting about the future of the web.
                             If you have a clear vision and need help shipping it, let&apos;s connect.
                         </p>
 
                         <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginTop: "12px" }}>
-                            <div style={{ display: "flex", alignItems: "center", gap: "12px", padding: "16px", borderRadius: "18px", border: "1px solid #E8E6E0", background: "#fff" }}>
+                            <div className="ab-connect-feature" style={{ display: "flex", alignItems: "center", gap: "12px", padding: "16px", borderRadius: "18px", border: "1px solid #E8E6E0", background: "#fff" }}>
                                 <div style={{ width: "36px", height: "36px", borderRadius: "10px", background: "#F0EEE8", display: "flex", alignItems: "center", justifyContent: "center" }}>
                                     <BarChart3 size={16} color="#0E0E0E" />
                                 </div>
@@ -723,7 +815,7 @@ export default function AboutMe() {
                                     <p style={{ ...S, fontSize: "11px", color: "#999" }}>Direct communication, no fluff.</p>
                                 </div>
                             </div>
-                            <div style={{ display: "flex", alignItems: "center", gap: "12px", padding: "16px", borderRadius: "18px", border: "1px solid #E8E6E0", background: "#fff" }}>
+                            <div className="ab-connect-feature" style={{ display: "flex", alignItems: "center", gap: "12px", padding: "16px", borderRadius: "18px", border: "1px solid #E8E6E0", background: "#fff" }}>
                                 <div style={{ width: "36px", height: "36px", borderRadius: "10px", background: "#F0EEE8", display: "flex", alignItems: "center", justifyContent: "center" }}>
                                     <MessageSquare size={16} color="#0E0E0E" />
                                 </div>
@@ -734,7 +826,7 @@ export default function AboutMe() {
                             </div>
                         </div>
 
-                        <div style={{ marginTop: "12px", display: "flex", gap: "12px" }}>
+                        <div className="ab-connect-btns" style={{ marginTop: "12px", display: "flex", gap: "12px" }}>
                             <motion.a
                                 href="mailto:hello@example.com"
                                 whileHover={{ scale: 1.02 }}
@@ -760,14 +852,14 @@ export default function AboutMe() {
                     </div>
 
                     {/* Middle: Activity Stat */}
-                    <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+                    <div className="ab-connect-child" style={{ display: "flex", flexDirection: "column", gap: "24px", minWidth: 0, overflow: "hidden" }}>
                         <CommitHeatmap />
 
 
                     </div>
 
                     {/* Right: Booking */}
-                    <div>
+                    <div className="ab-connect-child" style={{ minWidth: 0, overflow: "hidden" }}>
                         <BookingCalendar />
                     </div>
                 </div>

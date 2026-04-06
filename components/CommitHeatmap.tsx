@@ -129,8 +129,11 @@ export default function CommitHeatmap() {
     // ── Skeleton ──────────────────────────────────────────────────────────────
     if (loading) {
         return (
-            <div style={{ background: "#fff", border: "1.5px solid #E8E6E0", borderRadius: 24, padding: 24, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-                <style>{`@keyframes shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}`}</style>
+            <div className="ch-root" style={{ background: "#fff", border: "1.5px solid #E8E6E0", borderRadius: 24, padding: 24, fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+                <style>{`@keyframes shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+                @media (max-width: 640px) {
+                    .ch-root { padding: 16px !important; border-radius: 18px !important; }
+                }`}</style>
                 <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 20 }}>
                     <div style={{ width: 32, height: 32, borderRadius: 8, background: "#F0EEE8" }} />
                     <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
@@ -183,22 +186,36 @@ export default function CommitHeatmap() {
     const activeDays = allDays.filter(d => d.contributionCount > 0).length;
 
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            style={{
-                background: "#fff",
-                border: "1.5px solid #E8E6E0",
-                borderRadius: 24,
-                padding: "24px",
-                boxShadow: "0 10px 40px rgba(0,0,0,0.04)",
-                fontFamily: "'Plus Jakarta Sans', sans-serif",
-                position: "relative",
-            }}
-        >
+        <>
+            <style>{`
+                @media (max-width: 768px) {
+                    .ch-container { padding: 18px !important; border-radius: 20px !important; }
+                    .ch-header { flex-direction: column !important; align-items: flex-start !important; gap: 12px !important; }
+                    .ch-stats-grid { grid-template-columns: 1fr 1fr !important; }
+                }
+                @media (max-width: 480px) {
+                    .ch-container { padding: 14px !important; border-radius: 16px !important; }
+                    .ch-stats-grid { grid-template-columns: 1fr !important; }
+                    .ch-heatmap-scroll { -webkit-overflow-scrolling: touch; }
+                }
+            `}</style>
+            <motion.div
+                className="ch-container"
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                style={{
+                    background: "#fff",
+                    border: "1.5px solid #E8E6E0",
+                    borderRadius: 24,
+                    padding: "24px",
+                    boxShadow: "0 10px 40px rgba(0,0,0,0.04)",
+                    fontFamily: "'Plus Jakarta Sans', sans-serif",
+                    position: "relative",
+                }}
+            >
             {/* ── Header ── */}
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
+            <div className="ch-header" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                     <div style={{ width: 32, height: 32, borderRadius: 8, background: "#F0EEE8", display: "flex", alignItems: "center", justifyContent: "center" }}>
                         <GitCommit size={16} color="#0E0E0E" />
@@ -224,7 +241,7 @@ export default function CommitHeatmap() {
             </div>
 
             {/* ── Heatmap Grid ── */}
-            <div style={{ overflowX: "auto", paddingBottom: 6, msOverflowStyle: "none", scrollbarWidth: "none" }}>
+            <div className="ch-heatmap-scroll" style={{ overflowX: "auto", paddingBottom: 6, msOverflowStyle: "none", scrollbarWidth: "none" }}>
                 <div style={{ position: "relative", display: "inline-block" }}>
 
                     {/* Month labels */}
@@ -313,7 +330,7 @@ export default function CommitHeatmap() {
             </div>
 
             {/* ── Stats Cards ── */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginTop: 16 }}>
+            <div className="ch-stats-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginTop: 16 }}>
 
                 <motion.div
                     initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.55 }}
@@ -422,6 +439,7 @@ export default function CommitHeatmap() {
                     </motion.div>
                 )}
             </AnimatePresence>
-        </motion.div>
+            </motion.div>
+        </>
     );
 }

@@ -1,444 +1,625 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
-/* ──────────────────────────────────────────
-   CONSTELLATION
-───────────────────────────────────────────── */
-const SKILLS = ["Next.js", "Flutter", "AWS", "OpenAI", "Firebase", "TypeScript", "Docker", "n8n"];
-const CX = 150;
-const CY = 150;
-const RADII = [68, 96, 118];
+/* ─────────────────────────────────────────
+   Add to your global CSS or next/head:
+   @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;300;400;700;900&display=swap');
+───────────────────────────────────────── */
 
-function Constellation() {
-    const svgRef = useRef<SVGSVGElement>(null);
-    const animRef = useRef<number>(0);
+const SOCIALS = ["LinkedIn", "GitHub", "Twitter"] as const;
 
+const STATS = [
+    { num: "3+", label: "Years Exp." },
+    { num: "12+", label: "Products" },
+    { num: "8", label: "Technologies" },
+] as const;
+
+/* ── Live IST clock ── */
+function useClock() {
+    const [time, setTime] = useState("--:--:--");
     useEffect(() => {
-        const svg = svgRef.current;
-        if (!svg) return;
-        const ns = "http://www.w3.org/2000/svg";
-        while (svg.firstChild) svg.removeChild(svg.firstChild);
-
-        // Rings
-        RADII.forEach((r, i) => {
-            const c = document.createElementNS(ns, "circle");
-            c.setAttribute("cx", String(CX));
-            c.setAttribute("cy", String(CY));
-            c.setAttribute("r", String(r));
-            c.setAttribute("fill", "none");
-            c.setAttribute("stroke-width", "1");
-            c.setAttribute("stroke", `rgba(0,0,0,${(0.05 - i * 0.01).toFixed(2)})`);
-            if (i === 1) c.setAttribute("stroke-dasharray", "3 6");
-            svg.appendChild(c);
-        });
-
-        // Nodes
-        SKILLS.forEach((skill, i) => {
-            const angle = (i / SKILLS.length) * Math.PI * 2 - Math.PI / 2;
-            const ri = RADII[i % 3];
-            const x = CX + ri * Math.cos(angle);
-            const y = CY + ri * Math.sin(angle);
-
-            const line = document.createElementNS(ns, "line");
-            line.setAttribute("x1", String(CX)); line.setAttribute("y1", String(CY));
-            line.setAttribute("x2", String(x)); line.setAttribute("y2", String(y));
-            line.setAttribute("stroke", "rgba(0,0,0,.06)");
-            line.setAttribute("stroke-width", "1");
-            svg.appendChild(line);
-
-            const dot = document.createElementNS(ns, "circle");
-            dot.setAttribute("cx", String(x)); dot.setAttribute("cy", String(y));
-            dot.setAttribute("r", "4");
-            dot.setAttribute("fill", "#0a0a0a");
-            dot.setAttribute("opacity", ".22");
-            svg.appendChild(dot);
-
-            const txt = document.createElementNS(ns, "text");
-            const lx = CX + (ri + 16) * Math.cos(angle);
-            const ly = CY + (ri + 16) * Math.sin(angle);
-            txt.setAttribute("x", String(lx)); txt.setAttribute("y", String(ly));
-            txt.setAttribute("text-anchor", "middle");
-            txt.setAttribute("dominant-baseline", "middle");
-            txt.setAttribute("font-family", "Inter,sans-serif");
-            txt.setAttribute("font-size", "8");
-            txt.setAttribute("font-weight", "500");
-            txt.setAttribute("letter-spacing", "1.2");
-            txt.setAttribute("fill", "rgba(0,0,0,.28)");
-            txt.textContent = skill.toUpperCase();
-            svg.appendChild(txt);
-        });
-
-        // Spin
-        let rot = 0;
-        const spin = () => {
-            rot += 0.1;
-            svg.style.transform = `rotate(${rot}deg)`;
-            animRef.current = requestAnimationFrame(spin);
+        const tick = () => {
+            const now = new Date(
+                new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" })
+            );
+            const h = String(now.getHours()).padStart(2, "0");
+            const m = String(now.getMinutes()).padStart(2, "0");
+            const s = String(now.getSeconds()).padStart(2, "0");
+            setTime(`${h}:${m}:${s}`);
         };
-        animRef.current = requestAnimationFrame(spin);
-        return () => { if (animRef.current) cancelAnimationFrame(animRef.current); };
+        tick();
+        const id = setInterval(tick, 1000);
+        return () => clearInterval(id);
     }, []);
-
-    return (
-        <svg
-            ref={svgRef}
-            viewBox="0 0 300 300"
-            style={{ width: "100%", height: "100%", overflow: "visible" }}
-        />
-    );
+    return time;
 }
 
-/* ─────────────────────────────────────────────
-   MARQUEE
-───────────────────────────────────────────── */
-const STACK = [
-    "Next.js", "Flutter", "AWS Lambda", "OpenAI API",
-    "Firebase", "DynamoDB", "BigQuery", "PostgreSQL", "n8n", "TypeScript",
-];
 
-function Marquee() {
-    const items = [...STACK, ...STACK];
-    return (
-        <div style={{
-            borderTop: "1px solid rgba(0,0,0,.07)",
-            borderBottom: "1px solid rgba(0,0,0,.07)",
-            overflow: "hidden", padding: "10px 0",
-            position: "relative", zIndex: 20,
-        }}>
-            <style>{`@keyframes hero-mqs{from{transform:translateX(0)}to{transform:translateX(-50%)}}`}</style>
-            <div style={{ display: "flex", width: "max-content", animation: "hero-mqs 22s linear infinite" }}>
-                {items.map((item, i) => (
-                    <span key={i} style={{
-                        fontSize: "9.5px", fontWeight: 500,
-                        letterSpacing: ".2em", textTransform: "uppercase",
-                        color: "rgba(0,0,0,.2)", padding: "0 20px", whiteSpace: "nowrap",
-                    }}>
-                        {item}
-                        {i < items.length - 1 && (
-                            <span style={{ color: "rgba(0,0,0,.1)", marginLeft: "20px" }}>·</span>
-                        )}
-                    </span>
-                ))}
-            </div>
-        </div>
-    );
-}
-
-/* ─────────────────────────────────────────────
-   HERO SECTION
-───────────────────────────────────────────── */
 export default function HeroSection() {
-    const rootRef = useRef<HTMLElement>(null);
-    const consRef = useRef<HTMLDivElement>(null);
-    const curRef = useRef<HTMLDivElement>(null);
-    const hw0Ref = useRef<HTMLSpanElement>(null);
-    const hw1Ref = useRef<HTMLSpanElement>(null);
-    const bn0Ref = useRef<HTMLSpanElement>(null);
-    const bn1Ref = useRef<HTMLSpanElement>(null);
-    const [curBig, setCurBig] = useState(false);
+    const time = useClock();
 
+    /* ── inline keyframes injected once ── */
+    const stylesInjected = useRef(false);
     useEffect(() => {
-        const root = rootRef.current;
-        if (!root) return;
-        const onMove = (e: MouseEvent) => {
-            const r = root.getBoundingClientRect();
-            const x = e.clientX - r.left, y = e.clientY - r.top;
-            if (curRef.current) {
-                curRef.current.style.left = x + "px";
-                curRef.current.style.top = y + "px";
-            }
-            const dx = x / r.width - 0.5, dy = y / r.height - 0.5;
-            if (consRef.current)
-                consRef.current.style.transform = `translate(${dx * 10}px,${dy * 7}px)`;
-            [hw0Ref, hw1Ref, bn0Ref, bn1Ref].forEach((ref, i) => {
-                if (ref.current)
-                    ref.current.style.transform = `translateY(0) translateX(${dx * (i + 1) * 3}px)`;
-            });
-        };
-        root.addEventListener("mousemove", onMove);
-        return () => root.removeEventListener("mousemove", onMove);
+        if (stylesInjected.current) return;
+        stylesInjected.current = true;
+        const style = document.createElement("style");
+        style.textContent = `
+      @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;300;400;700;900&display=swap');
+
+      @keyframes hs-up   { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:none; } }
+      @keyframes hs-slam { from { opacity:0; transform:translateY(60px); } to { opacity:1; transform:none; } }
+      @keyframes hs-img  { from { opacity:0; transform:translateX(-50%) scale(.97); } to { opacity:1; transform:translateX(-50%) scale(1); } }
+      @keyframes hs-bob  { from { transform:translateY(-2px); } to { transform:translateY(2px); } }
+      @keyframes hs-blink{ 0%,100%{opacity:1;} 50%{opacity:.15;} }
+
+      .hs-delay-0  { animation-delay:.05s; }
+      .hs-delay-1  { animation-delay:.15s; }
+      .hs-delay-2  { animation-delay:.25s; }
+      .hs-delay-3  { animation-delay:.35s; }
+      .hs-delay-4  { animation-delay:.45s; }
+      .hs-delay-5  { animation-delay:.55s; }
+      .hs-delay-6  { animation-delay:.65s; }
+      .hs-delay-7  { animation-delay:.75s; }
+      .hs-delay-8  { animation-delay:.85s; }
+      .hs-delay-9  { animation-delay:1.0s; }
+
+      .hs-fade-up  { opacity:0; animation: hs-up   .6s ease forwards; }
+      .hs-slam     { opacity:0; animation: hs-slam .8s cubic-bezier(.16,1,.3,1) forwards; }
+      .hs-img-in   { opacity:0; animation: hs-img  .9s cubic-bezier(.16,1,.3,1) .2s forwards; }
+      .hs-bob      { animation: hs-bob .9s ease-in-out infinite alternate; }
+
+      .hs-btn-solid:hover { background:#ddd !important; }
+      .hs-btn-ghost:hover { color:#fff !important; border-color:#555 !important; }
+      .hs-soc:hover       { color:#aaa !important; }
+      .hs-learn:hover     { opacity:.5; }
+
+      /* ── Tablet & below (≤1224px) — premium stacked layout, no portrait ── */
+      @media (max-width: 1224px) {
+        .hs-section {
+          grid-template-columns: 1fr !important;
+          grid-template-rows: auto auto !important;
+          min-height: auto !important;
+        }
+
+        /* ── Portrait hidden ── */
+        .hs-portrait {
+          display: none !important;
+        }
+
+        /* ── Left panel: full-width dark hero header ── */
+        .hs-left-panel {
+          padding: 100px 48px 56px !important;
+          min-height: auto !important;
+          align-items: center !important;
+          text-align: center !important;
+        }
+        .hs-left-panel p {
+          max-width: 440px !important;
+          margin-left: auto !important;
+          margin-right: auto !important;
+        }
+        .hs-cta-buttons {
+          justify-content: center !important;
+        }
+        .hs-socials-vertical {
+          display: none !important;
+        }
+
+        /* ── Right panel: premium centered card feel ── */
+        .hs-right-panel {
+          padding: 48px 48px 56px !important;
+          gap: 36px !important;
+          align-items: center !important;
+          text-align: center !important;
+          background: linear-gradient(175deg, #f5f5f3 0%, #eaeae6 100%) !important;
+          border-top: 3px solid #dc2626 !important;
+        }
+        .hs-clock-bar {
+          margin-left: 0 !important;
+          max-width: 400px !important;
+          width: 100% !important;
+        }
+        .hs-right-desc {
+          margin-left: auto !important;
+          margin-right: auto !important;
+          max-width: 440px !important;
+        }
+        .hs-learn {
+          margin-left: 0 !important;
+        }
+      }
+
+      /* ── Mobile (≤640px) — tighter premium mobile ── */
+      @media (max-width: 640px) {
+        .hs-left-panel {
+          padding: 88px 24px 40px !important;
+        }
+        .hs-right-panel {
+          padding: 36px 24px 44px !important;
+          gap: 28px !important;
+        }
+        .hs-cta-buttons {
+          flex-direction: column !important;
+          gap: 10px !important;
+          width: 100% !important;
+          max-width: 320px !important;
+          margin-left: auto !important;
+          margin-right: auto !important;
+        }
+        .hs-cta-buttons button {
+          width: 100% !important;
+          text-align: center !important;
+          display: flex !important;
+          justify-content: center !important;
+        }
+        .hs-clock-bar {
+          margin-left: 0 !important;
+        }
+        .hs-right-desc {
+          margin-left: auto !important;
+          margin-right: auto !important;
+          max-width: 100% !important;
+        }
+        .hs-learn {
+          margin-left: 0 !important;
+        }
+      }
+    `;
+        document.head.appendChild(style);
     }, []);
 
-    const headStyle: React.CSSProperties = {
-        display: "block",
-        fontFamily: "'Inter', sans-serif",
-        fontSize: "clamp(76px, 12.5vw, 142px)",
-        fontWeight: 900, color: "#0a0a0a",
-        letterSpacing: "-.04em", textTransform: "uppercase",
-        lineHeight: 1, transition: "transform .1s linear",
-    };
-
-    const nameStyle: React.CSSProperties = {
-        display: "block",
-        fontFamily: "'Inter', sans-serif",
-        fontSize: "clamp(42px, 7vw, 88px)",
-        fontWeight: 900, color: "#0a0a0a",
-        letterSpacing: "-.04em", textTransform: "uppercase",
-        lineHeight: 0.88, transition: "transform .1s linear",
-    };
+    /* ── shared style tokens ── */
+    const font = "'League Spartan', sans-serif";
+    const gridPattern = (dark: boolean): React.CSSProperties => ({
+        position: "absolute",
+        inset: 0,
+        pointerEvents: "none",
+        backgroundImage: `
+      repeating-linear-gradient(0deg,transparent,transparent 39px,${dark ? "rgba(255,255,255,.03)" : "rgba(0,0,0,.025)"} 40px),
+      repeating-linear-gradient(90deg,transparent,transparent 39px,${dark ? "rgba(255,255,255,.03)" : "rgba(0,0,0,.025)"} 40px)
+    `,
+    });
 
     return (
-        <>
-            <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;900&display=swap');
+        <section
+            className="hs-section"
+            style={{
+                fontFamily: font,
+                width: "100%",
+                minHeight: "100vh",
+                display: "grid",
+                gridTemplateColumns: "50% 50%",
+                position: "relative",
+                overflow: "hidden",
+            }}
+        >
 
-        .h-hw1{animation:h-rise .95s cubic-bezier(.16,1,.3,1) forwards;transform:translateY(110%)}
-        .h-hw2{animation:h-rise .95s cubic-bezier(.16,1,.3,1) .08s forwards;transform:translateY(110%)}
-        .h-bn1{animation:h-rise .95s cubic-bezier(.16,1,.3,1) .55s forwards;transform:translateY(110%)}
-        .h-bn2{animation:h-rise .95s cubic-bezier(.16,1,.3,1) .63s forwards;transform:translateY(110%)}
-        @keyframes h-rise{to{transform:translateY(0)}}
-
-        .h-fin {opacity:0;animation:h-fin .5s ease forwards}
-        .h-fin:nth-child(2){animation-delay:.07s}
-        .h-fin:nth-child(3){animation-delay:.14s}
-        .h-fin:nth-child(4){animation-delay:.21s}
-        @keyframes h-fin{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
-
-        .h-fup {opacity:0;animation:h-fup .6s ease .65s forwards}
-        .h-cons{opacity:0;animation:h-fin .9s ease .4s forwards}
-        .h-mq  {opacity:0;animation:h-fup .5s ease .5s forwards}
-        @keyframes h-fup{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-
-        .h-btnf{background:#0a0a0a;color:#e9e7e2;border:1.5px solid #0a0a0a}
-        .h-btnf:hover{background:#2a2a2a!important}
-        .h-btno{background:transparent;color:#888;border:1.5px solid rgba(0,0,0,.2)}
-        .h-btno:hover{border-color:#0a0a0a!important;color:#0a0a0a!important}
-
-        @media(max-width:640px){
-          .h-root{cursor:auto!important}
-          .h-cur{display:none!important}
-          .h-top{grid-template-columns:1fr 1fr!important}
-          .h-hide{display:none!important}
-          .h-cons{width:180px!important;height:180px!important;top:60px!important;right:-10px!important}
-          .h-bottom{flex-direction:column!important;align-items:flex-start!important;gap:12px!important;padding-bottom:24px!important}
-          .h-br{text-align:left!important;margin-right:0!important}
-          .h-btns{padding-left:0!important}
-        }
-      `}</style>
-
-            <section
-                ref={rootRef}
-                className="h-root"
+            {/* ══ LEFT DARK PANEL ══ */}
+            <div
+                className="hs-left-panel"
                 style={{
-                    background: "#e9e7e2",
-                    minHeight: "100vh",
+                    background: "#111",
                     position: "relative",
-                    overflow: "hidden",
-                    fontFamily: "'Inter', sans-serif",
-                    cursor: "none",
                     display: "flex",
                     flexDirection: "column",
+                    justifyContent: "center",
+                    padding: "64px 60px 64px 80px",
+                    overflow: "hidden",
                 }}
             >
-                {/* Cursor */}
-                <div
-                    ref={curRef}
-                    className="h-cur"
-                    style={{
-                        position: "absolute", pointerEvents: "none", zIndex: 999,
-                        borderRadius: "50%",
-                        background: curBig ? "rgba(10,10,14,.1)" : "#0a0a0a",
-                        transform: "translate(-50%,-50%)",
-                        width: curBig ? 46 : 8,
-                        height: curBig ? 46 : 8,
-                        transition: "width .4s cubic-bezier(.16,1,.3,1), height .4s cubic-bezier(.16,1,.3,1), background .3s",
-                    }}
-                />
+                <div style={gridPattern(true)} />
 
-                {/* Top nav */}
+                {/* Over-label */}
                 <div
-                    className="h-top"
+                    className="hs-fade-up hs-delay-0"
                     style={{
-                        display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr",
-                        padding: "22px 32px 18px",
-                        borderBottom: "1px solid rgba(0,0,0,.08)",
-                        position: "relative", zIndex: 30,
+                        fontSize: 10,
+                        fontWeight: 400,
+                        letterSpacing: ".28em",
+                        textTransform: "uppercase",
+                        color: "#aaa",
+                        marginBottom: 18,
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 10,
                     }}
                 >
-                    {[
-                        { main: "Ashish Yaduvanshi", sub: null, right: false, hide: false },
-                        { main: "Currently at", sub: "ASOasis Tech", right: false, hide: false },
-                        { main: "India", sub: "Full Stack · AI · Mobile", right: false, hide: true },
-                        { main: "Work,\u00a0 Contact", sub: null, right: true, hide: false },
-                    ].map((item, i) => (
-                        <div
-                            key={i}
-                            className={`h-fin${item.hide ? " h-hide" : ""}`}
+                    <span style={{ display: "inline-block", width: 24, height: 1, background: "#555" }} />
+                    Full Stack Engineer · India
+                </div>
+
+                {/* Main headline */}
+                <div className="hs-slam hs-delay-1" style={{ marginTop: -8 }}>
+                    <div style={{ overflow: "hidden" }}>
+                        <span
                             style={{
-                                fontSize: 11, fontWeight: 400, color: "#0a0a0a",
-                                lineHeight: 1.5, textAlign: item.right ? "right" : "left",
+                                display: "block",
+                                fontSize: "clamp(52px, 8.5vw, 108px)",
+                                fontWeight: 900,
+                                lineHeight: 0.88,
+                                letterSpacing: "-.03em",
+                                textTransform: "uppercase",
+                                color: "#fff",
                             }}
                         >
-                            {item.main}
-                            {item.sub && (
-                                <span style={{ display: "block", color: "#888", fontSize: 10, marginTop: 1 }}>
-                                    {item.sub}
-                                </span>
-                            )}
+                            ASHISH
+                        </span>
+                    </div>
+                    <div style={{ overflow: "hidden" }}>
+                        <span
+                            style={{
+                                display: "block",
+                                fontSize: "clamp(52px, 8.5vw, 108px)",
+                                fontWeight: 900,
+                                lineHeight: 0.88,
+                                letterSpacing: "-.03em",
+                                textTransform: "uppercase",
+                                color: "transparent",
+                                WebkitTextStroke: "1.5px rgba(255,255,255,.2)",
+                            }}
+                        >
+                            YADU
+                        </span>
+                    </div>
+                    <div style={{ overflow: "hidden" }}>
+                        <span
+                            style={{
+                                display: "block",
+                                fontSize: "clamp(52px, 8.5vw, 108px)",
+                                fontWeight: 900,
+                                lineHeight: 0.88,
+                                letterSpacing: "-.03em",
+                                textTransform: "uppercase",
+                                color: "#fff",
+                            }}
+                        >
+                            VANSHI
+                        </span>
+                    </div>
+                </div>
+
+                {/* Description */}
+                <p
+                    className="hs-fade-up hs-delay-4"
+                    style={{
+                        marginTop: 28,
+                        fontSize: 14,
+                        fontWeight: 300,
+                        lineHeight: 1.7,
+                        color: "#888",
+                        maxWidth: 360,
+                    }}
+                >
+                    Building{" "}
+                    <strong style={{ color: "#fff", fontWeight: 700 }}>AI platforms</strong>,
+                    mobile apps &amp; cloud systems — where architecture meets product thinking.
+                </p>
+
+                {/* CTA buttons */}
+                <div
+                    className="hs-fade-up hs-delay-5 hs-cta-buttons"
+                    style={{ display: "flex", gap: 12, marginTop: 32 }}
+                >
+                    <button
+                        className="hs-btn-solid"
+                        style={{
+                            fontFamily: font,
+                            fontSize: 10,
+                            fontWeight: 700,
+                            letterSpacing: ".2em",
+                            textTransform: "uppercase",
+                            background: "#fff",
+                            color: "#111",
+                            border: "none",
+                            padding: "14px 28px",
+                            cursor: "pointer",
+                            transition: "background .2s",
+                        }}
+                    >
+                        Get in Touch →
+                    </button>
+                    <button
+                        className="hs-btn-ghost"
+                        style={{
+                            fontFamily: font,
+                            fontSize: 10,
+                            fontWeight: 700,
+                            letterSpacing: ".2em",
+                            textTransform: "uppercase",
+                            background: "transparent",
+                            color: "#555",
+                            border: "1px solid #2a2a2a",
+                            padding: "14px 28px",
+                            cursor: "pointer",
+                            transition: "all .2s",
+                        }}
+                    >
+                        ↓ Download CV
+                    </button>
+                </div>
+
+                {/* Vertical socials */}
+                <div
+                    className="hs-fade-up hs-delay-7 hs-socials-vertical"
+                    style={{
+                        position: "absolute",
+                        bottom: 48,
+                        right: -28,
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 16,
+                        transform: "rotate(90deg)",
+                        transformOrigin: "bottom right",
+                    }}
+                >
+                    {SOCIALS.map((s) => (
+                        <button
+                            key={s}
+                            className="hs-soc"
+                            style={{
+                                fontSize: 8,
+                                fontWeight: 700,
+                                letterSpacing: ".22em",
+                                textTransform: "uppercase",
+                                color: "#333",
+                                background: "none",
+                                border: "none",
+                                cursor: "pointer",
+                                fontFamily: font,
+                                transition: "color .2s",
+                            }}
+                        >
+                            {s}
+                        </button>
+                    ))}
+                </div>
+            </div>
+
+            {/* ══ CENTER PORTRAIT — bleeds over both panels ══ */}
+            <div
+                className="hs-img-in hs-portrait"
+                style={{
+                    position: "absolute",
+                    left: "54%",
+                    transform: "translateX(-50%)",
+                    top: 40,
+                    bottom: -20,
+                    width: "clamp(340px, 40%, 520px)",
+                    zIndex: 20,
+                }}
+            >
+
+                <Image
+                    src="/img2.png"
+                    alt="Ashish Yaduvanshi"
+                    fill
+                    style={{ objectFit: "cover" }}
+                    priority
+                />
+
+
+
+
+            </div>
+
+            {/* ══ RIGHT LIGHT PANEL ══ */}
+            <div
+                className="hs-right-panel"
+                style={{
+                    background: "#f2f2f0",
+                    position: "relative",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    gap: "48px",
+                    padding: "64px 40px 64px 52%",
+                    overflow: "hidden",
+                }}
+            >
+                <div style={gridPattern(false)} />
+
+                {/* Top: clock + slide number */}
+                <div>
+                    {/* Live clock bar */}
+                    <div
+                        className="hs-fade-up hs-delay-3 hs-clock-bar"
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            borderBottom: "1px solid rgba(0,0,0,.08)",
+                            paddingBottom: 16,
+                            marginBottom: 20,
+                            marginLeft: -20,
+                        }}
+                    >
+                        <span
+                            style={{
+                                fontSize: 9,
+                                fontWeight: 400,
+                                letterSpacing: ".14em",
+                                textTransform: "uppercase",
+                                color: "#aaa",
+                            }}
+                        >
+                            New Delhi · IST
+                        </span>
+                        <span
+                            style={{
+                                fontSize: 13,
+                                fontWeight: 700,
+                                letterSpacing: ".08em",
+                                color: "#111",
+                                fontVariantNumeric: "tabular-nums",
+                            }}
+                        >
+                            {time}
+                        </span>
+                    </div>
+
+                    {/* Slide number */}
+                    <div
+                        className="hs-fade-up hs-delay-2"
+                        style={{
+                            fontSize: "clamp(80px, 11vw, 130px)",
+                            fontWeight: 900,
+                            letterSpacing: "-.04em",
+                            color: "#111",
+                            lineHeight: 1,
+                        }}
+                    >
+                        01
+                        <sup
+                            style={{
+                                fontSize: 18,
+                                fontWeight: 300,
+                                letterSpacing: ".05em",
+                                color: "#aaa",
+                                verticalAlign: "super",
+                                marginLeft: 2,
+                            }}
+                        >
+                            /04
+                        </sup>
+                    </div>
+                </div>
+
+                {/* Mid: heading + description */}
+                <div className="hs-fade-up hs-delay-5">
+                    <div
+                        style={{
+                            fontSize: 9,
+                            fontWeight: 700,
+                            letterSpacing: ".25em",
+                            textTransform: "uppercase",
+                            color: "#aaa",
+                            marginBottom: 10,
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 8,
+                        }}
+                    >
+                        <span
+                            style={{
+                                display: "inline-block",
+                                width: 16,
+                                height: 1.5,
+                                background: "#111",
+                            }}
+                        />
+                        Currently at ASOasis Tech
+                    </div>
+
+                    <h2
+                        style={{
+                            fontSize: "clamp(28px, 4vw, 44px)",
+                            fontWeight: 900,
+                            lineHeight: 1.05,
+                            letterSpacing: "-.02em",
+                            textTransform: "uppercase",
+                            marginBottom: 18,
+                        }}
+                    >
+                        <span style={{ display: "block", color: "#dc2626" }}>Architecting</span>
+                        <span style={{ display: "block", color: "#e53e3e" }}>Intelligent</span>
+                        <span style={{ display: "block", color: "#b91c1c" }}>Systems</span>
+                    </h2>
+
+                    <p
+                        className="hs-right-desc"
+                        style={{
+                            fontSize: 15,
+                            fontWeight: 300,
+                            lineHeight: 1.75,
+                            color: "#555",
+                            maxWidth: 260,
+                            marginLeft: -20,
+                        }}
+                    >
+                        3+ years engineering{" "}
+                        <strong style={{ color: "#111", fontWeight: 700 }}>
+                            high-throughput platforms
+                        </strong>
+                        , serverless cloud systems, and AI-powered products trusted by real
+                        users at scale.
+                    </p>
+
+                    <button
+                        className="hs-learn"
+                        style={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: 8,
+                            fontSize: 9.5,
+                            fontWeight: 700,
+                            letterSpacing: ".2em",
+                            textTransform: "uppercase",
+                            color: "#111",
+                            background: "none",
+                            border: "none",
+                            borderBottom: "1.5px solid #111",
+                            paddingBottom: 4,
+                            marginLeft: -20,
+                            cursor: "pointer",
+                            fontFamily: font,
+                            marginTop: 24,
+                            transition: "opacity .2s",
+                        }}
+                    >
+                        View My Work →
+                    </button>
+                </div>
+
+                {/* Bottom stats */}
+                <div
+                    className="hs-fade-up hs-delay-6"
+                    style={{
+                        display: "flex",
+                        gap: 0,
+                        borderTop: "1px solid rgba(0,0,0,.1)",
+                        paddingTop: 24,
+                    }}
+                >
+                    {STATS.map((st, i) => (
+                        <div
+                            key={st.label}
+                            style={{
+                                flex: 1,
+                                borderRight: i < STATS.length - 1 ? "1px solid rgba(0,0,0,.08)" : "none",
+                                paddingRight: i < STATS.length - 1 ? 20 : 0,
+                                marginRight: i < STATS.length - 1 ? 20 : 0,
+                            }}
+                        >
+                            <div
+                                style={{
+                                    fontSize: 36,
+                                    fontWeight: 900,
+                                    letterSpacing: "-.03em",
+                                    color: "#dc2626",
+                                    lineHeight: 1,
+                                }}
+                            >
+                                {st.num}
+                            </div>
+                            <div
+                                style={{
+                                    fontSize: 8.5,
+                                    fontWeight: 400,
+                                    letterSpacing: ".16em",
+                                    textTransform: "uppercase",
+                                    color: "#aaa",
+                                    marginTop: 3,
+                                }}
+                            >
+                                {st.label}
+                            </div>
                         </div>
                     ))}
                 </div>
-
-                {/* Mid */}
-                <div style={{ flex: 1, position: "relative", padding: "0 32px", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
-
-                    {/* Headline */}
-                    <div style={{ paddingTop: 14, position: "relative", zIndex: 5 }}>
-                        <div style={{ overflow: "hidden", lineHeight: .87 }}>
-                            <span ref={hw0Ref} className="h-hw1" style={headStyle}>Full Stack</span>
-                        </div>
-                        <div style={{ overflow: "hidden", lineHeight: .87 }}>
-                            <span ref={hw1Ref} className="h-hw2" style={headStyle}>Engineer.</span>
-                        </div>
-                    </div>
-
-                    {/* Middle Strategic Focus Card (Out-of-the-box addition) */}
-                    <div className="h-fup" style={{
-                        position: "relative",
-                        zIndex: 20,
-                        maxWidth: "400px",
-                        marginTop: "auto",
-                        marginBottom: "auto",
-                    }}>
-                        {/* Background Architecture Visual (The Requested 'Some Visual') */}
-                        <div style={{ position: "absolute", top: "-40px", left: "-60px", width: "400px", height: "400px", zIndex: -1, opacity: 0.04, pointerEvents: "none" }}>
-                            <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="100" cy="100" r="80" stroke="black" strokeWidth="0.5" strokeDasharray="2 2" />
-                                <circle cx="100" cy="100" r="40" stroke="black" strokeWidth="0.5" />
-                                <path d="M100 20V180M20 100H180" stroke="black" strokeWidth="0.2" />
-                                <rect x="80" y="80" width="40" height="40" stroke="black" strokeWidth="0.5" />
-                                <circle cx="100" cy="20" r="2" fill="black" />
-                                <circle cx="100" cy="180" r="2" fill="black" />
-                                <circle cx="20" cy="100" r="2" fill="black" />
-                                <circle cx="180" cy="100" r="2" fill="black" />
-                                <path d="M60 60L140 140M140 60L60 140" stroke="black" strokeWidth="0.2" />
-                            </svg>
-                        </div>
-
-                        <div style={{
-                            background: "rgba(255,255,255,0.4)",
-                            backdropFilter: "blur(20px)",
-                            border: "1px solid rgba(0,0,0,0.05)",
-                            padding: "32px",
-                            borderRadius: "2px",
-                            boxShadow: "0 20px 40px rgba(0,0,0,0.02)",
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: "16px"
-                        }}>
-                            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                                <div style={{ width: 10, height: 10, background: "#0a0a0a", borderRadius: "50%" }} />
-                                <span style={{ fontSize: 10, fontWeight: 900, textTransform: "uppercase", letterSpacing: "0.2em", color: "#0a0a0a" }}>Strategic Focus</span>
-                            </div>
-                            <p style={{ fontSize: 13, fontWeight: 400, color: "#444", lineHeight: 1.6, letterSpacing: "-0.01em" }}>
-                                Architecting high-throughput systems and AI platforms with a focus on <span style={{ color: "#0a0a0a", fontWeight: 600 }}>industrial-grade scalability</span> and operational intelligence.
-                            </p>
-                            <div style={{ display: "flex", gap: "12px", paddingTop: 10 }}>
-                                {["AI Eng", "Cloud Native", "Product Tech"].map(tag => (
-                                    <span key={tag} style={{ fontSize: 9, fontWeight: 700, color: "#888", borderBottom: "1.5px solid rgba(0,0,0,0.05)", paddingBottom: 4, textTransform: "uppercase", letterSpacing: "0.1em" }}>{tag}</span>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Decorative background lines for "furnishing" */}
-                        <div style={{ position: "absolute", top: "50%", left: "-60px", width: "40px", height: 1, borderTop: "1px dashed rgba(0,0,0,0.1)", zIndex: -1 }} />
-                        <div style={{ position: "absolute", top: "50%", right: "-60px", width: "100vw", height: 1, borderTop: "1px solid rgba(0,0,0,0.03)", zIndex: -1 }} />
-                    </div>
-
-                    {/* Constellation — bigger, lower, more left */}
-                    <div
-                        ref={consRef}
-                        className="h-cons"
-                        style={{
-                            position: "absolute",
-                            top: 90,          /* shifted down */
-                            right: -30,       /* shifted left */
-                            width: "clamp(280px, 38%, 380px)",   /* bigger */
-                            height: "clamp(280px, 38%, 380px)",
-                            zIndex: 10,
-                        }}
-                    >
-                        <Constellation />
-                        <div style={{
-                            position: "absolute", inset: 0,
-                            display: "flex", alignItems: "center", justifyContent: "center",
-                            pointerEvents: "none",
-                        }}>
-                            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3 }}>
-                                <span style={{
-                                    fontSize: 42,          /* bigger number */
-                                    fontWeight: 900, color: "#0a0a0a",
-                                    letterSpacing: "-.04em", lineHeight: 1,
-                                }}>3+</span>
-                                <span style={{
-                                    fontSize: 10, fontWeight: 500,
-                                    letterSpacing: ".18em", textTransform: "uppercase", color: "#aaa",
-                                }}>yrs exp</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Marquee */}
-                <div className="h-mq"><Marquee /></div>
-
-                {/* Bottom */}
-                <div
-                    className="h-bottom"
-                    style={{
-                        padding: "18px 32px 28px",
-                        display: "flex", alignItems: "flex-end",
-                        justifyContent: "space-between",
-                        zIndex: 20, position: "relative", gap: 20,
-                    }}
-                >
-                    {/* Left */}
-                    <div className="h-fup" style={{ display: "flex", flexDirection: "column", gap: 18, flexShrink: 0 }}>
-                        <div style={{ display: "flex", gap: 18, alignItems: "flex-start" }}>
-                            <span style={{ fontSize: 22, fontWeight: 300, color: "#0a0a0a", paddingTop: 2, flexShrink: 0, lineHeight: 1 }}>↓</span>
-                            <div style={{ fontSize: 10.5, fontWeight: 500, letterSpacing: ".06em", textTransform: "uppercase", color: "#0a0a0a", lineHeight: 1.8 }}>
-                                I build AI platforms,<br />
-                                mobile apps and<br />
-                                scalable systems.
-                            </div>
-                        </div>
-                        <div className="h-btns" style={{ display: "flex", gap: 8, paddingLeft: 40 }}>
-                            {[
-                                { label: "Get in Touch", cls: "h-btnf" },
-                                { label: "↓ Download CV", cls: "h-btno" },
-                            ].map(btn => (
-                                <button
-                                    key={btn.label}
-                                    className={btn.cls}
-                                    onMouseEnter={() => setCurBig(true)}
-                                    onMouseLeave={() => setCurBig(false)}
-                                    style={{
-                                        fontFamily: "'Inter',sans-serif",
-                                        fontSize: 10, fontWeight: 600,
-                                        letterSpacing: ".1em", textTransform: "uppercase",
-                                        padding: "11px 20px", borderRadius: 2, cursor: "pointer",
-                                        transition: "all .2s",
-                                    }}
-                                >
-                                    {btn.label}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* Right — big name */}
-                    <div className="h-br" style={{ flex: 1, textAlign: "right", overflow: "hidden", marginRight: -32 }}>
-                        <div style={{ overflow: "hidden", lineHeight: .87 }}>
-                            <span ref={bn0Ref} className="h-bn1" style={nameStyle}>ASHISH</span>
-                        </div>
-                        <div style={{ overflow: "hidden", lineHeight: .87 }}>
-                            <span ref={bn1Ref} className="h-bn2" style={nameStyle}>YADUVANSHI</span>
-                        </div>
-                    </div>
-                </div>
-
-            </section>
-        </>
+            </div>
+        </section>
     );
 }

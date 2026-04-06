@@ -96,7 +96,7 @@ export default function BookingCalendar() {
     };
 
     return (
-        <div style={{
+        <div className="bc-container" style={{
             ...s,
             background: "#fff",
             border: "1.5px solid #E8E6E0",
@@ -109,6 +109,27 @@ export default function BookingCalendar() {
             boxShadow: "0 10px 40px rgba(0,0,0,0.04)",
             overflow: "hidden"
         }}>
+            <style>{`
+                @media (max-width: 768px) {
+                    .bc-container {
+                        padding: 18px !important;
+                        border-radius: 20px !important;
+                        min-height: 380px !important;
+                    }
+                    .bc-day-cell { height: 32px !important; }
+                    .bc-day-btn { width: 28px !important; height: 28px !important; font-size: 11px !important; }
+                }
+                @media (max-width: 480px) {
+                    .bc-container {
+                        padding: 14px !important;
+                        border-radius: 16px !important;
+                        min-height: 360px !important;
+                    }
+                    .bc-day-cell { height: 30px !important; }
+                    .bc-day-btn { width: 26px !important; height: 26px !important; font-size: 10px !important; border-radius: 8px !important; }
+                    .bc-intro-row { padding: 10px !important; }
+                }
+            `}</style>
             {/* Background Accent */}
             <div style={{
                 position: "absolute",
@@ -162,9 +183,10 @@ export default function BookingCalendar() {
 
                         <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "4px" }}>
                             {calendarDays.map((day, i) => (
-                                <div key={i} style={{ height: "36px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                <div key={i} className="bc-day-cell" style={{ height: "36px", display: "flex", alignItems: "center", justifyContent: "center" }}>
                                     {day && (
                                         <motion.button
+                                            className="bc-day-btn"
                                             whileHover={!isPast(day) ? { scale: 1.1, background: "#0E0E0E", color: "#fff" } : {}}
                                             whileTap={!isPast(day) ? { scale: 0.95 } : {}}
                                             onClick={() => handleSelectDate(day)}
@@ -189,7 +211,7 @@ export default function BookingCalendar() {
                             ))}
                         </div>
 
-                        <div style={{ marginTop: "24px", display: "flex", alignItems: "center", gap: "10px", padding: "12px", background: "#f9f9f9", borderRadius: "12px" }}>
+                        <div className="bc-intro-row" style={{ marginTop: "24px", display: "flex", alignItems: "center", gap: "10px", padding: "12px", background: "#f9f9f9", borderRadius: "12px" }}>
                             <div style={{ width: "32px", height: "32px", borderRadius: "8px", background: "#0E0E0E", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                                 <Sparkles size={14} color="#fff" />
                             </div>

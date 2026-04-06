@@ -11,8 +11,7 @@ import {
   Cpu, 
   Command, 
   CheckCircle2,
-  ExternalLink,
-  Activity
+  ExternalLink
 } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -21,7 +20,7 @@ export function ExperienceTimeline() {
         <TracingBeam className="px-6">
             <div className="max-w-[850px] mx-auto antialiased pt-4 pb-12 relative">
                 <div className="relative z-10 space-y-16">
-                    {EXPERIENCES.map((exp, index) => (
+                    {EXPERIENCES.map((exp) => (
                         <motion.div 
                             key={`exp-${exp.id}`} 
                             initial={{ opacity: 0, y: 15 }}
@@ -35,7 +34,7 @@ export function ExperienceTimeline() {
                                 <div className="flex items-center gap-3">
                                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)] animate-pulse" />
                                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-neutral-400">
-                                      {exp.duration} // {exp.location}
+                                      {exp.duration} · {exp.location}
                                    </span>
                                    <div className="h-px bg-neutral-100 flex-1" />
                                    {exp.website && (
