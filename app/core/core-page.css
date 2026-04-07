@@ -1,0 +1,105 @@
+@import '../../components/core-with-ashish/Core.css';
+
+.core-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 24px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.nav-logo {
+  font-weight: 900;
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--core-black);
+}
+
+.red-dot {
+  color: var(--core-red);
+}
+
+.nav-links {
+  display: flex;
+  gap: 40px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--core-gray-600);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: var(--core-transition);
+}
+
+.nav-links a:hover {
+  color: var(--core-red);
+}
+
+.nav-cta .nav-btn {
+  background: var(--core-black);
+  color: var(--core-white);
+  border: none;
+  padding: 10px 24px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: var(--core-transition);
+}
+
+.nav-cta .nav-btn:hover {
+  background: var(--core-red);
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+}
+
+.core-footer {
+  padding: 60px 5%;
+  border-top: 1px solid #f0f0f0;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-brand {
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: -0.02em;
+}
+
+.footer-links {
+    display: flex;
+    gap: 30px;
+    font-size: 0.75rem;
+    color: var(--core-gray-400);
+}
+
+.footer-links a {
+    text-decoration: none;
+    color: inherit;
+    transition: var(--core-transition);
+}
+
+.footer-links a:hover {
+    color: var(--core-black);
+}

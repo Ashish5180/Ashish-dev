@@ -7,6 +7,7 @@ const menuItems = [
   { label: 'Home', ariaLabel: 'Go to home page', link: '/' },
   { label: 'About', ariaLabel: 'Learn about us', link: '/#about' },
   { label: 'Experience', ariaLabel: 'View experience & projects', link: '/experience' },
+  { label: 'Core', ariaLabel: 'Premium Brand Experience', link: '/core' },
   { label: 'Contact', ariaLabel: 'Get in touch', link: '/contact' },
 ];
 
