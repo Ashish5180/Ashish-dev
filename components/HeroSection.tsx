@@ -37,7 +37,9 @@ function useClock() {
 }
 
 
-export default function HeroSection() {
+
+/* ── Split Panel Hero (Desktop) ── */
+function HeroSectionDesktop() {
     const time = useClock();
 
     /* ── inline keyframes injected once ── */
@@ -297,7 +299,6 @@ export default function HeroSection() {
                     <strong style={{ color: "#fff", fontWeight: 700 }}>AI platforms</strong>,
                     mobile apps &amp; cloud systems — where architecture meets product thinking.
                 </p>
-
                 {/* CTA buttons */}
                 <div
                     className="hs-fade-up hs-delay-5 hs-cta-buttons"
@@ -622,4 +623,25 @@ export default function HeroSection() {
             </div>
         </section>
     );
+}
+
+/* ── SWITCHER COMPONENT ── */
+import HeroSectionMobile from "./HeroSection2";
+
+export default function HeroSection() {
+    const [isMobile, setIsMobile] = useState<boolean | null>(null);
+
+    useEffect(() => {
+        const checkSize = () => {
+            setIsMobile(window.innerWidth < 1224);
+        };
+        checkSize();
+        window.addEventListener("resize", checkSize);
+        return () => window.removeEventListener("resize", checkSize);
+    }, []);
+
+    // Prevent hydration mismatch by returning null or a placeholder until client-side check
+    if (isMobile === null) return <div style={{ minHeight: "100vh", background: "#111" }} />;
+
+    return isMobile ? <HeroSectionMobile /> : <HeroSectionDesktop />;
 }

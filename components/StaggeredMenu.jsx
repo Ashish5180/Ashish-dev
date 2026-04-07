@@ -5,17 +5,17 @@ import './StaggeredMenu.css';
 
 export const StaggeredMenu = ({
   position = 'right',
-  colors = ['#f5f5f5', '#e8e8e8'],
+  colors = ['#B19EEF', '#5227FF'],
   items = [],
   socialItems = [],
   displaySocials = true,
   displayItemNumbering = true,
   className,
-  logoText = 'SDE',
-  logoUrl,
-  menuButtonColor = '#111',
-  openMenuButtonColor = '#111',
-  accentColor = '#111',
+  logoText = '',
+  logoUrl = '',
+  menuButtonColor = '#fff',
+  openMenuButtonColor = '#fff',
+  accentColor = '#5227FF',
   changeMenuColorOnOpen = true,
   isFixed = false,
   closeOnClickAway = true,
@@ -367,8 +367,10 @@ export const StaggeredMenu = ({
         })()}
       </div>
       <header className="staggered-menu-header" aria-label="Main navigation header">
-        <div className="sm-logo" aria-label="Logo">
-          {logoUrl ? (
+        <div className="sm-logo" aria-label="Logo" style={{ color: '#ffffff' }}>
+          {logoText ? (
+            <span className="sm-logo-text">{logoText}</span>
+          ) : logoUrl ? (
             <Image
               src={logoUrl}
               alt="Logo"
@@ -377,19 +379,7 @@ export const StaggeredMenu = ({
               width={110}
               height={24}
             />
-          ) : (
-            <span
-              style={{
-                fontSize: '1.4rem',
-                fontWeight: 800,
-                letterSpacing: '-1px',
-                color: '#111',
-                userSelect: 'none',
-              }}
-            >
-              {logoText || 'SDE'}
-            </span>
-          )}
+          ) : null}
         </div>
         <button
           ref={toggleBtnRef}

@@ -1,6 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;600;700;900&family=Inter:wght@400;500&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+
+@font-face {
+  font-family: 'Horizona';
+  src: url('/fonts/Horizona.woff2') format('woff2'),
+       url('/fonts/Horizona.woff') format('woff'),
+       url('/fonts/Horizona.otf') format('opentype'),
+       url('/fonts/Horizona.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
 @custom-variant dark (&:is(.dark *));
 

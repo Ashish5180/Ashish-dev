@@ -150,7 +150,7 @@ function useConfetti() {
         if (!canvas) return;
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-        const colors = ["#0E0E0E", "#888", "#FAFAF8", "#333", "#555", "#aaa"];
+        const colors = ["#DC2626", "#0E0E0E", "#EF4444", "#333", "#FFF", "#aaa"];
         for (let i = 0; i < 90; i++) {
             particles.current.push({
                 x: Math.random() * canvas.width,
@@ -495,8 +495,8 @@ export default function AboutMe() {
                         fontSize: 10, letterSpacing: 1.5, ...S,
                         animation: "badge-pulse 2s ease-in-out infinite",
                     }}>
-                        <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#22c55e", flexShrink: 0 }} />
-                        Available to hire
+                        <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#ef4444", flexShrink: 0 }} />
+                        Available for Projects
                     </div>
                     <span style={{ ...S, fontSize: 11, letterSpacing: 1.5, color: "#aaa" }}>{clock}</span>
                 </motion.div>
@@ -530,7 +530,7 @@ export default function AboutMe() {
                                 }}
                             >
                                 {HEADLINES[hlIdx][0]}<br />
-                                <span style={{ fontStyle: "italic", fontWeight: 300, color: "#666" }}>
+                                <span style={{ fontStyle: "italic", fontWeight: 300, color: "#DC2626" }}>
                                     {HEADLINES[hlIdx][1]}
                                 </span>
                             </motion.h1>
@@ -598,7 +598,7 @@ export default function AboutMe() {
                                         key={sk.name}
                                         onClick={(e) => clickSkill(sk.name, e)}
 
-                                        whileHover={{ translateY: -3, scale: 1.06, boxShadow: "0 8px 20px rgba(0,0,0,.1)" }}
+                                        whileHover={{ translateY: -3, scale: 1.06, boxShadow: "0 8px 24px rgba(220,38,38,.15)", borderColor: "#DC2626" }}
                                         whileTap={{ scale: 0.92 }}
                                         style={{
                                             display: "inline-flex", alignItems: "center", gap: 6,
@@ -618,11 +618,11 @@ export default function AboutMe() {
                                                     animate={{ scale: 1, opacity: 1 }}
                                                     style={{
                                                         position: "absolute", top: -8, right: -8,
-                                                        background: "#fff", color: "#0E0E0E",
+                                                        background: "#DC2626", color: "#fff",
                                                         width: 18, height: 18, borderRadius: "50%",
                                                         fontSize: 9, fontWeight: 800,
                                                         display: "flex", alignItems: "center", justifyContent: "center",
-                                                        border: "1.5px solid #E8E6E0",
+                                                        border: "1.5px solid #FEE2E2",
                                                         ...S,
                                                     }}
                                                 >
@@ -691,7 +691,7 @@ export default function AboutMe() {
                                 <motion.div
                                     animate={{ width: `${(coffee / 4) * 100}%` }}
                                     transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-                                    style={{ height: "100%", background: "#0E0E0E", borderRadius: 999 }}
+                                    style={{ height: "100%", background: "#DC2626", borderRadius: 999 }}
                                 />
                             </div>
                             <div style={{ display: "flex", justifyContent: "space-between", marginTop: 6 }}>

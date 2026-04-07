@@ -4,7 +4,6 @@ import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import CustomCursor from "@/components/CustomCursor";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -82,7 +81,7 @@ export default function RootLayout({
             })
           }}
         />
-        <CustomCursor />
+
         <Navbar />
         {children}
         <Analytics />

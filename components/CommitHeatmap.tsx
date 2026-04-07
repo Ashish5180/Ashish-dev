@@ -56,10 +56,10 @@ function computeStreaks(weeks: Week[]) {
 function getColor(count: number, max: number): string {
     if (count === 0) return "#F5F5F0";
     const t = Math.min(count / Math.max(max * 0.55, 1), 1);
-    if (t < 0.2) return "#DFDFD6";
-    if (t < 0.45) return "#CACABF";
-    if (t < 0.72) return "#555";
-    return "#0E0E0E";
+    if (t < 0.2) return "#FEE2E2"; // red-100
+    if (t < 0.45) return "#FCA5A5"; // red-300
+    if (t < 0.72) return "#EF4444"; // red-500
+    return "#991B1B"; // red-800
 }
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -321,7 +321,7 @@ export default function CommitHeatmap() {
                     {/* Legend */}
                     <div style={{ display: "flex", alignItems: "center", gap: 4, marginTop: 10, justifyContent: "flex-end" }}>
                         <span style={{ fontSize: 9, color: "#bbb", marginRight: 2 }}>Less</span>
-                        {["#F5F5F0", "#DFDFD6", "#CACABF", "#555", "#0E0E0E"].map(c => (
+                        {["#F5F5F0", "#FEE2E2", "#FCA5A5", "#EF4444", "#991B1B"].map(c => (
                             <div key={c} style={{ width: CELL, height: CELL, borderRadius: 3, background: c }} />
                         ))}
                         <span style={{ fontSize: 9, color: "#bbb", marginLeft: 2 }}>More</span>

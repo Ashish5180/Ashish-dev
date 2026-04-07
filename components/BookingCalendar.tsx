@@ -3,9 +3,9 @@
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-    ChevronLeft, ChevronRight, Clock, Video,
-    Calendar as CalendarIcon, CheckCircle2,
-    Sparkles, ArrowRight, X
+    ChevronLeft, ChevronRight, Timer, Video,
+    CalendarRange, ShieldCheck,
+    Zap, ArrowRight, X
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -137,7 +137,7 @@ export default function BookingCalendar() {
                 right: "-50px",
                 width: "150px",
                 height: "150px",
-                background: "radial-gradient(circle, rgba(0,0,0,0.03) 0%, transparent 70%)",
+                background: "radial-gradient(circle, rgba(220,38,38,0.04) 0%, transparent 70%)",
                 borderRadius: "50%",
                 pointerEvents: "none"
             }} />
@@ -187,7 +187,7 @@ export default function BookingCalendar() {
                                     {day && (
                                         <motion.button
                                             className="bc-day-btn"
-                                            whileHover={!isPast(day) ? { scale: 1.1, background: "#0E0E0E", color: "#fff" } : {}}
+                                            whileHover={!isPast(day) ? { scale: 1.1, background: "#EF4444", color: "#fff" } : {}}
                                             whileTap={!isPast(day) ? { scale: 0.95 } : {}}
                                             onClick={() => handleSelectDate(day)}
                                             disabled={isPast(day)}
@@ -197,8 +197,8 @@ export default function BookingCalendar() {
                                                 borderRadius: "10px",
                                                 fontSize: "12px",
                                                 fontWeight: 600,
-                                                background: isToday(day) ? "#F0EEE8" : "transparent",
-                                                color: isPast(day) ? "#ccc" : isToday(day) ? "#0E0E0E" : "#555",
+                                                background: isToday(day) ? "#FEE2E2" : "transparent",
+                                                color: isPast(day) ? "#ccc" : isToday(day) ? "#DC2626" : "#555",
                                                 border: "none",
                                                 cursor: isPast(day) ? "not-allowed" : "pointer",
                                                 transition: "background 0.2s, color 0.2s"
@@ -211,9 +211,13 @@ export default function BookingCalendar() {
                             ))}
                         </div>
 
-                        <div className="bc-intro-row" style={{ marginTop: "24px", display: "flex", alignItems: "center", gap: "10px", padding: "12px", background: "#f9f9f9", borderRadius: "12px" }}>
-                            <div style={{ width: "32px", height: "32px", borderRadius: "8px", background: "#0E0E0E", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                                <Sparkles size={14} color="#fff" />
+                        <div className="bc-intro-row" style={{ marginTop: "24px", display: "flex", alignItems: "center", gap: "10px", padding: "12px", background: "#FEF2F2", borderRadius: "12px", border: "1px solid #FEE2E2" }}>
+                            <div style={{
+                                width: "32px", height: "32px", borderRadius: "10px",
+                                background: "#DC2626", display: "flex", alignItems: "center", justifyContent: "center",
+                                flexShrink: 0, boxShadow: "0 0 12px rgba(220,38,38,0.3)"
+                            }}>
+                                <Zap size={14} color="#fff" />
                             </div>
                             <div>
                                 <p style={{ fontSize: "11px", fontWeight: 700, color: "#0E0E0E" }}>Free Intro Call</p>
@@ -246,7 +250,7 @@ export default function BookingCalendar() {
                             {TIME_SLOTS.map(time => (
                                 <motion.button
                                     key={time}
-                                    whileHover={{ scale: 1.02, background: "#0E0E0E", color: "#fff" }}
+                                    whileHover={{ scale: 1.02, background: "#DC2626", color: "#fff", borderColor: "#DC2626" }}
                                     whileTap={{ scale: 0.98 }}
                                     onClick={() => {
                                         setSelectedTime(time);
@@ -268,7 +272,7 @@ export default function BookingCalendar() {
                                     }}
                                 >
                                     {time}
-                                    <Clock size={14} opacity={0.4} />
+                                    <Timer size={14} opacity={0.5} />
                                 </motion.button>
                             ))}
                         </div>
@@ -293,30 +297,30 @@ export default function BookingCalendar() {
                             </h3>
                         </div>
 
-                        <div style={{ background: "#F9F9F8", padding: "20px", borderRadius: "18px", marginBottom: "24px", border: "1px solid #E8E6E0" }}>
+                        <div style={{ background: "#FEF2F2", padding: "20px", borderRadius: "18px", marginBottom: "24px", border: "1px solid #FEE2E2" }}>
                             <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "16px" }}>
-                                <div style={{ width: "40px", height: "40px", borderRadius: "12px", background: "#0E0E0E", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                <div style={{ width: "40px", height: "40px", borderRadius: "12px", background: "#DC2626", display: "flex", alignItems: "center", justifyContent: "center" }}>
                                     <Video size={20} color="#fff" />
                                 </div>
                                 <div>
-                                    <p style={{ fontSize: "14px", fontWeight: 700, color: "#0E0E0E" }}>Intro Call</p>
+                                    <p style={{ fontSize: "14px", fontWeight: 700, color: "#0E0E0E" }}>High-Bandwidth Call</p>
                                     <p style={{ fontSize: "12px", color: "#666" }}>Google Meet · 15 min</p>
                                 </div>
                             </div>
 
-                            <div style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "13px", color: "#444", fontWeight: 500 }}>
-                                <CalendarIcon size={14} />
+                            <div style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "13px", color: "#444", fontWeight: 600 }}>
+                                <CalendarRange size={14} color="#DC2626" />
                                 {selectedDate?.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
                             </div>
-                            <div style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "13px", color: "#444", fontWeight: 500, marginTop: "8px" }}>
-                                <Clock size={14} />
+                            <div style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "13px", color: "#444", fontWeight: 600, marginTop: "10px" }}>
+                                <Timer size={14} color="#DC2626" />
                                 {selectedTime}
                             </div>
                         </div>
 
                         <div style={{ marginTop: "auto" }}>
                             <motion.button
-                                whileHover={{ scale: 1.02, background: "#000" }}
+                                whileHover={{ scale: 1.02, background: "#991B1B" }}
                                 whileTap={{ scale: 0.98 }}
                                 onClick={handleBooking}
                                 disabled={isBooking}
@@ -324,7 +328,7 @@ export default function BookingCalendar() {
                                     width: "100%",
                                     padding: "16px",
                                     borderRadius: "14px",
-                                    background: "#0E0E0E",
+                                    background: "#DC2626",
                                     color: "#fff",
                                     fontWeight: 700,
                                     fontSize: "14px",
@@ -341,7 +345,7 @@ export default function BookingCalendar() {
                                         animate={{ rotate: 360 }}
                                         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                                     >
-                                        <Sparkles size={18} />
+                                        <Zap size={18} />
                                     </motion.div>
                                 ) : (
                                     <>
@@ -365,9 +369,9 @@ export default function BookingCalendar() {
                             initial={{ scale: 0 }}
                             animate={{ scale: 1 }}
                             transition={{ type: "spring", damping: 12 }}
-                            style={{ width: "64px", height: "64px", borderRadius: "50%", background: "#22c55e", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "20px" }}
+                            style={{ width: "64px", height: "64px", borderRadius: "50%", background: "#DC2626", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "20px", boxShadow: "0 0 20px rgba(220,38,38,0.2)" }}
                         >
-                            <CheckCircle2 size={32} color="#fff" />
+                            <ShieldCheck size={32} color="#fff" />
                         </motion.div>
                         <h3 style={{ fontSize: "20px", fontWeight: 800, color: "#0E0E0E", marginBottom: "12px" }}>You&apos;re all set!</h3>
                         <p style={{ fontSize: "14px", color: "#666", maxWidth: "240px", lineHeight: "1.6" }}>

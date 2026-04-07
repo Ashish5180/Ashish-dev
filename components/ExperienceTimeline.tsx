@@ -10,7 +10,6 @@ import {
   Layers, 
   Cpu, 
   Command, 
-  CheckCircle2,
   ExternalLink
 } from "lucide-react";
 import { motion } from "framer-motion";
@@ -32,7 +31,7 @@ export function ExperienceTimeline() {
                             {/* Modern Node Context */}
                             <div className="space-y-6">
                                 <div className="flex items-center gap-3">
-                                   <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)] animate-pulse" />
+                                   <div className="w-1.5 h-1.5 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.4)] animate-pulse" />
                                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-neutral-400">
                                       {exp.duration} · {exp.location}
                                    </span>
@@ -42,7 +41,7 @@ export function ExperienceTimeline() {
                                            href={exp.website} 
                                            target="_blank" 
                                            rel="noopener noreferrer"
-                                           className="flex items-center gap-2 px-3 py-1 rounded bg-neutral-900 border border-neutral-800 hover:bg-emerald-600 hover:border-emerald-500 transition-all group/link shadow-lg shadow-neutral-200"
+                                           className="flex items-center gap-2 px-3 py-1 rounded bg-neutral-900 border border-neutral-800 hover:bg-red-600 hover:border-red-500 transition-all group/link shadow-lg shadow-neutral-200"
                                        >
                                           <ExternalLink size={10} className="text-white group-hover/link:animate-pulse" />
                                           <span className="text-[8.5px] font-black uppercase tracking-[0.25em] text-white">Visit Company Website</span>
@@ -53,19 +52,19 @@ export function ExperienceTimeline() {
                                 <div className="space-y-6">
                                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                                        <div className="space-y-1">
-                                          <h2 className={cn("text-3xl md:text-5xl font-black text-neutral-900 tracking-tight leading-none group-hover:text-emerald-600 transition-colors duration-500", calsans.className)}>
+                                          <h2 className={cn("text-3xl md:text-5xl font-black text-neutral-900 tracking-tight leading-none group-hover:text-red-600 transition-colors duration-500", calsans.className)}>
                                              {exp.company}
                                           </h2>
                                           <div className="flex items-center gap-3">
-                                             <p className="text-emerald-600 font-bold text-[10px] uppercase tracking-widest">{exp.role} — {exp.type}</p>
+                                             <p className="text-red-600 font-bold text-[10px] uppercase tracking-widest">{exp.role} — {exp.type}</p>
                                           </div>
                                        </div>
                                        
                                        <div className="flex gap-2">
-                                          <div className="w-10 h-10 rounded-lg border border-neutral-100 flex items-center justify-center text-neutral-400 group-hover:border-emerald-100 group-hover:text-emerald-400 transition-all duration-500">
+                                          <div className="w-10 h-10 rounded-lg border border-neutral-100 flex items-center justify-center text-neutral-400 group-hover:border-red-100 group-hover:text-red-400 transition-all duration-500">
                                              <Terminal size={14} strokeWidth={2.5} />
                                           </div>
-                                          <div className="w-10 h-10 rounded-lg bg-neutral-900 border border-neutral-800 flex items-center justify-center text-white shadow-xl group-hover:shadow-emerald-900/10 transition-all duration-500">
+                                          <div className="w-10 h-10 rounded-lg bg-neutral-900 border border-neutral-800 flex items-center justify-center text-white shadow-xl group-hover:shadow-red-900/10 transition-all duration-500">
                                              <Command size={14} strokeWidth={2.5} />
                                           </div>
                                        </div>
@@ -73,21 +72,16 @@ export function ExperienceTimeline() {
                                     
                                     <div className="space-y-8">
                                        {exp.highlights.map((item, hIdx) => (
-                                          <div key={hIdx} className="relative pl-8 border-l border-neutral-100 py-1 hover:border-emerald-100 transition-colors">
-                                             <div className="absolute -left-[5px] top-3 w-2 h-2 rounded-full bg-neutral-200 border-2 border-white group-hover:bg-emerald-500 group-hover:border-emerald-50 transition-all" />
+                                          <div key={hIdx} className="relative pl-8 border-l border-neutral-100 py-1 hover:border-red-100 transition-colors">
+                                             <div className="absolute -left-[5px] top-3 w-2 h-2 rounded-full bg-neutral-200 border-2 border-white group-hover:bg-red-500 group-hover:border-red-50 transition-all" />
                                              <h4 className="text-[15px] font-black text-neutral-900 mb-2 flex items-center gap-2">
                                                 {item.title}
-                                                {hIdx === 0 && <span className="text-[8px] bg-emerald-50 text-emerald-600 px-1.5 py-0.5 rounded uppercase font-black shadow-sm ring-1 ring-emerald-200/50">Top Impact</span>}
+                                                {hIdx === 0 && <span className="text-[8px] bg-red-50 text-red-600 px-1.5 py-0.5 rounded uppercase font-black shadow-sm ring-1 ring-red-200/50">Top Impact</span>}
                                              </h4>
                                              <p className="text-[14px] text-neutral-500 font-medium leading-relaxed mb-4 max-w-2xl">
-                                                {item.description}
+                                                {item.detail}
                                               </p>
                                              <div className="flex flex-wrap gap-2">
-                                                {item.metrics.map((m, mIdx) => (
-                                                   <span key={mIdx} className="text-[10px] font-black text-emerald-600 flex items-center gap-1 bg-emerald-50/50 px-2 py-0.5 rounded-sm border border-emerald-100/50">
-                                                      <CheckCircle2 size={8} strokeWidth={3} /> {m}
-                                                   </span>
-                                                ))}
                                                 {item.tags.map((tag, tIdx) => (
                                                    <span key={tIdx} className="text-[10px] font-black text-neutral-400 uppercase tracking-widest px-2 py-0.5 bg-neutral-50 border border-neutral-100 rounded-sm">
                                                       {tag}
@@ -100,7 +94,7 @@ export function ExperienceTimeline() {
 
                                     <div className="flex flex-wrap gap-6 pt-8 mt-8 border-t border-neutral-100/50">
                                        <div className="flex items-center gap-2 group/stat">
-                                          <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600 group-hover/stat:bg-emerald-500 group-hover/stat:text-white transition-all">
+                                          <div className="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center text-red-600 group-hover/stat:bg-red-500 group-hover/stat:text-white transition-all">
                                              <Zap size={14} strokeWidth={3} />
                                           </div>
                                           <div className="flex flex-col">
