@@ -1,32 +1,69 @@
 "use client";
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
-import './Core.css';
+import React from "react";
+import { FullScreenScrollFX, FullScreenFXAPI } from "@/components/ui/full-screen-scroll-fx";
+
+const sections = [
+  {
+    leftLabel: "Silence",
+    title: <>Absence</>,
+    rightLabel: "Silence",
+    background: "https://images.pexels.com/photos/3289156/pexels-photo-3289156.jpeg",
+    audioSrc: "/sfx/click-01.mp3",
+  },
+  {
+    leftLabel: "Essence",
+    title: <>Stillness</>,
+    rightLabel: "Essence",
+    background: "https://images.pexels.com/photos/163790/at-night-under-a-lantern-guy-night-city-163790.jpeg",
+    audioSrc: "/sfx/whoosh-02.mp3",
+  },
+  {
+    leftLabel: "Rebirth",
+    title: <>Growth</>,
+    rightLabel: "Rebirth",
+    background: "https://images.pexels.com/photos/9817/pexels-photo-9817.jpeg",
+    audioSrc: "/sfx/whoosh-02.mp3",
+  },
+];
+
 
 const CoreHero = () => {
+  const apiRef = React.useRef<FullScreenFXAPI>(null);
+
+  const handleIndexChange = (index: number) => {
+    const section = sections[index];
+    if (section?.audioSrc) {
+      const audio = new Audio(section.audioSrc);
+      audio.volume = 0.3; // Subtle feedback
+      audio.play().catch(() => {
+        // Ignore autoplay restrictions
+      });
+    }
+  };
+
   return (
-    <section className="core-section" style={{ minHeight: '80vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-      <div className="animate-reveal">
-        <span className="text-premium-mono">Engineering Mastery</span>
-        <h1 className="text-premium-display" style={{ marginTop: '20px', marginBottom: '30px' }}>
-          CoreWith<span style={{ color: 'var(--core-red)' }}>Ashish</span>
-        </h1>
-        <p style={{ fontSize: '1.25rem', maxWidth: '600px', color: 'var(--core-gray-600)', marginBottom: '40px' }}>
-          Architecting scalable systems and mastering high-performance computation. A deep dive into the core of technical excellence.
-        </p>
-        <div style={{ display: 'flex', gap: '20px' }}>
-          <button className="core-btn">
-            Read My POV <ArrowRight size={18} />
-          </button>
-          <button className="core-btn-outline core-btn">
-            Explore Vaults
-          </button>
-        </div>
-      </div>
-    </section>
+    <div className="core-hero-fullscreen">
+      <FullScreenScrollFX
+        apiRef={apiRef}
+        sections={sections}
+        fontFamily="var(--font-outfit), system-ui, sans-serif"
+        header={
+          <>
+            <div>The Creative</div>
+            <div>Process</div>
+          </>
+        }
+        footer={<div></div>}
+        showProgress
+        durations={{ change: 0.9, snap: 1000 }}
+        onIndexChange={handleIndexChange}
+      />
+    </div>
   );
 };
 
 export default CoreHero;
+
+
+

@@ -60,7 +60,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${outfit.variable} antialiased`} style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>
+      <body className={`${inter.variable} ${outfit.variable} antialiased`}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
