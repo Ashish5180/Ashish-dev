@@ -462,7 +462,7 @@ export default function AboutMe() {
                                 marginTop: 12, padding: "13px 30px", borderRadius: 999,
                                 border: "1.5px solid #333", background: "transparent", color: "#fff",
                                 ...S, fontSize: 12, letterSpacing: 2, textTransform: "uppercase",
-                                cursor: "none",
+                                cursor: "pointer",
                             }}
                         >
                             ok fine, go back →
@@ -526,7 +526,7 @@ export default function AboutMe() {
                                     ...S, fontWeight: 800,
                                     fontSize: "clamp(32px,3.8vw,52px)",
                                     lineHeight: 1.1, letterSpacing: -2,
-                                    color: "#0E0E0E", cursor: "none",
+                                    color: "#0E0E0E", cursor: "pointer",
                                 }}
                             >
                                 {HEADLINES[hlIdx][0]}<br />
@@ -562,7 +562,7 @@ export default function AboutMe() {
                                             background: mood === m ? "#0E0E0E" : "transparent",
                                             color: mood === m ? "#fff" : "#888",
                                             ...S, fontSize: 12, fontWeight: 600,
-                                            cursor: "none", transition: "all .2s",
+                                            cursor: "pointer", transition: "all .2s",
                                         }}
                                     >
                                         {MOODS[m].icon} {MOODS[m].label}
@@ -606,7 +606,7 @@ export default function AboutMe() {
                                             background: sk.bg, color: sk.fg,
                                             border: `1.5px solid ${sk.bg}`,
                                             ...S, fontSize: 12, fontWeight: 600,
-                                            cursor: "none", position: "relative",
+                                            cursor: "pointer", position: "relative",
                                         }}
                                     >
                                         {sk.icon}
@@ -686,7 +686,7 @@ export default function AboutMe() {
                             <div
                                 onClick={handleCoffeeClick}
 
-                                style={{ height: 10, background: "#E8E6E0", borderRadius: 999, overflow: "hidden", cursor: "none" }}
+                                style={{ height: 10, background: "#E8E6E0", borderRadius: 999, overflow: "hidden", cursor: "pointer" }}
                             >
                                 <motion.div
                                     animate={{ width: `${(coffee / 4) * 100}%` }}
@@ -716,7 +716,7 @@ export default function AboutMe() {
                                 display: "flex", alignItems: "center", gap: 14,
                                 padding: "16px 20px", borderRadius: 12,
                                 border: "1.5px dashed #D8D6D0", background: "transparent",
-                                cursor: "none", textAlign: "left", width: "100%",
+                                cursor: "pointer", textAlign: "left", width: "100%",
                             }}
                         >
                             <div style={{
@@ -745,7 +745,7 @@ export default function AboutMe() {
                                     background: "#0E0E0E", color: "#FAFAF8",
                                     ...S, fontWeight: 700, fontSize: 14,
                                     padding: "17px 24px", borderRadius: 12,
-                                    textDecoration: "none", cursor: "none",
+                                    textDecoration: "none", cursor: "pointer",
                                     border: "2px solid #0E0E0E",
                                     transition: "background .25s, color .25s",
                                 }}
@@ -767,7 +767,7 @@ export default function AboutMe() {
                                 style={{
                                     padding: "17px 18px", borderRadius: 12,
                                     border: "1.5px solid #E8E6E0", background: "transparent",
-                                    cursor: "none", display: "flex", alignItems: "center", justifyContent: "center",
+                                    cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
                                     transition: "background .2s",
                                 }}
                             >

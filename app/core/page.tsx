@@ -12,7 +12,7 @@ export default function CoreWithAshishPage() {
 
 
       <CoreHero />
-      <POVBlogGrid />
+      {/* <POVBlogGrid /> */}
       <Gallery />
 
 

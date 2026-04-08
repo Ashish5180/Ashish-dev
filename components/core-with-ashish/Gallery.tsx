@@ -17,57 +17,57 @@ interface GalleryItem {
 const galleryItems: GalleryItem[] = [
   {
     id: 1,
-    title: "The Quiet Peaks",
-    category: "Adventure",
-    description: "Beyond the screen, I find my rhythm in the wild. Hiking isn't just about the view; it's about the climb.",
+    title: "Untracked Paths",
+    category: "Roaming",
+    description: "It's not about the hike; it's about roaming through the raw wilderness where I can be my real, silly self without an audience.",
     size: 'large',
     icon: <Mountain className="w-5 h-5" />
   },
   {
     id: 2,
-    title: "Vinyl & Vibes",
-    category: "Music",
-    description: "Analog soul in a digital world. My collection is my sanctuary.",
+    title: "Vibes > Music",
+    category: "Feel",
+    description: "I don't just hear music; I live it. Whether it's dancing silly or just feeling the raw bass, it's about the moment.",
     size: 'medium',
     icon: <Music className="w-5 h-5" />
   },
   {
     id: 3,
-    title: "Dark Roast",
-    category: "Coffee",
-    description: "6:00 AM. The smell of freshly ground beans. My morning meditation.",
+    title: "Unfiltered Mornings",
+    category: "Routine",
+    description: "Before the world wakes up, I'm just me. A silly morning face and a raw cup of coffee—no filters required.",
     size: 'small',
     icon: <Coffee className="w-5 h-5" />
   },
   {
     id: 4,
-    title: "Moment Captured",
-    category: "Photography",
-    description: "Seeing the world through a 35mm lens. Raw, unedited life.",
+    title: "Raw Frames",
+    category: "Reality",
+    description: "Capturing the unposed, the messy, and the silly. This is my raw life in 35mm, exactly as it happens.",
     size: 'small',
     icon: <Camera className="w-5 h-5" />
   },
   {
     id: 5,
-    title: "Wanderlust",
-    category: "Travel",
-    description: "Getting lost in cities where I don't speak the language. That's where I find myself.",
+    title: "Roaming Free",
+    category: "Exploration",
+    description: "Getting lost on purpose. Roaming through unknown streets and doing silly things just to feel alive.",
     size: 'medium',
     icon: <MapPin className="w-5 h-5" />
   },
   {
     id: 6,
-    title: "Iron & Grit",
-    category: "Fitness",
-    description: "The gym is where I debug my mind. Pushing weights, finding focus.",
+    title: "Pure Grit",
+    category: "Basics",
+    description: "The gym isn't for the 'gram. It's for the raw effort, the sweat, and the silly grit of pushing past my limits.",
     size: 'large',
     icon: <Zap className="w-5 h-5" />
   },
   {
     id: 7,
-    title: "Late Night Code",
-    category: "Real Talk",
-    description: "Sometimes the best ideas come when the world is asleep. Just me and the terminal.",
+    title: "The Human Core",
+    category: "Truth",
+    description: "I am not the person who just hears music and watches movies. I am here to roam, be silly, and enjoy my raw life.",
     size: 'medium',
     icon: <Heart className="w-5 h-5" />
   }
@@ -107,7 +107,7 @@ export const Gallery: React.FC = () => {
             className="md:text-right"
           >
             <p className="text-gray-400 font-medium max-w-xs leading-relaxed italic">
-              &quot;Building software is my profession, but exploring existence is my passion.&quot;
+              &quot;I am not that person who just hears music and watches movies—I am here to roam, do silly things, and enjoy my raw life.&quot;
             </p>
           </motion.div>
         </div>

@@ -5,42 +5,28 @@ import { FullScreenScrollFX, FullScreenFXAPI } from "@/components/ui/full-screen
 
 const sections = [
   {
-    leftLabel: "Silence",
-    title: <>Absence</>,
-    rightLabel: "Silence",
+    leftLabel: "O(1)",
+    title: <>Constant</>,
+    rightLabel: "Efficiency",
     background: "https://images.pexels.com/photos/3289156/pexels-photo-3289156.jpeg",
-    audioSrc: "/sfx/click-01.mp3",
   },
   {
-    leftLabel: "Essence",
-    title: <>Stillness</>,
-    rightLabel: "Essence",
+    leftLabel: "O(log N)",
+    title: <>Scalable</>,
+    rightLabel: "Architecture",
     background: "https://images.pexels.com/photos/163790/at-night-under-a-lantern-guy-night-city-163790.jpeg",
-    audioSrc: "/sfx/whoosh-02.mp3",
   },
   {
-    leftLabel: "Rebirth",
-    title: <>Growth</>,
-    rightLabel: "Rebirth",
+    leftLabel: "O(N)",
+    title: <>Optimal</>,
+    rightLabel: "Solution",
     background: "https://images.pexels.com/photos/9817/pexels-photo-9817.jpeg",
-    audioSrc: "/sfx/whoosh-02.mp3",
   },
 ];
 
 
 const CoreHero = () => {
   const apiRef = React.useRef<FullScreenFXAPI>(null);
-
-  const handleIndexChange = (index: number) => {
-    const section = sections[index];
-    if (section?.audioSrc) {
-      const audio = new Audio(section.audioSrc);
-      audio.volume = 0.3; // Subtle feedback
-      audio.play().catch(() => {
-        // Ignore autoplay restrictions
-      });
-    }
-  };
 
   return (
     <div className="core-hero-fullscreen">
@@ -50,14 +36,13 @@ const CoreHero = () => {
         fontFamily="var(--font-outfit), system-ui, sans-serif"
         header={
           <>
-            <div>The Creative</div>
-            <div>Process</div>
+            <div>The Core</div>
+            <div>Logic</div>
           </>
         }
         footer={<div></div>}
         showProgress
         durations={{ change: 0.9, snap: 1000 }}
-        onIndexChange={handleIndexChange}
       />
     </div>
   );
