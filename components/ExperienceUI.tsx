@@ -4,7 +4,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { motion, useInView, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import dynamic from "next/dynamic";
 
-const CircularGallery = dynamic(() => import("@/components/CircularGallery"), { ssr: false });
+// Removed CircularGallery dynamic import as it's being replaced by a more premium bento hero.
 import { EXPERIENCES, EXPERIENCE_STATS, TECH_STACK } from "@/lib/experience-data";
 import { PROJECTS } from "@/lib/projects-data";
 import {
@@ -14,6 +14,16 @@ import {
   Calendar,
   Plus,
 } from "lucide-react";
+import { 
+  Cpu, 
+  Brain, 
+  Lightning, 
+  Globe, 
+  ChartBar, 
+  TerminalWindow,
+  Sparkle,
+  Cube
+} from "@phosphor-icons/react";
 
 /* ═══════════════════════════════════════════════════════════════════
    CSS
@@ -24,71 +34,164 @@ const CSS = `
 .xp * { box-sizing: border-box; }
 
 /* ── GALLERY HERO ── */
-.xp-gallery-hero {
+/* ── PREMIUM BENTO HERO ── */
+.xp-premium-hero {
   width: 100%;
-  position: relative;
-  background: linear-gradient(135deg, #f8f6f3 0%, #ede9e3 50%, #f5f2ee 100%);
+  min-height: 85vh;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  background: #111;
   overflow: hidden;
-}
-.xp-gallery-container {
-  width: 100%;
-  height: 520px;
   position: relative;
 }
-@media (max-width: 768px) {
-  .xp-gallery-container { height: 400px; }
-}
-.xp-glass-card {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10;
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 20px;
-  padding: clamp(24px, 3vw, 40px);
-  max-width: 420px;
-  width: 90%;
-  text-align: center;
-  pointer-events: none;
-  box-shadow: 0 8px 32px rgba(0,0,0,.06), inset 0 1px 0 rgba(255,255,255,.4);
-}
-@media (max-width: 768px) {
-  .xp-glass-card {
-    max-width: 320px;
-    padding: 20px;
-    border-radius: 16px;
+
+@media (max-width: 1024px) {
+  .xp-premium-hero {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    min-height: auto;
   }
 }
-.xp-glass-tag {
+
+.xp-hero-left {
+  background: #111;
+  padding: clamp(60px, 8vw, 100px) clamp(30px, 5vw, 80px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+.xp-hero-right {
+  background: #f2f2f0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+@media (max-width: 1024px) {
+  .xp-hero-right {
+    padding: 60px 24px;
+    background: #fafaf8;
+  }
+}
+
+.xp-bento-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 16px;
+  width: 100%;
+  height: 100%;
+  max-width: 600px;
+  max-height: 600px;
+  aspect-ratio: 1;
+}
+
+.xp-bento-item {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(16px, 2.5vw, 28px);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+}
+
+.xp-bento-item:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: #c0392b;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+}
+
+.xp-bento-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(192, 57, 43, 0.04), transparent);
+  pointer-events: none;
+}
+
+.xp-bento-icon-wrapper {
+  color: #c0392b;
+  background: rgba(192, 57, 43, 0.05);
+  width: clamp(40px, 4vw, 56px);
+  height: clamp(40px, 4vw, 56px);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: auto;
+  transition: all 0.4s ease;
+}
+
+.xp-bento-item:hover .xp-bento-icon-wrapper {
+  background: #c0392b;
+  color: #fff;
+  transform: rotate(-5deg);
+}
+
+.xp-bento-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(14px, 1.5vw, 18px);
+  font-weight: 700;
+  color: #111;
+  margin: 12px 0 6px;
+  line-height: 1.2;
+}
+
+.xp-bento-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(10px, 1vw, 12px);
+  font-weight: 400;
+  color: #888;
+  line-height: 1.5;
+}
+
+.xp-bento-1 { grid-area: 1 / 1 / 3 / 3; }
+.xp-bento-2 { grid-area: 1 / 3 / 2 / 5; }
+.xp-bento-3 { grid-area: 2 / 3 / 4 / 4; }
+.xp-bento-4 { grid-area: 2 / 4 / 4 / 5; }
+.xp-bento-5 { grid-area: 3 / 1 / 5 / 3; }
+.xp-bento-6 { grid-area: 4 / 3 / 5 / 5; }
+
+.xp-hero-num {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(80px, 12vw, 160px);
+  font-weight: 900;
+  color: rgba(255,255,255,0.03);
+  position: absolute;
+  top: 20px;
+  left: 40px;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.xp-status-pill {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   background: rgba(192, 57, 43, 0.1);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(192, 57, 43, 0.15);
-  padding: 5px 14px;
-  border-radius: 20px;
-  margin-bottom: 16px;
+  border: 1px solid rgba(192, 57, 43, 0.2);
+  padding: 6px 14px;
+  border-radius: 100px;
+  margin-bottom: 24px;
 }
-.xp-scroll-hint {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(255,255,255,.6);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(0,0,0,.06);
-  padding: 8px 20px;
-  border-radius: 24px;
+
+.xp-thought-box {
+  border-left: 2px solid #c0392b;
+  padding-left: 24px;
+  margin-top: 40px;
+  max-width: 500px;
 }
+
 
 /* ── EXPERIENCE CARDS ── */
 .xp-exp-grid {
@@ -223,15 +326,43 @@ const CSS = `
 /* ═══════════════════════════════════════════════════════════════════
    GALLERY DATA
    ═══════════════════════════════════════════════════════════════════ */
-const GALLERY_ITEMS = [
-  { image: "/img1.jpeg", text: "Always Shipping" },
-  { image: "/img2.jpeg", text: "The Vision" },
-  { image: "/img3.jpeg", text: "Built Different" },
-  { image: "/img4.jpeg", text: "Never Settle" },
-  { image: "/img2.jpeg", text: "Scale Minded" },
-  { image: "/img3.jpeg", text: "Problem Solver" },
-  { image: "/img1.jpeg", text: "Full Stack" },
-  { image: "/img4.jpeg", text: "Ship Fast" },
+const CORE_PILLARS = [
+  { 
+    icon: <Cpu weight="duotone" size={32} />, 
+    title: "System Design", 
+    desc: "Architecting scalable distributed systems and high-performance backends.",
+    area: "xp-bento-1"
+  },
+  { 
+    icon: <Brain weight="duotone" size={20} />, 
+    title: "AI Solutions", 
+    desc: "LLMs, Computer Vision.",
+    area: "xp-bento-2"
+  },
+  { 
+    icon: <Lightning weight="duotone" size={20} />, 
+    title: "Velocity", 
+    desc: "Optimized for speed.",
+    area: "xp-bento-3"
+  },
+  { 
+    icon: <Globe weight="duotone" size={20} />, 
+    title: "Full-Stack", 
+    desc: "Next.js & Go stacks.",
+    area: "xp-bento-4"
+  },
+  { 
+    icon: <ChartBar weight="duotone" size={32} />, 
+    title: "Data Pipelines", 
+    desc: "Automating complex workflows with real-time data ingestion and processing.",
+    area: "xp-bento-5"
+  },
+  { 
+    icon: <TerminalWindow weight="duotone" size={20} />, 
+    title: "B2B SaaS", 
+    desc: "Custom Enterprise Ops.",
+    area: "xp-bento-6"
+  },
 ];
 
 const THOUGHTS = [
@@ -245,94 +376,198 @@ const THOUGHTS = [
    SECTION 1 — CIRCULAR GALLERY HERO
    3D WebGL gallery with glassmorphism overlay thoughts
    ═══════════════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════════════
+   SECTION 1 — PREMIUM BENTO HERO
+   High-impact typography + Bento image grid
+   ═══════════════════════════════════════════════════════════════════ */
 function GalleryHero() {
   const [thoughtIdx, setThoughtIdx] = useState(0);
 
   useEffect(() => {
-    const t = setInterval(() => setThoughtIdx(p => (p + 1) % THOUGHTS.length), 4500);
+    const t = setInterval(() => setThoughtIdx(p => (p + 1) % THOUGHTS.length), 5000);
     return () => clearInterval(t);
   }, []);
 
   const thought = THOUGHTS[thoughtIdx];
 
   return (
-    <section className="xp-gallery-hero">
-      {/* Subtle dot pattern */}
-      <div style={{
-        position: "absolute", inset: 0, opacity: 0.03, pointerEvents: "none",
-        backgroundImage: "radial-gradient(circle, #000 1px, transparent 1px)",
-        backgroundSize: "24px 24px",
-      }} />
+    <section className="xp-premium-hero">
+      <div className="xp-hero-num">02</div>
 
-      {/* CircularGallery */}
-      <div className="xp-gallery-container">
-        <CircularGallery
-          items={GALLERY_ITEMS}
-          bend={1}
-          textColor="#888888"
-          borderRadius={0.05}
-          scrollSpeed={2}
-          scrollEase={0.05}
-        />
-
-        {/* Glassmorphism overlay card */}
-        <div className="xp-glass-card">
-          {/* Tag */}
-          <div className="xp-glass-tag">
-            <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#c0392b" }} />
-            <span style={{
-              fontFamily: "'Outfit', sans-serif", fontSize: 9, fontWeight: 800,
-              letterSpacing: ".2em", textTransform: "uppercase", color: "#c0392b",
-            }}>
-              Why I&apos;m Built Different
+      {/* LEFT — Typography & Philosophy */}
+      <div className="xp-hero-left">
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <div className="xp-status-pill">
+            <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#c0392b", boxShadow: "0 0 10px rgba(192,57,43,0.5)" }} />
+            <span style={{ fontFamily: "'Outfit', sans-serif", fontSize: 10, fontWeight: 800, letterSpacing: ".2em", textTransform: "uppercase", color: "#c0392b" }}>
+              Archive 2021—2024
             </span>
           </div>
 
-          {/* Animated thought */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={thoughtIdx}
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.45, ease: [0.25, 0.8, 0.25, 1] }}
-            >
-              <p style={{
-                fontFamily: "'Outfit', sans-serif",
-                fontSize: "clamp(18px, 2.5vw, 24px)",
-                fontWeight: 800,
-                letterSpacing: "-.02em",
-                color: "#1a1a1a",
-                lineHeight: 1.35,
-                margin: "0 0 14px",
-                whiteSpace: "pre-line",
-              }}>
-                {thought.text}
-              </p>
-              <span style={{
-                fontFamily: "'Outfit', sans-serif",
-                fontSize: 11, fontWeight: 700,
-                letterSpacing: ".1em", textTransform: "uppercase",
-                color: "#c0392b",
-              }}>
-                {thought.accent}
-              </span>
-            </motion.div>
-          </AnimatePresence>
-        </div>
+          <h1 style={{
+            fontFamily: "'Outfit', sans-serif",
+            fontSize: "clamp(48px, 6vw, 90px)",
+            fontWeight: 900,
+            lineHeight: 0.9,
+            letterSpacing: "-.04em",
+            color: "#fff",
+            margin: "0 0 20px",
+            textTransform: "uppercase"
+          }}>
+            {"Building".split("").map((char, i) => (
+              <motion.span
+                key={i}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: i * 0.03 }}
+                style={{ display: "inline-block" }}
+              >
+                {char}
+              </motion.span>
+            ))}
+            <br />
+            <span style={{ color: "transparent", WebkitTextStroke: "1px rgba(255,255,255,0.3)" }}>
+              {"Better".split("").map((char, i) => (
+                <motion.span
+                  key={i}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.3 + i * 0.03 }}
+                  style={{ display: "inline-block" }}
+                >
+                  {char}
+                </motion.span>
+              ))}
+            </span> <br />
+            {"Systems.".split("").map((char, i) => (
+              <motion.span
+                key={i}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.6 + i * 0.03 }}
+                style={{ display: "inline-block" }}
+              >
+                {char}
+              </motion.span>
+            ))}
+          </h1>
+
+
+          <p style={{
+            fontFamily: "'Inter', sans-serif",
+            fontSize: 16,
+            fontWeight: 300,
+            lineHeight: 1.6,
+            color: "#888",
+            maxWidth: 440,
+            margin: 0
+          }}>
+            A curated selection of engineering milestones, from distributed ERP architectures to AI-powered consumer platforms.
+          </p>
+
+          <div className="xp-thought-box">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={thoughtIdx}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.5 }}
+              >
+                <p style={{
+                  fontFamily: "'Outfit', sans-serif",
+                  fontSize: 20,
+                  fontWeight: 700,
+                  color: "#fff",
+                  lineHeight: 1.4,
+                  margin: "0 0 8px",
+                  whiteSpace: "pre-line"
+                }}>
+                  &ldquo;{thought.text}&rdquo;
+                </p>
+                <span style={{
+                  fontFamily: "'Outfit', sans-serif",
+                  fontSize: 10,
+                  fontWeight: 800,
+                  letterSpacing: ".15em",
+                  textTransform: "uppercase",
+                  color: "#c0392b"
+                }}>
+                  {thought.accent}
+                </span>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Progress bar for thought rotation */}
+            <div style={{ width: "100%", height: 2, background: "rgba(255,255,255,0.05)", marginTop: 24, position: "relative" }}>
+              <motion.div
+                key={thoughtIdx}
+                initial={{ width: 0 }}
+                animate={{ width: "100%" }}
+                transition={{ duration: 5, ease: "linear" }}
+                style={{ position: "absolute", top: 0, left: 0, height: "100%", background: "#c0392b" }}
+              />
+            </div>
+          </div>
+        </motion.div>
       </div>
 
-      {/* Scroll hint */}
-      <div className="xp-scroll-hint">
-        <span style={{
-          fontFamily: "'Outfit', sans-serif", fontSize: 9, fontWeight: 700,
-          letterSpacing: ".15em", textTransform: "uppercase", color: "#999",
+      {/* RIGHT — Bento Gallery */}
+      <div className="xp-hero-right">
+        {/* Decorative scanline effect */}
+        <div style={{
+          position: "absolute", inset: 0, pointerEvents: "none", zIndex: 3,
+          background: "repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(0,0,0,0.01) 1px, rgba(0,0,0,0.01) 2px)",
+          backgroundSize: "100% 2px"
+        }} />
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="xp-bento-grid"
+          style={{ perspective: "1000px" }}
+        >
+          {CORE_PILLARS.map((item, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 + i * 0.1 }}
+              className={`xp-bento-item ${item.area}`}
+            >
+              <div className="xp-bento-icon-wrapper">
+                {item.icon}
+              </div>
+              <div className="xp-bento-text">
+                <h4 className="xp-bento-title">{item.title}</h4>
+                <p className="xp-bento-desc">{item.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+
+
+        {/* Abstract decor */}
+        <div style={{
+          position: "absolute",
+          bottom: 20,
+          right: 20,
+          fontFamily: "'Outfit', sans-serif",
+          fontSize: 10,
+          fontWeight: 800,
+          color: "rgba(0,0,0,0.1)",
+          transform: "rotate(-90deg)",
+          transformOrigin: "bottom right",
+          letterSpacing: ".5em",
+          textTransform: "uppercase"
         }}>
-          Drag to explore
-        </span>
-        <svg width="16" height="10" viewBox="0 0 16 10" fill="none" style={{ opacity: 0.4 }}>
-          <path d="M1 1L8 8L15 1" stroke="#999" strokeWidth="1.5" strokeLinecap="round" />
-        </svg>
+          Visual Archive
+        </div>
       </div>
     </section>
   );
@@ -881,18 +1116,18 @@ function TechMarquee() {
               background: "#fff", border: "1px solid rgba(0,0,0,.06)",
               whiteSpace: "nowrap", transition: "all .3s", cursor: "default", flexShrink: 0,
             }}
-            onMouseEnter={e => {
-              e.currentTarget.style.background = "#111";
-              e.currentTarget.style.color = "#fff";
-              e.currentTarget.style.borderColor = "#111";
-              e.currentTarget.style.transform = "translateY(-2px)";
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.background = "#fff";
-              e.currentTarget.style.color = "#888";
-              e.currentTarget.style.borderColor = "rgba(0,0,0,.06)";
-              e.currentTarget.style.transform = "none";
-            }}>
+              onMouseEnter={e => {
+                e.currentTarget.style.background = "#111";
+                e.currentTarget.style.color = "#fff";
+                e.currentTarget.style.borderColor = "#111";
+                e.currentTarget.style.transform = "translateY(-2px)";
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.background = "#fff";
+                e.currentTarget.style.color = "#888";
+                e.currentTarget.style.borderColor = "rgba(0,0,0,.06)";
+                e.currentTarget.style.transform = "none";
+              }}>
               {tech}
             </span>
           ))}
