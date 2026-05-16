@@ -1,6 +1,7 @@
 import React, { useCallback, useLayoutEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { gsap } from 'gsap';
+import { motion, AnimatePresence } from 'framer-motion';
 import './StaggeredMenu.css';
 
 export const StaggeredMenu = ({
@@ -114,7 +115,7 @@ export const StaggeredMenu = ({
     tl.fromTo(
       panel,
       { xPercent: panelStart },
-      { xPercent: 0, duration: panelDuration, ease: 'power4.out' },
+      { xPercent: 0, duration: panelDuration, ease: 'power3.out' },
       panelInsertTime
     );
 
@@ -127,7 +128,7 @@ export const StaggeredMenu = ({
           yPercent: 0,
           rotate: 0,
           duration: 1,
-          ease: 'power4.out',
+          ease: 'power3.out',
           stagger: { each: 0.1, from: 'start' }
         },
         itemsStart
@@ -210,7 +211,7 @@ export const StaggeredMenu = ({
     closeTweenRef.current = gsap.to(all, {
       xPercent: offscreen,
       duration: 0.32,
-      ease: 'power3.in',
+      ease: 'power3.inOut',
       overwrite: 'auto',
       onComplete: () => {
         const itemEls = Array.from(panel.querySelectorAll('.sm-panel-itemLabel'));
@@ -346,7 +347,70 @@ export const StaggeredMenu = ({
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [closeOnClickAway, open, closeMenu]);
+  }, [playClose, animateIcon, animateColor, animateText, onMenuClose]);
+
+  const GoldenSnitch = () => (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      style={{
+        position: 'absolute',
+        bottom: '20%',
+        right: '15%',
+        width: 40,
+        height: 40,
+        zIndex: 5,
+        pointerEvents: 'none'
+      }}
+    >
+      {/* Wings */}
+      <motion.div
+        animate={{ 
+          rotateY: [0, 80, 0],
+          scaleY: [1, 1.2, 1]
+        }}
+        transition={{ duration: 0.1, repeat: Infinity, ease: "linear" }}
+        style={{
+          position: 'absolute',
+          top: 0, left: -20, width: 30, height: 10,
+          background: 'linear-gradient(90deg, rgba(255,215,0,0.8), transparent)',
+          borderRadius: '50% 0 0 50%',
+          transformOrigin: 'right center'
+        }}
+      />
+      <motion.div
+        animate={{ 
+          rotateY: [0, -80, 0],
+          scaleY: [1, 1.2, 1]
+        }}
+        transition={{ duration: 0.1, repeat: Infinity, ease: "linear" }}
+        style={{
+          position: 'absolute',
+          top: 0, right: -20, width: 30, height: 10,
+          background: 'linear-gradient(-90deg, rgba(255,215,0,0.8), transparent)',
+          borderRadius: '0 50% 50% 0',
+          transformOrigin: 'left center'
+        }}
+      />
+      {/* Body */}
+      <motion.div
+        animate={{ 
+          y: [0, -20, 0],
+          x: [0, 15, -15, 0],
+          rotate: [0, 10, -10, 0]
+        }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        style={{
+          width: 20, height: 20,
+          background: 'radial-gradient(circle at 30% 30%, #ffd700, #b8860b)',
+          borderRadius: '50%',
+          boxShadow: '0 0 15px rgba(255,215,0,0.6)',
+          margin: '10px auto'
+        }}
+      />
+    </motion.div>
+  );
 
   return (
     <div
@@ -439,6 +503,9 @@ export const StaggeredMenu = ({
               </ul>
             </div>
           )}
+          <AnimatePresence>
+            {open && <GoldenSnitch />}
+          </AnimatePresence>
         </div>
       </aside>
     </div>

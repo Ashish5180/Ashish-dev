@@ -237,7 +237,7 @@ function HeroSectionDesktop() {
                     }}>
                         <span style={{ fontSize: 9, fontWeight: 900, color: "#fff" }}>AY</span>
                     </div>
-                    AY · BACKEND ENGINEER · INDIA
+                    AY · SOFTWARE DEVELOPER INTERN · INDIA
                 </div>
 
                 {/* Main headline */}
@@ -396,7 +396,7 @@ function HeroSectionDesktop() {
                 className="hs-img-in hs-portrait"
                 style={{
                     position: "absolute",
-                    left: "54%",
+                    left: "50%",
                     transform: "translateX(-50%)",
                     top: 40,
                     bottom: -20,
@@ -405,7 +405,7 @@ function HeroSectionDesktop() {
                 }}
             >
                 <Image
-                    src="/img2.png"
+                    src="/my.png"
                     alt="Ashish Yaduvanshi"
                     fill
                     style={{ objectFit: "cover" }}
@@ -476,31 +476,7 @@ function HeroSectionDesktop() {
                         </span>
                     </div>
 
-                    {/* Slide number */}
-                    <div
-                        className="hs-fade-up hs-delay-2"
-                        style={{
-                            fontSize: "clamp(80px, 11vw, 130px)",
-                            fontWeight: 900,
-                            letterSpacing: "-.04em",
-                            color: "#111",
-                            lineHeight: 1,
-                        }}
-                    >
-                        01
-                        <sup
-                            style={{
-                                fontSize: 18,
-                                fontWeight: 300,
-                                letterSpacing: ".05em",
-                                color: "#aaa",
-                                verticalAlign: "super",
-                                marginLeft: 2,
-                            }}
-                        >
-                            /04
-                        </sup>
-                    </div>
+
                 </div>
                 {/* Mid: heading + description */}
                 <div className="hs-fade-up hs-delay-5">

@@ -35,7 +35,7 @@ export default function Navbar() {
         items={menuItems}
         socialItems={socialItems}
         displaySocials
-        displayItemNumbering={true}
+        displayItemNumbering={false}
         logoText="Developer Ashish"
         menuButtonColor="#000000"
         openMenuButtonColor="#fff"

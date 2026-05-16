@@ -234,7 +234,7 @@ export default function HeroSection2() {
                             Ashish
                         </span>
                         <span style={{ fontSize: 8, fontWeight: 500, color: "#999", letterSpacing: ".1em", textTransform: "uppercase", lineHeight: 1.4 }}>
-                            SDE · Full Stack
+                            Software Developer Intern
                         </span>
                     </div>
                 </div>

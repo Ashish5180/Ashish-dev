@@ -157,8 +157,8 @@ const CSS = `
 
 .xp-bento-1 { grid-area: 1 / 1 / 3 / 3; }
 .xp-bento-2 { grid-area: 1 / 3 / 2 / 5; }
-.xp-bento-3 { grid-area: 2 / 3 / 4 / 4; }
-.xp-bento-4 { grid-area: 2 / 4 / 4 / 5; }
+.xp-bento-3 { grid-area: 2 / 3 / 3 / 5; }
+.xp-bento-4 { grid-area: 3 / 3 / 4 / 5; }
 .xp-bento-5 { grid-area: 3 / 1 / 5 / 3; }
 .xp-bento-6 { grid-area: 4 / 3 / 5 / 5; }
 
@@ -392,7 +392,33 @@ function GalleryHero() {
 
   return (
     <section className="xp-premium-hero">
-      <div className="xp-hero-num">02</div>
+
+      {/* Harry Potter Easter Egg — Deathly Hallows Watermark */}
+      <div style={{
+        position: 'absolute',
+        top: '10%',
+        right: '5%',
+        opacity: 0.03,
+        pointerEvents: 'none',
+        zIndex: 1,
+        color: '#fff',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center'
+      }}>
+        <svg width="120" height="120" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M50 10 L90 85 L10 85 Z" /> {/* Triangle */}
+          <circle cx="50" cy="60" r="25" /> {/* Circle */}
+          <line x1="50" y1="10" x2="50" y2="85" /> {/* Line */}
+        </svg>
+        <span style={{ 
+          fontFamily: "'Cinzel', serif", 
+          fontSize: 12, 
+          marginTop: 8, 
+          letterSpacing: '0.4em',
+          textTransform: 'uppercase'
+        }}>Always</span>
+      </div>
 
       {/* LEFT — Typography & Philosophy */}
       <div className="xp-hero-left">
@@ -401,12 +427,7 @@ function GalleryHero() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <div className="xp-status-pill">
-            <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#c0392b", boxShadow: "0 0 10px rgba(192,57,43,0.5)" }} />
-            <span style={{ fontFamily: "'Outfit', sans-serif", fontSize: 10, fontWeight: 800, letterSpacing: ".2em", textTransform: "uppercase", color: "#c0392b" }}>
-              Archive 2021—2024
-            </span>
-          </div>
+
 
           <h1 style={{
             fontFamily: "'Outfit', sans-serif",
@@ -899,7 +920,7 @@ function ProjectPanel({ project, index }: { project: typeof PROJECTS[0]; index: 
       <div style={{ position: "relative", zIndex: 1, padding: "clamp(24px, 3.5vw, 44px) clamp(24px, 5vw, 64px)" }}>
         {/* Main row */}
         <div style={{ display: "flex", alignItems: "center", gap: "clamp(16px, 3vw, 36px)" }}>
-          <span className="xp-proj-num">{project.num}</span>
+
 
           <div style={{ flex: 1, minWidth: 0 }}>
             <h3 className="xp-proj-title">{project.title}</h3>
