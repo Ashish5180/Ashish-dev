@@ -11,7 +11,7 @@ import Image from "next/image";
 const SOCIALS = ["LinkedIn", "GitHub", "Twitter"] as const;
 
 const STATS = [
-    { num: "3+", label: "Years Exp." },
+    { num: "2+", label: "Years Exp." },
     { num: "12+", label: "Products" },
     { num: "8", label: "Technologies" },
 ] as const;
@@ -49,7 +49,7 @@ function HeroSectionDesktop() {
         stylesInjected.current = true;
         const style = document.createElement("style");
         style.textContent = `
-      @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;300;400;700;900&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;300;400;700;900&family=Inter:wght@300;400;500;600&display=swap');
 
       @keyframes hs-up   { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:none; } }
       @keyframes hs-slam { from { opacity:0; transform:translateY(60px); } to { opacity:1; transform:none; } }
@@ -175,6 +175,7 @@ function HeroSectionDesktop() {
 
     /* ── shared style tokens ── */
     const font = "'League Spartan', sans-serif";
+    const fontBody = "'Inter', sans-serif";
     const gridPattern = (dark: boolean): React.CSSProperties => ({
         position: "absolute",
         inset: 0,
@@ -203,7 +204,7 @@ function HeroSectionDesktop() {
             <div
                 className="hs-left-panel"
                 style={{
-                    background: "#111",
+                    background: "#080808",
                     position: "relative",
                     display: "flex",
                     flexDirection: "column",
@@ -219,18 +220,24 @@ function HeroSectionDesktop() {
                     className="hs-fade-up hs-delay-0"
                     style={{
                         fontSize: 10,
-                        fontWeight: 400,
+                        fontWeight: 700,
                         letterSpacing: ".28em",
                         textTransform: "uppercase",
-                        color: "#aaa",
+                        color: "#666",
                         marginBottom: 18,
                         display: "flex",
                         alignItems: "center",
-                        gap: 10,
+                        gap: 12,
                     }}
                 >
-                    <span style={{ display: "inline-block", width: 24, height: 1, background: "#555" }} />
-                    Full Stack Engineer · India
+                    <div style={{
+                        width: 24, height: 24, background: "#dc2626", borderRadius: 4,
+                        display: "flex", alignItems: "center", justifyContent: "center",
+                        boxShadow: "0 0 10px rgba(220,38,38,0.3)"
+                    }}>
+                        <span style={{ fontSize: 9, fontWeight: 900, color: "#fff" }}>AY</span>
+                    </div>
+                    AY · BACKEND ENGINEER · INDIA
                 </div>
 
                 {/* Main headline */}
@@ -241,7 +248,7 @@ function HeroSectionDesktop() {
                                 display: "block",
                                 fontSize: "clamp(52px, 8.5vw, 108px)",
                                 fontWeight: 900,
-                                lineHeight: 0.88,
+                                lineHeight: 0.9,
                                 letterSpacing: "-.03em",
                                 textTransform: "uppercase",
                                 color: "#fff",
@@ -256,11 +263,11 @@ function HeroSectionDesktop() {
                                 display: "block",
                                 fontSize: "clamp(52px, 8.5vw, 108px)",
                                 fontWeight: 900,
-                                lineHeight: 0.88,
+                                lineHeight: 0.9,
                                 letterSpacing: "-.03em",
                                 textTransform: "uppercase",
                                 color: "transparent",
-                                WebkitTextStroke: "1.5px rgba(255,255,255,.2)",
+                                WebkitTextStroke: "1px rgba(255,255,255,0.2)",
                             }}
                         >
                             YADU
@@ -272,7 +279,7 @@ function HeroSectionDesktop() {
                                 display: "block",
                                 fontSize: "clamp(52px, 8.5vw, 108px)",
                                 fontWeight: 900,
-                                lineHeight: 0.88,
+                                lineHeight: 0.9,
                                 letterSpacing: "-.03em",
                                 textTransform: "uppercase",
                                 color: "#fff",
@@ -287,22 +294,22 @@ function HeroSectionDesktop() {
                 <p
                     className="hs-fade-up hs-delay-4"
                     style={{
-                        marginTop: 28,
-                        fontSize: 14,
+                        fontFamily: fontBody,
+                        fontSize: 15,
                         fontWeight: 300,
                         lineHeight: 1.7,
-                        color: "#888",
+                        color: "#999",
                         maxWidth: 360,
+                        marginTop: 16,
                     }}
                 >
-                    Building{" "}
-                    <strong style={{ color: "#fff", fontWeight: 700 }}>AI platforms</strong>,
-                    mobile apps &amp; cloud systems — where architecture meets product thinking.
+                    Architecting systems that scale. From serverless backends to AI-powered
+                    products — built for real users, not just demos.
                 </p>
                 {/* CTA buttons */}
                 <div
                     className="hs-fade-up hs-delay-5 hs-cta-buttons"
-                    style={{ display: "flex", gap: 12, marginTop: 32 }}
+                    style={{ display: "flex", gap: 16, marginTop: 40 }}
                 >
                     <button
                         className="hs-btn-solid"
@@ -322,9 +329,12 @@ function HeroSectionDesktop() {
                     >
                         Get in Touch →
                     </button>
-                    <button
+                    <a
+                        href="/Ashish.pdf"
+                        download
                         className="hs-btn-ghost"
                         style={{
+                            display: "inline-block",
                             fontFamily: font,
                             fontSize: 10,
                             fontWeight: 700,
@@ -336,10 +346,12 @@ function HeroSectionDesktop() {
                             padding: "14px 28px",
                             cursor: "pointer",
                             transition: "all .2s",
+                            textDecoration: "none",
+                            textAlign: "center"
                         }}
                     >
                         ↓ Download CV
-                    </button>
+                    </a>
                 </div>
 
                 {/* Vertical socials */}
@@ -392,7 +404,6 @@ function HeroSectionDesktop() {
                     zIndex: 20,
                 }}
             >
-
                 <Image
                     src="/img2.png"
                     alt="Ashish Yaduvanshi"
@@ -400,17 +411,13 @@ function HeroSectionDesktop() {
                     style={{ objectFit: "cover" }}
                     priority
                 />
-
-
-
-
             </div>
 
             {/* ══ RIGHT LIGHT PANEL ══ */}
             <div
                 className="hs-right-panel"
                 style={{
-                    background: "#f2f2f0",
+                    background: "#fcfaf5",
                     position: "relative",
                     display: "flex",
                     flexDirection: "column",
@@ -420,6 +427,14 @@ function HeroSectionDesktop() {
                     overflow: "hidden",
                 }}
             >
+                {/* Parchment Texture Overlay */}
+                <div style={{
+                    position: "absolute",
+                    inset: 0,
+                    opacity: 0.03,
+                    pointerEvents: "none",
+                    backgroundImage: "url('https://www.transparenttextures.com/patterns/old-map.png')",
+                }} />
                 <div style={gridPattern(false)} />
 
                 {/* Top: clock + slide number */}
@@ -487,7 +502,6 @@ function HeroSectionDesktop() {
                         </sup>
                     </div>
                 </div>
-
                 {/* Mid: heading + description */}
                 <div className="hs-fade-up hs-delay-5">
                     <div
@@ -511,7 +525,7 @@ function HeroSectionDesktop() {
                                 background: "#111",
                             }}
                         />
-                        Currently at ASOasis Tech
+                        CURRENTLY AT ASOASIS TECH
                     </div>
 
                     <h2
@@ -524,9 +538,9 @@ function HeroSectionDesktop() {
                             marginBottom: 18,
                         }}
                     >
-                        <span style={{ display: "block", color: "#dc2626" }}>Architecting</span>
-                        <span style={{ display: "block", color: "#e53e3e" }}>Intelligent</span>
-                        <span style={{ display: "block", color: "#b91c1c" }}>Systems</span>
+                        <span style={{ display: "block", color: "#dc2626" }}>Building Systems</span>
+                        <span style={{ display: "block", color: "#e53e3e" }}>That Actually</span>
+                        <span style={{ display: "block", color: "#b91c1c" }}>Scale</span>
                     </h2>
 
                     <p
@@ -535,17 +549,14 @@ function HeroSectionDesktop() {
                             fontSize: 15,
                             fontWeight: 300,
                             lineHeight: 1.75,
-                            color: "#555",
-                            maxWidth: 260,
+                            color: "#666",
+                            maxWidth: 320,
                             marginLeft: -20,
                         }}
                     >
-                        3+ years engineering{" "}
-                        <strong style={{ color: "#111", fontWeight: 700 }}>
-                            high-throughput platforms
-                        </strong>
-                        , serverless cloud systems, and AI-powered products trusted by real
-                        users at scale.
+                        2+ years engineering production-grade backends — serverless
+                        infrastructure, AI integrations, and distributed systems trusted by
+                        100K+ real users.
                     </p>
 
                     <button

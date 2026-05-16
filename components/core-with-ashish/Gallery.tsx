@@ -25,9 +25,9 @@ const galleryItems: GalleryItem[] = [
   },
   {
     id: 2,
-    title: "Vibes > Music",
-    category: "Feel",
-    description: "I don't just hear music; I live it. Whether it's dancing silly or just feeling the raw bass, it's about the moment.",
+    title: "Vibes & Music",
+    category: "Vibes",
+    description: "I don't just hear music; I live it. Whether it's roaming with my headphones or just feeling the raw bass, it's about the vibes.",
     size: 'medium',
     icon: <Music className="w-5 h-5" />
   },
@@ -40,36 +40,12 @@ const galleryItems: GalleryItem[] = [
     icon: <Coffee className="w-5 h-5" />
   },
   {
-    id: 4,
-    title: "Raw Frames",
-    category: "Reality",
-    description: "Capturing the unposed, the messy, and the silly. This is my raw life in 35mm, exactly as it happens.",
-    size: 'small',
-    icon: <Camera className="w-5 h-5" />
-  },
-  {
-    id: 5,
-    title: "Roaming Free",
-    category: "Exploration",
-    description: "Getting lost on purpose. Roaming through unknown streets and doing silly things just to feel alive.",
-    size: 'medium',
-    icon: <MapPin className="w-5 h-5" />
-  },
-  {
     id: 6,
     title: "Pure Grit",
     category: "Basics",
     description: "The gym isn't for the 'gram. It's for the raw effort, the sweat, and the silly grit of pushing past my limits.",
-    size: 'large',
+    size: 'small',
     icon: <Zap className="w-5 h-5" />
-  },
-  {
-    id: 7,
-    title: "The Human Core",
-    category: "Truth",
-    description: "I am not the person who just hears music and watches movies. I am here to roam, be silly, and enjoy my raw life.",
-    size: 'medium',
-    icon: <Heart className="w-5 h-5" />
   }
 ];
 
@@ -130,11 +106,12 @@ export const Gallery: React.FC = () => {
               {/* Image Reveal Layer */}
                <div className="absolute inset-0 transition-all duration-1000 ease-out group-hover:scale-110">
                 {/* Real Image Content */}
-                <div className="w-full h-full bg-[#f0f0f0] flex items-center justify-center overflow-hidden">
+                <div className="w-full h-full bg-[#f0f0f0] relative flex items-center justify-center overflow-hidden">
                     <Image 
                        src={`/my/image${item.id === 1 ? "" : item.id}.jpeg`} 
                        alt={item.title}
                        fill
+                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                        className="object-cover"
                     />
                    

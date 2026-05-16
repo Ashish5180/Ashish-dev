@@ -10,14 +10,13 @@ import { motion, AnimatePresence, Variants } from "framer-motion";
    in a creative asymmetric mosaic grid
 ───────────────────────────────────────── */
 
-const IMAGES = [
-    { src: "/img1.jpeg", alt: "Ashish Yaduvanshi — Portrait 1", caption: "Building Products" },
-    { src: "/img3.jpeg", alt: "Ashish Yaduvanshi — Portrait 2", caption: "Engineering Systems" },
-    { src: "/img4.jpeg", alt: "Ashish Yaduvanshi — Portrait 3", caption: "Solving Problems" },
+const MEDIA = [
+    { type: 'video', src: "/hry.MP4", alt: "Ashish — Motion", caption: "Developer Life" },
+    { type: 'image', src: "/img4.jpeg", alt: "Ashish — Portrait", caption: "The Vision" },
 ] as const;
 
 const STATS = [
-    { num: "3+", label: "Years Experience" },
+    { num: "2+", label: "Years Experience" },
     { num: "12+", label: "Products Shipped" },
     { num: "8", label: "Core Technologies" },
 ] as const;
@@ -75,7 +74,7 @@ function AnimatedCounter({ target }: { target: string }) {
 
 export default function HeroSection2() {
     const time = useClock();
-    const [activeImg, setActiveImg] = useState(0);
+    const [activeIdx, setActiveIdx] = useState(0);
     const [isLoaded, setIsLoaded] = useState(false);
     const stylesInjected = useRef(false);
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -85,12 +84,12 @@ export default function HeroSection2() {
         return () => clearTimeout(timer);
     }, []);
 
-    /* ── Auto-rotate images ── */
+    /* ── Auto-rotate media ── */
     const startAutoRotate = useCallback(() => {
         if (intervalRef.current) clearInterval(intervalRef.current);
         intervalRef.current = setInterval(() => {
-            setActiveImg((prev) => (prev + 1) % IMAGES.length);
-        }, 5000);
+            setActiveIdx((prev) => (prev + 1) % MEDIA.length);
+        }, 7000); // Slightly longer for video
     }, []);
 
     useEffect(() => {
@@ -98,8 +97,8 @@ export default function HeroSection2() {
         return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
     }, [startAutoRotate]);
 
-    const selectImage = (i: number) => {
-        setActiveImg(i);
+    const selectMedia = (i: number) => {
+        setActiveIdx(i);
         startAutoRotate();
     };
 
@@ -109,44 +108,31 @@ export default function HeroSection2() {
         stylesInjected.current = true;
         const style = document.createElement("style");
         style.textContent = `
-      @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;300;400;500;600;700;900&family=Inter:wght@300;400;500;600&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@300;400;500;600&family=Outfit:wght@700;900&display=swap');
 
       @keyframes h2m-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
       @keyframes h2m-pulse { 0%,100%{opacity:.5} 50%{opacity:1} }
-      @keyframes h2m-line-draw { from{width:0} to{width:100%} }
-      @keyframes h2m-shimmer {
-        0%{background-position:-200% 0}
-        100%{background-position:200% 0}
-      }
 
       .h2m-cta-solid {
         position: relative;
         overflow: hidden;
         transition: all .4s cubic-bezier(.4,0,.2,1);
       }
-      .h2m-cta-solid::after {
-        content: '';
-        position: absolute;
-        top: 0; left: -100%; width: 100%; height: 100%;
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,.2), transparent);
-        transition: left .6s;
-      }
-      .h2m-cta-solid:hover::after { left: 100%; }
       .h2m-cta-solid:hover {
         transform: translateY(-3px);
-        box-shadow: 0 12px 40px rgba(220,38,38,.3);
+        background: #000 !important;
+        box-shadow: 0 12px 40px rgba(0,0,0,0.2);
       }
       .h2m-cta-outline {
         transition: all .4s cubic-bezier(.4,0,.2,1);
       }
       .h2m-cta-outline:hover {
-        border-color: #dc2626 !important;
-        color: #dc2626 !important;
+        border-color: #000 !important;
+        color: #000 !important;
         transform: translateY(-3px);
-        box-shadow: 0 8px 30px rgba(220,38,38,.1);
       }
       .h2m-social:hover {
-        color: #dc2626 !important;
+        color: #000 !important;
         transform: translateY(-2px);
       }
       .h2m-social {
@@ -158,7 +144,6 @@ export default function HeroSection2() {
       .h2m-stat-card:hover {
         transform: translateY(-4px);
         box-shadow: 0 12px 36px rgba(0,0,0,.08);
-        border-color: rgba(220,38,38,.2) !important;
       }
       .h2m-thumb {
         transition: all .35s cubic-bezier(.4,0,.2,1);
@@ -171,8 +156,9 @@ export default function HeroSection2() {
         document.head.appendChild(style);
     }, []);
 
-    const font = "'League Spartan', sans-serif";
+    const fontHeader = "'Cinzel', serif";
     const fontBody = "'Inter', sans-serif";
+    const fontUI = "'Outfit', sans-serif";
 
     /* ── Motion config ── */
     const stagger: Variants = {
@@ -191,10 +177,10 @@ export default function HeroSection2() {
     return (
         <section
             style={{
-                fontFamily: font,
+                fontFamily: fontUI,
                 width: "100%",
                 minHeight: "100vh",
-                background: "#faf9f7",
+                background: "#ffffff",
                 position: "relative",
                 overflow: "hidden",
                 display: "flex",
@@ -206,20 +192,8 @@ export default function HeroSection2() {
                 style={{
                     position: "absolute",
                     inset: 0,
-                    backgroundImage: `
-            radial-gradient(circle at 20% 20%, rgba(220,38,38,.03) 0%, transparent 50%),
-            radial-gradient(circle at 80% 80%, rgba(220,38,38,.02) 0%, transparent 50%)
-          `,
-                    pointerEvents: "none",
-                }}
-            />
-            {/* Very faint dot grid */}
-            <div
-                style={{
-                    position: "absolute",
-                    inset: 0,
-                    backgroundImage: "radial-gradient(circle, rgba(0,0,0,.03) 1px, transparent 1px)",
-                    backgroundSize: "24px 24px",
+                    backgroundImage: "radial-gradient(circle, rgba(0,0,0,0.02) 1px, transparent 1px)",
+                    backgroundSize: "32px 32px",
                     pointerEvents: "none",
                 }}
             />
@@ -246,7 +220,7 @@ export default function HeroSection2() {
                         style={{
                             width: 28,
                             height: 28,
-                            borderRadius: 8,
+                            borderRadius: 6,
                             background: "#1a1a1a",
                             display: "flex",
                             alignItems: "center",
@@ -260,7 +234,7 @@ export default function HeroSection2() {
                             Ashish
                         </span>
                         <span style={{ fontSize: 8, fontWeight: 500, color: "#999", letterSpacing: ".1em", textTransform: "uppercase", lineHeight: 1.4 }}>
-                            Engineer
+                            SDE · Full Stack
                         </span>
                     </div>
                 </div>
@@ -269,11 +243,11 @@ export default function HeroSection2() {
                 <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
                         <div style={{
-                            width: 5, height: 5, borderRadius: "50%", background: "#22c55e",
-                            boxShadow: "0 0 6px rgba(34,197,94,.4)", animation: "h2m-pulse 2s ease-in-out infinite",
+                            width: 5, height: 5, borderRadius: "50%", background: "#1a1a1a",
+                            animation: "h2m-pulse 2s ease-in-out infinite",
                         }} />
                         <span style={{ fontSize: 8, fontWeight: 600, letterSpacing: ".1em", textTransform: "uppercase", color: "#888" }}>
-                            Available
+                            Status: Online
                         </span>
                     </div>
                     <div style={{ width: 1, height: 14, background: "#e5e5e5" }} />
@@ -315,15 +289,14 @@ export default function HeroSection2() {
             >
                 {/* ── Title label ── */}
                 <motion.div variants={fadeUp} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                    <span style={{ width: 24, height: 1.5, background: "#dc2626", display: "inline-block", borderRadius: 1 }} />
+                    <span style={{ width: 24, height: 1.5, background: "#1a1a1a", display: "inline-block", borderRadius: 1 }} />
                     <span style={{ fontSize: 9, fontWeight: 600, letterSpacing: ".24em", textTransform: "uppercase", color: "#999" }}>
-                        Software Development Engineer
+                        Creative Technologist
                     </span>
                 </motion.div>
 
                 {/* ── NAME — Editorial Typography ── */}
                 <motion.div variants={fadeUp} style={{ marginTop: -6 }}>
-                    {/* ASHISH — bold with accent underline */}
                     <motion.div
                         initial={{ opacity: 0, x: -30 }}
                         animate={isLoaded ? { opacity: 1, x: 0 } : {}}
@@ -335,16 +308,16 @@ export default function HeroSection2() {
                                 fontSize: "clamp(54px, 15vw, 88px)",
                                 fontWeight: 900,
                                 lineHeight: 0.9,
-                                letterSpacing: "-.04em",
+                                letterSpacing: "-.02em",
                                 textTransform: "uppercase",
                                 color: "#1a1a1a",
+                                fontFamily: fontHeader
                             }}
                         >
                             Ashish
                         </span>
                     </motion.div>
 
-                    {/* YADU — Large stroke outline effect */}
                     <motion.div
                         initial={{ opacity: 0, x: 30 }}
                         animate={isLoaded ? { opacity: 1, x: 0 } : {}}
@@ -356,17 +329,17 @@ export default function HeroSection2() {
                                 fontSize: "clamp(54px, 15vw, 88px)",
                                 fontWeight: 900,
                                 lineHeight: 0.9,
-                                letterSpacing: "-.04em",
+                                letterSpacing: "-.02em",
                                 textTransform: "uppercase",
                                 color: "transparent",
-                                WebkitTextStroke: "1.5px #dc2626",
+                                WebkitTextStroke: "1px #1a1a1a",
+                                fontFamily: fontHeader
                             }}
                         >
                             Yadu
                         </span>
                     </motion.div>
 
-                    {/* VANSHI — solid with red accent */}
                     <motion.div
                         initial={{ opacity: 0, x: -30 }}
                         animate={isLoaded ? { opacity: 1, x: 0 } : {}}
@@ -379,14 +352,14 @@ export default function HeroSection2() {
                                 fontSize: "clamp(54px, 15vw, 88px)",
                                 fontWeight: 900,
                                 lineHeight: 0.9,
-                                letterSpacing: "-.04em",
+                                letterSpacing: "-.02em",
                                 textTransform: "uppercase",
                                 color: "#1a1a1a",
+                                fontFamily: fontHeader
                             }}
                         >
                             vanshi
                         </span>
-                        {/* Red accent dot */}
                         <motion.span
                             initial={{ scale: 0 }}
                             animate={isLoaded ? { scale: 1 } : {}}
@@ -396,7 +369,7 @@ export default function HeroSection2() {
                                 width: 10,
                                 height: 10,
                                 borderRadius: "50%",
-                                background: "#dc2626",
+                                background: "#1a1a1a",
                                 flexShrink: 0,
                             }}
                         />
@@ -411,76 +384,90 @@ export default function HeroSection2() {
                         fontSize: 14,
                         fontWeight: 400,
                         lineHeight: 1.7,
-                        color: "#777",
+                        color: "#666",
                         maxWidth: 380,
                         marginTop: -4,
                     }}
                 >
-                    Crafting{" "}
-                    <strong style={{ color: "#1a1a1a", fontWeight: 600 }}>AI-powered platforms</strong>,
-                    cloud-native systems &amp; mobile applications that{" "}
-                    <span style={{ color: "#dc2626", fontWeight: 500 }}>
-                        solve real problems at scale
-                    </span>.
+                    Building high-throughput platforms and cloud systems.
+                    Focused on architectural integrity and seamless user experiences.
                 </motion.p>
 
                 {/* ═══════════════════════════════════════
-            IMAGE GALLERY — Asymmetric Mosaic
+            MEDIA GALLERY — Video & Images
         ═══════════════════════════════════════ */}
-                <motion.div variants={fadeScale} style={{ position: "relative" }}>
-                    {/* Main large image */}
+                <motion.div variants={fadeScale} style={{ position: "relative", marginLeft: -22, marginRight: -22 }}>
+                    {/* Main large media container */}
                     <div
                         style={{
                             position: "relative",
                             width: "100%",
                             aspectRatio: "4/5",
-                            maxHeight: "52vh",
-                            borderRadius: 18,
+                            maxHeight: "58vh",
                             overflow: "hidden",
-                            background: "#eee",
+                            background: "#000",
                         }}
                     >
                         <AnimatePresence mode="wait">
                             <motion.div
-                                key={activeImg}
-                                initial={{ opacity: 0, scale: 1.04 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0, scale: 0.96 }}
-                                transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] as const }}
+                                key={activeIdx}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.7 }}
                                 style={{ position: "absolute", inset: 0 }}
                             >
-                                <Image
-                                    src={IMAGES[activeImg].src}
-                                    alt={IMAGES[activeImg].alt}
-                                    fill
-                                    style={{ objectFit: "cover", objectPosition: "top center" }}
-                                    priority
-                                />
+                                {MEDIA[activeIdx].type === 'video' ? (
+                                    <div style={{ position: "relative", width: "100%", height: "100%" }}>
+                                        {/* Blurred background */}
+                                        <div style={{ position: "absolute", inset: -20, filter: "blur(20px) opacity(0.4)" }}>
+                                            <video
+                                                src={MEDIA[activeIdx].src}
+                                                autoPlay muted loop playsInline
+                                                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                                            />
+                                        </div>
+                                        {/* Sharp portrait video */}
+                                        <video
+                                            src={MEDIA[activeIdx].src}
+                                            autoPlay
+                                            muted
+                                            loop
+                                            playsInline
+                                            style={{ position: "relative", width: "100%", height: "100%", objectFit: "contain" }}
+                                        />
+                                    </div>
+                                ) : (
+                                    <Image
+                                        src={MEDIA[activeIdx].src}
+                                        alt={MEDIA[activeIdx].alt}
+                                        fill
+                                        style={{ objectFit: "cover" }}
+                                        priority
+                                    />
+                                )}
                             </motion.div>
                         </AnimatePresence>
 
-                        {/* Gradient overlays — top & bottom */}
+                        {/* Overlays */}
                         <div style={{
                             position: "absolute", inset: 0, pointerEvents: "none", zIndex: 2,
-                            background: "linear-gradient(180deg, rgba(250,249,247,.3) 0%, transparent 25%, transparent 65%, rgba(250,249,247,.7) 100%)",
+                            background: "linear-gradient(180deg, transparent 70%, rgba(0,0,0,0.2) 100%)",
                         }} />
 
                         {/* Caption overlay */}
                         <AnimatePresence mode="wait">
                             <motion.div
-                                key={activeImg}
+                                key={activeIdx}
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -10 }}
                                 transition={{ duration: 0.4 }}
                                 style={{
                                     position: "absolute",
-                                    bottom: 18,
-                                    left: 18,
+                                    bottom: 20,
+                                    left: 22,
                                     zIndex: 3,
-                                    display: "flex",
-                                    alignItems: "center",
-                                    gap: 8,
                                 }}
                             >
                                 <span style={{
@@ -488,77 +475,51 @@ export default function HeroSection2() {
                                     fontWeight: 600,
                                     letterSpacing: ".15em",
                                     textTransform: "uppercase",
-                                    color: "#1a1a1a",
-                                    background: "rgba(255,255,255,.85)",
-                                    backdropFilter: "blur(8px)",
+                                    color: "#fff",
+                                    background: "rgba(0,0,0,0.4)",
+                                    backdropFilter: "blur(12px)",
                                     padding: "6px 14px",
-                                    borderRadius: 6,
+                                    borderRadius: 4,
                                 }}>
-                                    {IMAGES[activeImg].caption}
+                                    {MEDIA[activeIdx].caption}
                                 </span>
                             </motion.div>
                         </AnimatePresence>
-
-                        {/* Slide counter — top right */}
-                        <div style={{
-                            position: "absolute", top: 18, right: 18, zIndex: 3,
-                            background: "rgba(255,255,255,.85)", backdropFilter: "blur(8px)",
-                            padding: "6px 12px", borderRadius: 6,
-                            display: "flex", alignItems: "baseline", gap: 3,
-                        }}>
-                            <span style={{ fontSize: 18, fontWeight: 900, color: "#1a1a1a", letterSpacing: "-.02em" }}>
-                                0{activeImg + 1}
-                            </span>
-                            <span style={{ fontSize: 10, fontWeight: 400, color: "#aaa" }}>
-                                / 0{IMAGES.length}
-                            </span>
-                        </div>
                     </div>
 
                     {/* ── Thumbnail strip ── */}
                     <div style={{
                         display: "flex",
-                        gap: 10,
-                        marginTop: 12,
+                        gap: 12,
+                        marginTop: 16,
+                        padding: "0 22px"
                     }}>
-                        {IMAGES.map((img, i) => (
+                        {MEDIA.map((med, i) => (
                             <button
                                 key={i}
-                                onClick={() => selectImage(i)}
+                                onClick={() => selectMedia(i)}
                                 className="h2m-thumb"
                                 style={{
                                     flex: 1,
                                     aspectRatio: "1",
-                                    borderRadius: 12,
+                                    borderRadius: 8,
                                     overflow: "hidden",
                                     position: "relative",
-                                    border: i === activeImg ? "2.5px solid #dc2626" : "2.5px solid transparent",
+                                    border: i === activeIdx ? "2px solid #1a1a1a" : "1px solid #eee",
                                     cursor: "pointer",
                                     padding: 0,
-                                    background: "#eee",
-                                    boxShadow: i === activeImg ? "0 4px 16px rgba(220,38,38,.15)" : "0 2px 8px rgba(0,0,0,.06)",
-                                    opacity: i === activeImg ? 1 : 0.6,
+                                    background: "#fff",
+                                    opacity: i === activeIdx ? 1 : 0.4,
                                 }}
                             >
-                                <Image
-                                    src={img.src}
-                                    alt={img.alt}
-                                    fill
-                                    style={{ objectFit: "cover", objectPosition: "top center" }}
-                                />
-                                {/* Active indicator bar */}
-                                {i === activeImg && (
-                                    <motion.div
-                                        layoutId="activeThumb"
-                                        style={{
-                                            position: "absolute",
-                                            bottom: 0,
-                                            left: 0,
-                                            right: 0,
-                                            height: 3,
-                                            background: "#dc2626",
-                                            zIndex: 2,
-                                        }}
+                                {med.type === 'video' ? (
+                                    <video src={med.src} muted style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                                ) : (
+                                    <Image
+                                        src={med.src}
+                                        alt={med.alt}
+                                        fill
+                                        style={{ objectFit: "cover" }}
                                     />
                                 )}
                             </button>
@@ -567,32 +528,31 @@ export default function HeroSection2() {
 
                     {/* Progress bar */}
                     <div style={{
-                        marginTop: 8,
-                        height: 2,
-                        background: "rgba(0,0,0,.04)",
-                        borderRadius: 2,
+                        marginTop: 12,
+                        height: 1,
+                        background: "rgba(0,0,0,0.05)",
                         overflow: "hidden",
+                        margin: "12px 22px 0"
                     }}>
                         <motion.div
-                            key={activeImg}
+                            key={activeIdx}
                             initial={{ width: "0%" }}
                             animate={{ width: "100%" }}
-                            transition={{ duration: 5, ease: "linear" }}
+                            transition={{ duration: 6, ease: "linear" }}
                             style={{
                                 height: "100%",
-                                background: "linear-gradient(90deg, #dc2626, #ef4444)",
+                                background: "#1a1a1a",
                                 borderRadius: 2,
                             }}
                         />
                     </div>
                 </motion.div>
 
-                {/* ── CTA Buttons ── */}
                 <motion.div variants={fadeUp} style={{ display: "flex", gap: 10 }}>
                     <button
                         className="h2m-cta-solid"
                         style={{
-                            fontFamily: font,
+                            fontFamily: fontUI,
                             fontSize: 10,
                             fontWeight: 700,
                             letterSpacing: ".18em",
@@ -609,26 +569,30 @@ export default function HeroSection2() {
                     >
                         Get in Touch →
                     </button>
-                    <button
+                    <a
+                        href="/Ashish.pdf"
+                        download
                         className="h2m-cta-outline"
                         style={{
-                            fontFamily: font,
+                            display: "inline-block",
+                            fontFamily: fontUI,
                             fontSize: 10,
                             fontWeight: 700,
                             letterSpacing: ".18em",
                             textTransform: "uppercase",
                             background: "transparent",
-                            color: "#666",
-                            border: "1.5px solid #ddd",
+                            color: "#1a1a1a",
+                            border: "1.5px solid #1a1a1a",
                             padding: "16px 24px",
                             borderRadius: 12,
                             cursor: "pointer",
                             flex: 1,
                             textAlign: "center",
+                            textDecoration: "none"
                         }}
                     >
                         ↓ Resume
-                    </button>
+                    </a>
                 </motion.div>
 
                 {/* ── Stats row ── */}
@@ -657,7 +621,7 @@ export default function HeroSection2() {
                                 fontSize: 26,
                                 fontWeight: 900,
                                 letterSpacing: "-.02em",
-                                color: "#dc2626",
+                                color: "#1a1a1a",
                                 lineHeight: 1,
                             }}>
                                 <AnimatedCounter target={st.num} />
@@ -695,7 +659,7 @@ export default function HeroSection2() {
                         width: 36,
                         height: 36,
                         borderRadius: 10,
-                        background: "linear-gradient(135deg, #dc2626, #ef4444)",
+                        background: "#1a1a1a",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
@@ -763,7 +727,7 @@ export default function HeroSection2() {
                                 textTransform: "uppercase",
                                 color: "#bbb",
                                 textDecoration: "none",
-                                fontFamily: font,
+                                fontFamily: fontUI,
                             }}
                         >
                             {s}
@@ -802,7 +766,7 @@ export default function HeroSection2() {
                             width: 2.5,
                             height: 7,
                             borderRadius: 2,
-                            background: "#dc2626",
+                            background: "#1a1a1a",
                         }} />
                     </motion.div>
                     <span style={{

@@ -56,4 +56,17 @@ export const PROJECTS: ProjectData[] = [
     ],
     accent: "#2c3e50",
   },
+  {
+    id: "mini-dropbox",
+    num: "04",
+    title: "Mini-Dropbox",
+    subtitle: "Distributed Storage System — Go",
+    stack: "Go · REST API · HTTP/2 · sync.Pool · Concurrency · Distributed Systems",
+    description: "A distributed file storage system built for high-concurrency environments, featuring master-node coordination and content-addressed storage.",
+    highlights: [
+      "Forged a distributed file storage system in Go with master-node coordination and two storage nodes, backed by content-addressed storage via MD5 hashing and a RESTful HTTP API for file registration, deduplication, and cross-node retrieval",
+      "Engineered sync.Pool buffer pooling, RWMutex-protected ops, and an in-memory existence cache - achieving 4x concurrent throughput (500→2,000 req/s), 43% memory reduction (150MB→85MB), and 55% faster retrieval (45ms→20ms)",
+    ],
+    accent: "#007acc",
+  },
 ];
