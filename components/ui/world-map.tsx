@@ -13,6 +13,7 @@ interface MapProps {
   theme?: "light" | "dark";
 }
 
+// Minor
 export default function WorldMap({
   dots = [],
   lineColor = "#0ea5e9",
