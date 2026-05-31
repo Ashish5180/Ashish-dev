@@ -226,13 +226,8 @@ export default function CommitHeatmap() {
                     </div>
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                    <motion.div
-                        animate={{ scale: [1, 1.4, 1] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                        style={{ width: 7, height: 7, borderRadius: "50%", background: "#22c55e" }}
-                    />
-                    <div style={{ textAlign: "right" }}>
-                        <span style={{ fontSize: 14, fontWeight: 800, color: "#0E0E0E", display: "block" }}>
+                    <div style={{ textAlign: "right", background: "#FEF2F2", padding: "6px 12px", borderRadius: 10, border: "1px solid #FEE2E2" }}>
+                        <span style={{ fontSize: 14, fontWeight: 800, color: "#DC2626", display: "block", letterSpacing: "-0.3px" }}>
                             <CountUp to={data.totalContributions} />
                         </span>
                         <p style={{ fontSize: 9, color: "#999", fontWeight: 600, margin: 0, letterSpacing: 1 }}>CONTRIBUTIONS</p>
@@ -333,63 +328,75 @@ export default function CommitHeatmap() {
             <div className="ch-stats-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginTop: 16 }}>
 
                 <motion.div
-                    initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.55 }}
-                    style={{ padding: "13px 14px", borderRadius: 16, border: "1px solid #F0EEE8", background: "#fbfbfa" }}
+                    initial={{ opacity: 0, y: 8 }} 
+                    animate={{ opacity: 1, y: 0 }} 
+                    whileHover={{ y: -3, boxShadow: "0 8px 24px rgba(0,0,0,0.04)", borderColor: "#D8D6D0" }}
+                    transition={{ delay: 0.55, type: "spring", stiffness: 300, damping: 20 }}
+                    style={{ padding: "13px 14px", borderRadius: 16, border: "1px solid #E8E6E0", background: "#fbfbfa", cursor: "default" }}
                 >
                     <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 5 }}>
-                        <Flame size={12} color="#f59e0b" />
+                        <Flame size={13} color="#DC2626" fill="#DC2626" />
                         <span style={{ fontSize: 10, fontWeight: 700, color: "#0E0E0E" }}>Longest Streak</span>
                     </div>
-                    <p style={{ fontSize: 13, color: "#555", fontWeight: 700, margin: 0 }}>
+                    <p style={{ fontSize: 14, color: "#0E0E0E", fontWeight: 800, margin: 0 }}>
                         <CountUp to={data.longestStreak} duration={900} /> days
                     </p>
-                    <p style={{ fontSize: 10, color: "#bbb", margin: "3px 0 0", fontWeight: 500 }}>
+                    <p style={{ fontSize: 10, color: "#999", margin: "3px 0 0", fontWeight: 600 }}>
                         Current: {data.currentStreak}d
                     </p>
                 </motion.div>
 
                 <motion.div
-                    initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.65 }}
-                    style={{ padding: "13px 14px", borderRadius: 16, border: "1px solid #F0EEE8", background: "#fbfbfa" }}
+                    initial={{ opacity: 0, y: 8 }} 
+                    animate={{ opacity: 1, y: 0 }} 
+                    whileHover={{ y: -3, boxShadow: "0 8px 24px rgba(0,0,0,0.04)", borderColor: "#D8D6D0" }}
+                    transition={{ delay: 0.65, type: "spring", stiffness: 300, damping: 20 }}
+                    style={{ padding: "13px 14px", borderRadius: 16, border: "1px solid #E8E6E0", background: "#fbfbfa", cursor: "default" }}
                 >
                     <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 5 }}>
-                        <Code2 size={12} color="#3b82f6" />
+                        <Code2 size={13} color="#DC2626" />
                         <span style={{ fontSize: 10, fontWeight: 700, color: "#0E0E0E" }}>Most Used</span>
                     </div>
-                    <p style={{ fontSize: 13, color: "#555", fontWeight: 700, margin: 0 }}>{data.topLanguage}</p>
-                    <p style={{ fontSize: 10, color: "#bbb", margin: "3px 0 0", fontWeight: 500 }}>
+                    <p style={{ fontSize: 14, color: "#0E0E0E", fontWeight: 800, margin: 0 }}>{data.topLanguage}</p>
+                    <p style={{ fontSize: 10, color: "#999", margin: "3px 0 0", fontWeight: 600 }}>
                         across {data.publicRepos} repos
                     </p>
                 </motion.div>
 
                 <motion.div
-                    initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.72 }}
-                    style={{ padding: "13px 14px", borderRadius: 16, border: "1px solid #F0EEE8", background: "#fbfbfa" }}
+                    initial={{ opacity: 0, y: 8 }} 
+                    animate={{ opacity: 1, y: 0 }} 
+                    whileHover={{ y: -3, boxShadow: "0 8px 24px rgba(0,0,0,0.04)", borderColor: "#D8D6D0" }}
+                    transition={{ delay: 0.72, type: "spring", stiffness: 300, damping: 20 }}
+                    style={{ padding: "13px 14px", borderRadius: 16, border: "1px solid #E8E6E0", background: "#fbfbfa", cursor: "default" }}
                 >
                     <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 5 }}>
-                        <TrendingUp size={12} color="#22c55e" />
+                        <TrendingUp size={13} color="#DC2626" />
                         <span style={{ fontSize: 10, fontWeight: 700, color: "#0E0E0E" }}>Active Days</span>
                     </div>
-                    <p style={{ fontSize: 13, color: "#555", fontWeight: 700, margin: 0 }}>
+                    <p style={{ fontSize: 14, color: "#0E0E0E", fontWeight: 800, margin: 0 }}>
                         <CountUp to={activeDays} duration={1000} /> days
                     </p>
-                    <p style={{ fontSize: 10, color: "#bbb", margin: "3px 0 0", fontWeight: 500 }}>
+                    <p style={{ fontSize: 10, color: "#999", margin: "3px 0 0", fontWeight: 600 }}>
                         {Math.round((activeDays / allDays.length) * 100)}% of the year
                     </p>
                 </motion.div>
 
                 <motion.div
-                    initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.78 }}
-                    style={{ padding: "13px 14px", borderRadius: 16, border: "1px solid #F0EEE8", background: "#fbfbfa" }}
+                    initial={{ opacity: 0, y: 8 }} 
+                    animate={{ opacity: 1, y: 0 }} 
+                    whileHover={{ y: -3, boxShadow: "0 8px 24px rgba(0,0,0,0.04)", borderColor: "#D8D6D0" }}
+                    transition={{ delay: 0.78, type: "spring", stiffness: 300, damping: 20 }}
+                    style={{ padding: "13px 14px", borderRadius: 16, border: "1px solid #E8E6E0", background: "#fbfbfa", cursor: "default" }}
                 >
                     <div style={{ display: "flex", alignItems: "center", gap: 7, marginBottom: 5 }}>
-                        <Star size={12} color="#f59e0b" fill="#f59e0b" />
+                        <Star size={13} color="#DC2626" fill="#DC2626" />
                         <span style={{ fontSize: 10, fontWeight: 700, color: "#0E0E0E" }}>Best Day</span>
                     </div>
-                    <p style={{ fontSize: 13, color: "#555", fontWeight: 700, margin: 0 }}>
+                    <p style={{ fontSize: 14, color: "#0E0E0E", fontWeight: 800, margin: 0 }}>
                         <CountUp to={data.busiest.count} duration={800} /> commits
                     </p>
-                    <p style={{ fontSize: 10, color: "#bbb", margin: "3px 0 0", fontWeight: 500 }}>
+                    <p style={{ fontSize: 10, color: "#999", margin: "3px 0 0", fontWeight: 600 }}>
                         {data.busiest.date
                             ? new Date(data.busiest.date).toLocaleDateString("en-US", { month: "short", day: "numeric" })
                             : "—"}

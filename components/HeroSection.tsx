@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 
 /* ─────────────────────────────────────────
    Add to your global CSS or next/head:
@@ -9,6 +11,12 @@ import Image from "next/image";
 ───────────────────────────────────────── */
 
 const SOCIALS = ["LinkedIn", "GitHub", "Twitter"] as const;
+
+const SOCIAL_LINKS = {
+    LinkedIn: "https://www.linkedin.com/in/ashishyadav001/",
+    GitHub: "https://github.com/Ashish5180",
+    Twitter: "https://x.com/Developer_X01",
+} as const;
 
 const STATS = [
     { num: "2+", label: "Years Exp." },
@@ -237,7 +245,7 @@ function HeroSectionDesktop() {
                     }}>
                         <span style={{ fontSize: 9, fontWeight: 900, color: "#fff" }}>AY</span>
                     </div>
-                    AY · SOFTWARE DEVELOPER INTERN · INDIA
+                    AY · SYSTEMS ENGINEER & BACKEND ARCHITECT · INDIA
                 </div>
 
                 {/* Main headline */}
@@ -295,16 +303,15 @@ function HeroSectionDesktop() {
                     className="hs-fade-up hs-delay-4"
                     style={{
                         fontFamily: fontBody,
-                        fontSize: 15,
+                        fontSize: 17,
                         fontWeight: 300,
-                        lineHeight: 1.7,
+                        lineHeight: 1.8,
                         color: "#999",
-                        maxWidth: 360,
+                        maxWidth: 430,
                         marginTop: 16,
                     }}
                 >
-                    Architecting systems that scale. From serverless backends to AI-powered
-                    products — built for real users, not just demos.
+                    Architecting performant, resilient distributed systems. From serverless backends to AI integration — engineering production-grade applications built for scale.
                 </p>
                 {/* CTA buttons */}
                 <div
@@ -312,6 +319,9 @@ function HeroSectionDesktop() {
                     style={{ display: "flex", gap: 16, marginTop: 40 }}
                 >
                     <button
+                        onClick={() => {
+                            document.getElementById("booking-calendar-section")?.scrollIntoView({ behavior: "smooth" });
+                        }}
                         className="hs-btn-solid"
                         style={{
                             fontFamily: font,
@@ -369,8 +379,11 @@ function HeroSectionDesktop() {
                     }}
                 >
                     {SOCIALS.map((s) => (
-                        <button
+                        <a
                             key={s}
+                            href={SOCIAL_LINKS[s]}
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className="hs-soc"
                             style={{
                                 fontSize: 8,
@@ -378,15 +391,14 @@ function HeroSectionDesktop() {
                                 letterSpacing: ".22em",
                                 textTransform: "uppercase",
                                 color: "#333",
-                                background: "none",
-                                border: "none",
+                                textDecoration: "none",
                                 cursor: "pointer",
                                 fontFamily: font,
                                 transition: "color .2s",
                             }}
                         >
                             {s}
-                        </button>
+                        </a>
                     ))}
                 </div>
             </div>
@@ -417,27 +429,19 @@ function HeroSectionDesktop() {
             <div
                 className="hs-right-panel"
                 style={{
-                    background: "#fcfaf5",
+                    background: "#FAFAF8",
                     position: "relative",
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "center",
                     gap: "48px",
-                    padding: "64px 40px 64px 52%",
+                    padding: "64px 80px 64px 40%",
                     overflow: "hidden",
                 }}
             >
-                {/* Parchment Texture Overlay */}
-                <div style={{
-                    position: "absolute",
-                    inset: 0,
-                    opacity: 0.03,
-                    pointerEvents: "none",
-                    backgroundImage: "url('https://www.transparenttextures.com/patterns/old-map.png')",
-                }} />
                 <div style={gridPattern(false)} />
 
-                {/* Top: clock + slide number */}
+                {/* Top: clock + status */}
                 <div>
                     {/* Live clock bar */}
                     <div
@@ -446,38 +450,41 @@ function HeroSectionDesktop() {
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "space-between",
-                            borderBottom: "1px solid rgba(0,0,0,.08)",
+                            borderBottom: "1px solid #E8E6E0",
                             paddingBottom: 16,
                             marginBottom: 20,
-                            marginLeft: -20,
                         }}
                     >
-                        <span
-                            style={{
-                                fontSize: 9,
-                                fontWeight: 400,
-                                letterSpacing: ".14em",
-                                textTransform: "uppercase",
-                                color: "#aaa",
-                            }}
-                        >
-                            New Delhi · IST
-                        </span>
+                        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                            <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#DC2626", animation: "hs-blink 2s infinite" }} />
+                            <span
+                                style={{
+                                    fontSize: 9,
+                                    fontWeight: 600,
+                                    letterSpacing: ".15em",
+                                    textTransform: "uppercase",
+                                    color: "#888",
+                                    fontFamily: fontBody,
+                                }}
+                            >
+                                New Delhi · IST
+                            </span>
+                        </div>
                         <span
                             style={{
                                 fontSize: 13,
                                 fontWeight: 700,
                                 letterSpacing: ".08em",
-                                color: "#111",
+                                color: "#0E0E0E",
                                 fontVariantNumeric: "tabular-nums",
+                                fontFamily: fontBody,
                             }}
                         >
                             {time}
                         </span>
                     </div>
-
-
                 </div>
+
                 {/* Mid: heading + description */}
                 <div className="hs-fade-up hs-delay-5">
                     <div
@@ -486,8 +493,8 @@ function HeroSectionDesktop() {
                             fontWeight: 700,
                             letterSpacing: ".25em",
                             textTransform: "uppercase",
-                            color: "#aaa",
-                            marginBottom: 10,
+                            color: "#999",
+                            marginBottom: 12,
                             display: "flex",
                             alignItems: "center",
                             gap: 8,
@@ -497,68 +504,78 @@ function HeroSectionDesktop() {
                             style={{
                                 display: "inline-block",
                                 width: 16,
-                                height: 1.5,
-                                background: "#111",
+                                height: 2,
+                                background: "#DC2626",
                             }}
                         />
-                        CURRENTLY AT ASOASIS TECH
+                        ENGINEERING SYSTEMS AT ASOASIS TECH
                     </div>
 
                     <h2
                         style={{
-                            fontSize: "clamp(28px, 4vw, 44px)",
+                            fontSize: "clamp(32px, 4.5vw, 54px)",
                             fontWeight: 900,
                             lineHeight: 1.05,
-                            letterSpacing: "-.02em",
+                            letterSpacing: "-.03em",
                             textTransform: "uppercase",
                             marginBottom: 18,
+                            fontFamily: font,
                         }}
                     >
-                        <span style={{ display: "block", color: "#dc2626" }}>Building Systems</span>
-                        <span style={{ display: "block", color: "#e53e3e" }}>That Actually</span>
-                        <span style={{ display: "block", color: "#b91c1c" }}>Scale</span>
+                        <span style={{ display: "block", color: "#0E0E0E" }}>Orchestrating</span>
+                        <span style={{ display: "block", color: "#0E0E0E" }}>High-Throughput</span>
+                        <span style={{ display: "block", color: "#DC2626" }}>Architectures.</span>
                     </h2>
 
                     <p
                         className="hs-right-desc"
                         style={{
-                            fontSize: 15,
-                            fontWeight: 300,
-                            lineHeight: 1.75,
-                            color: "#666",
-                            maxWidth: 320,
-                            marginLeft: -20,
+                            fontFamily: fontBody,
+                            fontSize: 17,
+                            fontWeight: 400,
+                            lineHeight: 1.85,
+                            color: "#555",
+                            maxWidth: "480px",
+                            marginTop: 18,
                         }}
                     >
-                        2+ years engineering production-grade backends — serverless
-                        infrastructure, AI integrations, and distributed systems trusted by
-                        100K+ real users.
+                        Specializing in resilient distributed architectures. I design event-driven serverless flows, integrate cognitive AI services, and optimize database layers for over 100K+ active users.
                     </p>
 
-                    <button
-                        className="hs-learn"
+                    <motion.button
+                        onClick={() => {
+                            document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
+                        }}
+                        whileHover="hover"
                         style={{
                             display: "inline-flex",
                             alignItems: "center",
                             gap: 8,
-                            fontSize: 9.5,
+                            fontSize: 12,
                             fontWeight: 700,
                             letterSpacing: ".2em",
                             textTransform: "uppercase",
-                            color: "#111",
+                            color: "#0E0E0E",
                             background: "none",
                             border: "none",
-                            borderBottom: "1.5px solid #111",
-                            paddingBottom: 4,
-                            marginLeft: -20,
+                            padding: "0 0 4px 0",
+                            borderBottom: "2px solid #DC2626",
                             cursor: "pointer",
                             fontFamily: font,
                             marginTop: 24,
-                            transition: "opacity .2s",
                         }}
                     >
-                        View My Work →
-                    </button>
+                        View My Work
+                        <motion.span
+                            variants={{
+                                hover: { x: 5 }
+                            }}
+                            transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                            style={{ display: "inline-flex" }}
+                        >
+                            <ArrowRight size={13} color="#DC2626" />
+                        </motion.span>
+                    </motion.button>
                 </div>
 
                 {/* Bottom stats */}
@@ -566,9 +583,10 @@ function HeroSectionDesktop() {
                     className="hs-fade-up hs-delay-6"
                     style={{
                         display: "flex",
-                        gap: 0,
-                        borderTop: "1px solid rgba(0,0,0,.1)",
-                        paddingTop: 24,
+                        gap: 20,
+                        borderTop: "1px solid #E8E6E0",
+                        paddingTop: 28,
+                        marginTop: "auto",
                     }}
                 >
                     {STATS.map((st, i) => (
@@ -576,30 +594,31 @@ function HeroSectionDesktop() {
                             key={st.label}
                             style={{
                                 flex: 1,
-                                borderRight: i < STATS.length - 1 ? "1px solid rgba(0,0,0,.08)" : "none",
-                                paddingRight: i < STATS.length - 1 ? 20 : 0,
-                                marginRight: i < STATS.length - 1 ? 20 : 0,
+                                borderRight: i < STATS.length - 1 ? "1px solid #E8E6E0" : "none",
+                                paddingRight: i < STATS.length - 1 ? 16 : 0,
                             }}
                         >
                             <div
                                 style={{
-                                    fontSize: 36,
+                                    fontSize: 38,
                                     fontWeight: 900,
-                                    letterSpacing: "-.03em",
-                                    color: "#dc2626",
+                                    letterSpacing: "-.04em",
+                                    color: "#0E0E0E",
                                     lineHeight: 1,
+                                    fontFamily: font,
                                 }}
                             >
                                 {st.num}
                             </div>
                             <div
                                 style={{
-                                    fontSize: 8.5,
-                                    fontWeight: 400,
-                                    letterSpacing: ".16em",
+                                    fontSize: 10,
+                                    fontWeight: 600,
+                                    letterSpacing: ".12em",
                                     textTransform: "uppercase",
-                                    color: "#aaa",
-                                    marginTop: 3,
+                                    color: "#888",
+                                    marginTop: 6,
+                                    fontFamily: fontBody,
                                 }}
                             >
                                 {st.label}

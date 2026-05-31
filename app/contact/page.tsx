@@ -6,6 +6,30 @@ import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 
 export default function ContactPage() {
+  const [status, setStatus] = React.useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [formData, setFormData] = React.useState({ name: "", email: "", message: "" });
+
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email || !formData.message) return;
+    setStatus("submitting");
+    try {
+      const response = await fetch("https://formspree.io/f/xykvavvj", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (response.ok) {
+        setStatus("success");
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white text-neutral-900 overflow-hidden font-sans relative">
 
@@ -60,47 +84,92 @@ export default function ContactPage() {
               {/* Decorative accent */}
               <div className="absolute -top-20 -left-20 w-64 h-64 bg-red-50/50 rounded-full blur-3xl -z-10 group-hover:bg-red-100/50 transition-colors duration-1000" />
 
-              <form className="space-y-6">
-                <div className="relative group/field">
-                  <label className="block text-[10px] font-black text-neutral-400 uppercase tracking-[0.3em] mb-2 transition-colors group-focus-within/field:text-red-500">
-                    What&apos;s your name?
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="E.g. Ashish Yaduvanshi"
-                    className="w-full bg-transparent border-b border-neutral-100 py-2 text-lg font-medium focus:outline-none focus:border-red-500 transition-all placeholder:text-neutral-200"
-                  />
-                </div>
-
-                <div className="relative group/field">
-                  <label className="block text-[10px] font-black text-neutral-400 uppercase tracking-[0.3em] mb-2 transition-colors group-focus-within/field:text-red-500">
-                    Your Email Address
-                  </label>
-                  <input
-                    type="email"
-                    placeholder="hello@company.com"
-                    className="w-full bg-transparent border-b border-neutral-100 py-2 text-lg font-medium focus:outline-none focus:border-red-500 transition-all placeholder:text-neutral-200"
-                  />
-                </div>
-
-                <div className="relative group/field">
-                  <label className="block text-[10px] font-black text-neutral-400 uppercase tracking-[0.3em] mb-2 transition-colors group-focus-within/field:text-red-500">
-                    Tell me about your vision
-                  </label>
-                  <textarea
-                    rows={2}
-                    placeholder="Looking to build something great..."
-                    className="w-full bg-transparent border-b border-neutral-100 py-2 text-lg font-medium focus:outline-none focus:border-red-500 transition-all resize-none placeholder:text-neutral-200"
-                  />
-                </div>
-
-                <div className="pt-2">
-                  <button className="bg-[#8b0000] hover:bg-[#a00000] text-white px-8 py-3 rounded-full text-sm font-bold tracking-tight transition-all flex items-center gap-2 group shadow-lg shadow-red-900/20">
-                    Let&apos;s start talking
-                    <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+              {status === "success" ? (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="bg-red-50/30 border border-red-100 rounded-2xl p-8 text-center space-y-4"
+                >
+                  <div className="w-12 h-12 bg-red-100/50 rounded-full flex items-center justify-center mx-auto text-red-600 font-bold text-xl">
+                    ✓
+                  </div>
+                  <h3 className="font-bold text-lg text-neutral-900">Message Transmitted</h3>
+                  <p className="text-sm text-neutral-500 leading-relaxed">
+                    Thank you for reaching out. Your vision has been received and I will align with you shortly.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setStatus("idle")}
+                    className="text-xs font-bold text-red-600 hover:text-red-700 underline uppercase tracking-wider cursor-pointer"
+                  >
+                    Send another message
                   </button>
-                </div>
-              </form>
+                </motion.div>
+              ) : (
+                <form onSubmit={onSubmit} className="space-y-6">
+                  <div className="relative group/field">
+                    <label className="block text-[10px] font-black text-neutral-400 uppercase tracking-[0.3em] mb-2 transition-colors group-focus-within/field:text-red-500">
+                      What&apos;s your name?
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      required
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      placeholder="E.g. Ashish Yaduvanshi"
+                      className="w-full bg-transparent border-b border-neutral-100 py-2 text-lg font-medium focus:outline-none focus:border-red-500 transition-all placeholder:text-neutral-200"
+                    />
+                  </div>
+
+                  <div className="relative group/field">
+                    <label className="block text-[10px] font-black text-neutral-400 uppercase tracking-[0.3em] mb-2 transition-colors group-focus-within/field:text-red-500">
+                      Your Email Address
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      required
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      placeholder="hello@company.com"
+                      className="w-full bg-transparent border-b border-neutral-100 py-2 text-lg font-medium focus:outline-none focus:border-red-500 transition-all placeholder:text-neutral-200"
+                    />
+                  </div>
+
+                  <div className="relative group/field">
+                    <label className="block text-[10px] font-black text-neutral-400 uppercase tracking-[0.3em] mb-2 transition-colors group-focus-within/field:text-red-500">
+                      Tell me about your vision
+                    </label>
+                    <textarea
+                      name="message"
+                      required
+                      rows={2}
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      placeholder="Looking to build something great..."
+                      className="w-full bg-transparent border-b border-neutral-100 py-2 text-lg font-medium focus:outline-none focus:border-red-500 transition-all resize-none placeholder:text-neutral-200"
+                    />
+                  </div>
+
+                  {status === "error" && (
+                    <p className="text-xs font-bold text-red-500">
+                      An error occurred while sending your message. Please try again.
+                    </p>
+                  )}
+
+                  <div className="pt-2">
+                    <button
+                      type="submit"
+                      disabled={status === "submitting"}
+                      className="bg-[#8b0000] hover:bg-[#a00000] disabled:bg-neutral-300 text-white px-8 py-3 rounded-full text-sm font-bold tracking-tight transition-all flex items-center gap-2 group shadow-lg shadow-red-900/20 cursor-pointer"
+                    >
+                      {status === "submitting" ? "Transmitting..." : "Let's start talking"}
+                      <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                    </button>
+                  </div>
+                </form>
+              )}
             </div>
           </motion.div>
 
@@ -164,9 +233,9 @@ export default function ContactPage() {
         <div className="container mx-auto mt-auto pt-6 border-t border-neutral-100">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6 opacity-40 hover:opacity-100 transition-all">
             <div className="flex gap-10">
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] cursor-pointer hover:text-red-500 transition-colors">LinkedIn</span>
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] cursor-pointer hover:text-red-500 transition-colors">Twitter</span>
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] cursor-pointer hover:text-red-500 transition-colors">GitHub</span>
+              <a href="https://www.linkedin.com/in/ashishyadav001/" target="_blank" rel="noopener noreferrer" className="text-[10px] font-black uppercase tracking-[0.2em] hover:text-red-500 transition-colors no-underline">LinkedIn</a>
+              <a href="https://x.com/Developer_X01" target="_blank" rel="noopener noreferrer" className="text-[10px] font-black uppercase tracking-[0.2em] hover:text-red-500 transition-colors no-underline">Twitter</a>
+              <a href="https://github.com/Ashish5180" target="_blank" rel="noopener noreferrer" className="text-[10px] font-black uppercase tracking-[0.2em] hover:text-red-500 transition-colors no-underline">GitHub</a>
             </div>
             <p className="text-[10px] font-mono uppercase">Built with precision © 2024 Ashish Dev</p>
           </div>

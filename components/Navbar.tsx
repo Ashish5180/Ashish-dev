@@ -12,9 +12,9 @@ const menuItems = [
 ];
 
 const socialItems = [
-  { label: 'Twitter', link: 'https://twitter.com' },
-  { label: 'GitHub', link: 'https://github.com' },
-  { label: 'LinkedIn', link: 'https://linkedin.com' },
+  { label: 'Twitter', link: 'https://x.com/Developer_X01' },
+  { label: 'GitHub', link: 'https://github.com/Ashish5180' },
+  { label: 'LinkedIn', link: 'https://www.linkedin.com/in/ashishyadav001/' },
 ];
 
 export default function Navbar() {
@@ -36,7 +36,7 @@ export default function Navbar() {
         socialItems={socialItems}
         displaySocials
         displayItemNumbering={false}
-        logoText="Developer Ashish"
+        logoText=""
         menuButtonColor="#000000"
         openMenuButtonColor="#fff"
         changeMenuColorOnOpen={true}

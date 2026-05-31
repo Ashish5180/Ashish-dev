@@ -8,7 +8,7 @@ import {
     ArrowRight, AlertCircle,
     RefreshCw, Terminal, Package, Star,
     ChevronRight, PartyPopper, CalendarDays, BarChart3, MessageSquare,
-    Smartphone
+    Smartphone, X
 } from "lucide-react";
 
 import BookingCalendar from "./BookingCalendar";
@@ -244,6 +244,7 @@ function DragCard({
 // ─── Main Component ───────────────────────────────────────────────────────────
 export default function AboutMe() {
     const { canvasRef, boom } = useConfetti();
+    const [calendarOpen, setCalendarOpen] = useState(false);
 
     // live clock
     const [clock, setClock] = useState("");
@@ -735,9 +736,8 @@ export default function AboutMe() {
 
                         {/* Hire Row */}
                         <div className="ab-hire-row" style={{ display: "flex", gap: 10 }}>
-                            <motion.a
-                                href="#"
-
+                            <motion.button
+                                onClick={() => setCalendarOpen(true)}
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.97 }}
                                 style={{
@@ -745,7 +745,7 @@ export default function AboutMe() {
                                     background: "#0E0E0E", color: "#FAFAF8",
                                     ...S, fontWeight: 700, fontSize: 14,
                                     padding: "17px 24px", borderRadius: 12,
-                                    textDecoration: "none", cursor: "pointer",
+                                    cursor: "pointer",
                                     border: "2px solid #0E0E0E",
                                     transition: "background .25s, color .25s",
                                 }}
@@ -758,7 +758,7 @@ export default function AboutMe() {
                                 >
                                     <ArrowRight size={16} />
                                 </motion.span>
-                            </motion.a>
+                            </motion.button>
                             <motion.button
                                 onClick={boom}
 
@@ -827,19 +827,21 @@ export default function AboutMe() {
                         </div>
 
                         <div className="ab-connect-btns" style={{ marginTop: "12px", display: "flex", gap: "12px" }}>
-                            <motion.a
-                                href="mailto:hello@example.com"
+                            <motion.button
+                                onClick={() => setCalendarOpen(true)}
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
                                 style={{
-                                    display: "flex", alignItems: "center", gap: "10px", padding: "14px 24px", borderRadius: "14px", background: "#0E0E0E", color: "#fff", ...S, fontWeight: 700, fontSize: "13px", textDecoration: "none"
+                                    display: "flex", alignItems: "center", gap: "10px", padding: "14px 24px", borderRadius: "14px", background: "#0E0E0E", color: "#fff", ...S, fontWeight: 700, fontSize: "13px", border: "none", cursor: "pointer"
                                 }}
                             >
-                                Send an Email
+                                Book a Call
                                 <ArrowRight size={14} />
-                            </motion.a>
+                            </motion.button>
                             <motion.a
-                                href="https://twitter.com"
+                                href="https://x.com/Developer_X01"
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
                                 style={{
@@ -859,7 +861,7 @@ export default function AboutMe() {
                     </div>
 
                     {/* Right: Booking */}
-                    <div className="ab-connect-child" style={{ minWidth: 0, overflow: "hidden" }}>
+                    <div id="booking-calendar-section" className="ab-connect-child" style={{ minWidth: 0, overflow: "hidden" }}>
                         <BookingCalendar />
                     </div>
                 </div>
@@ -889,6 +891,76 @@ export default function AboutMe() {
                 </div>
 
             </section>
+
+            {/* Premium Blur Booking Calendar Modal */}
+            <AnimatePresence>
+                {calendarOpen && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        style={{
+                            position: "fixed",
+                            inset: 0,
+                            background: "rgba(14, 14, 14, 0.4)",
+                            backdropFilter: "blur(12px)",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            zIndex: 9999,
+                            padding: "20px",
+                        }}
+                        onClick={() => setCalendarOpen(false)}
+                    >
+                        <motion.div
+                            initial={{ scale: 0.95, y: 20 }}
+                            animate={{ scale: 1, y: 0 }}
+                            exit={{ scale: 0.95, y: 20 }}
+                            transition={{ type: "spring", damping: 25, stiffness: 350 }}
+                            onClick={(e) => e.stopPropagation()}
+                            style={{
+                                width: "100%",
+                                maxWidth: "440px",
+                                position: "relative",
+                            }}
+                        >
+                            {/* Premium External Close Button */}
+                            <button
+                                onClick={() => setCalendarOpen(false)}
+                                style={{
+                                    position: "absolute",
+                                    top: "-42px",
+                                    right: "0px",
+                                    background: "rgba(255, 255, 255, 0.15)",
+                                    backdropFilter: "blur(4px)",
+                                    border: "1px solid rgba(255, 255, 255, 0.15)",
+                                    borderRadius: "50%",
+                                    width: "34px",
+                                    height: "34px",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    cursor: "pointer",
+                                    transition: "background 0.2s, transform 0.2s",
+                                    zIndex: 10000,
+                                }}
+                                onMouseEnter={(e) => {
+                                    e.currentTarget.style.background = "rgba(255, 255, 255, 0.3)";
+                                    e.currentTarget.style.transform = "scale(1.05)";
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.background = "rgba(255, 255, 255, 0.15)";
+                                    e.currentTarget.style.transform = "scale(1)";
+                                }}
+                            >
+                                <X size={16} color="#fff" />
+                            </button>
+
+                            <BookingCalendar />
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </>
     );
 }

@@ -349,68 +349,7 @@ export const StaggeredMenu = ({
     };
   }, [playClose, animateIcon, animateColor, animateText, onMenuClose]);
 
-  const GoldenSnitch = () => (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      style={{
-        position: 'absolute',
-        bottom: '20%',
-        right: '15%',
-        width: 40,
-        height: 40,
-        zIndex: 5,
-        pointerEvents: 'none'
-      }}
-    >
-      {/* Wings */}
-      <motion.div
-        animate={{ 
-          rotateY: [0, 80, 0],
-          scaleY: [1, 1.2, 1]
-        }}
-        transition={{ duration: 0.1, repeat: Infinity, ease: "linear" }}
-        style={{
-          position: 'absolute',
-          top: 0, left: -20, width: 30, height: 10,
-          background: 'linear-gradient(90deg, rgba(255,215,0,0.8), transparent)',
-          borderRadius: '50% 0 0 50%',
-          transformOrigin: 'right center'
-        }}
-      />
-      <motion.div
-        animate={{ 
-          rotateY: [0, -80, 0],
-          scaleY: [1, 1.2, 1]
-        }}
-        transition={{ duration: 0.1, repeat: Infinity, ease: "linear" }}
-        style={{
-          position: 'absolute',
-          top: 0, right: -20, width: 30, height: 10,
-          background: 'linear-gradient(-90deg, rgba(255,215,0,0.8), transparent)',
-          borderRadius: '0 50% 50% 0',
-          transformOrigin: 'left center'
-        }}
-      />
-      {/* Body */}
-      <motion.div
-        animate={{ 
-          y: [0, -20, 0],
-          x: [0, 15, -15, 0],
-          rotate: [0, 10, -10, 0]
-        }}
-        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        style={{
-          width: 20, height: 20,
-          background: 'radial-gradient(circle at 30% 30%, #ffd700, #b8860b)',
-          borderRadius: '50%',
-          boxShadow: '0 0 15px rgba(255,215,0,0.6)',
-          margin: '10px auto'
-        }}
-      />
-    </motion.div>
-  );
+
 
   return (
     <div
@@ -504,7 +443,68 @@ export const StaggeredMenu = ({
             </div>
           )}
           <AnimatePresence>
-            {open && <GoldenSnitch />}
+            {open && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                style={{
+                  position: 'absolute',
+                  bottom: '20%',
+                  right: '15%',
+                  width: 40,
+                  height: 40,
+                  zIndex: 5,
+                  pointerEvents: 'none'
+                }}
+              >
+                {/* Wings */}
+                <motion.div
+                  animate={{ 
+                    rotateY: [0, 80, 0],
+                    scaleY: [1, 1.2, 1]
+                  }}
+                  transition={{ duration: 0.1, repeat: Infinity, ease: "linear" }}
+                  style={{
+                    position: 'absolute',
+                    top: 0, left: -20, width: 30, height: 10,
+                    background: 'linear-gradient(90deg, rgba(255,215,0,0.8), transparent)',
+                    borderRadius: '50% 0 0 50%',
+                    transformOrigin: 'right center'
+                  }}
+                />
+                <motion.div
+                  animate={{ 
+                    rotateY: [0, -80, 0],
+                    scaleY: [1, 1.2, 1]
+                  }}
+                  transition={{ duration: 0.1, repeat: Infinity, ease: "linear" }}
+                  style={{
+                    position: 'absolute',
+                    top: 0, right: -20, width: 30, height: 10,
+                    background: 'linear-gradient(-90deg, rgba(255,215,0,0.8), transparent)',
+                    borderRadius: '0 50% 50% 0',
+                    transformOrigin: 'left center'
+                  }}
+                />
+                {/* Body */}
+                <motion.div
+                  animate={{ 
+                    y: [0, -20, 0],
+                    x: [0, 15, -15, 0],
+                    rotate: [0, 10, -10, 0]
+                  }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                  style={{
+                    width: 20, height: 20,
+                    background: 'radial-gradient(circle at 30% 30%, #ffd700, #b8860b)',
+                    borderRadius: '50%',
+                    boxShadow: '0 0 15px rgba(255,215,0,0.6)',
+                    margin: '10px auto'
+                  }}
+                />
+              </motion.div>
+            )}
           </AnimatePresence>
         </div>
       </aside>

@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence, Variants } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
 /* ─────────────────────────────────────────
    HeroSection2 — Premium Light Mobile Hero
@@ -10,16 +10,19 @@ import { motion, AnimatePresence, Variants } from "framer-motion";
    in a creative asymmetric mosaic grid
 ───────────────────────────────────────── */
 
-const MEDIA = [
-    { type: 'video', src: "/hry.MP4", alt: "Ashish — Motion", caption: "Developer Life" },
-    { type: 'image', src: "/img4.jpeg", alt: "Ashish — Portrait", caption: "The Vision" },
-] as const;
+
 
 const STATS = [
     { num: "2+", label: "Years Experience" },
     { num: "12+", label: "Products Shipped" },
     { num: "8", label: "Core Technologies" },
 ] as const;
+
+const SOCIAL_LINKS = {
+    LinkedIn: "https://www.linkedin.com/in/ashishyadav001/",
+    GitHub: "https://github.com/Ashish5180",
+    Twitter: "https://x.com/Developer_X01",
+} as const;
 
 /* ── Live IST clock ── */
 function useClock() {
@@ -74,33 +77,13 @@ function AnimatedCounter({ target }: { target: string }) {
 
 export default function HeroSection2() {
     const time = useClock();
-    const [activeIdx, setActiveIdx] = useState(0);
     const [isLoaded, setIsLoaded] = useState(false);
     const stylesInjected = useRef(false);
-    const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
     useEffect(() => {
         const timer = setTimeout(() => setIsLoaded(true), 0);
         return () => clearTimeout(timer);
     }, []);
-
-    /* ── Auto-rotate media ── */
-    const startAutoRotate = useCallback(() => {
-        if (intervalRef.current) clearInterval(intervalRef.current);
-        intervalRef.current = setInterval(() => {
-            setActiveIdx((prev) => (prev + 1) % MEDIA.length);
-        }, 7000); // Slightly longer for video
-    }, []);
-
-    useEffect(() => {
-        startAutoRotate();
-        return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
-    }, [startAutoRotate]);
-
-    const selectMedia = (i: number) => {
-        setActiveIdx(i);
-        startAutoRotate();
-    };
 
     /* ── Inject keyframes ── */
     useEffect(() => {
@@ -234,7 +217,7 @@ export default function HeroSection2() {
                             Ashish
                         </span>
                         <span style={{ fontSize: 8, fontWeight: 500, color: "#999", letterSpacing: ".1em", textTransform: "uppercase", lineHeight: 1.4 }}>
-                            Software Developer Intern
+                            Systems Engineer & Backend Architect
                         </span>
                     </div>
                 </div>
@@ -381,7 +364,7 @@ export default function HeroSection2() {
                     variants={fadeUp}
                     style={{
                         fontFamily: fontBody,
-                        fontSize: 14,
+                        fontSize: 16,
                         fontWeight: 400,
                         lineHeight: 1.7,
                         color: "#666",
@@ -389,167 +372,35 @@ export default function HeroSection2() {
                         marginTop: -4,
                     }}
                 >
-                    Building high-throughput platforms and cloud systems.
-                    Focused on architectural integrity and seamless user experiences.
+                    Architecting high-throughput platforms and serverless cloud systems. Focused on absolute structural integrity, optimizing performance bottlenecks, and delivering seamless experiences at scale.
                 </motion.p>
 
-                {/* ═══════════════════════════════════════
-            MEDIA GALLERY — Video & Images
-        ═══════════════════════════════════════ */}
                 <motion.div variants={fadeScale} style={{ position: "relative", marginLeft: -22, marginRight: -22 }}>
-                    {/* Main large media container */}
                     <div
                         style={{
                             position: "relative",
                             width: "100%",
                             aspectRatio: "4/5",
-                            maxHeight: "58vh",
+                            maxHeight: "54vh",
                             overflow: "hidden",
-                            background: "#000",
                         }}
                     >
-                        <AnimatePresence mode="wait">
-                            <motion.div
-                                key={activeIdx}
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                                transition={{ duration: 0.7 }}
-                                style={{ position: "absolute", inset: 0 }}
-                            >
-                                {MEDIA[activeIdx].type === 'video' ? (
-                                    <div style={{ position: "relative", width: "100%", height: "100%" }}>
-                                        {/* Blurred background */}
-                                        <div style={{ position: "absolute", inset: -20, filter: "blur(20px) opacity(0.4)" }}>
-                                            <video
-                                                src={MEDIA[activeIdx].src}
-                                                autoPlay muted loop playsInline
-                                                style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                                            />
-                                        </div>
-                                        {/* Sharp portrait video */}
-                                        <video
-                                            src={MEDIA[activeIdx].src}
-                                            autoPlay
-                                            muted
-                                            loop
-                                            playsInline
-                                            style={{ position: "relative", width: "100%", height: "100%", objectFit: "contain" }}
-                                        />
-                                    </div>
-                                ) : (
-                                    <Image
-                                        src={MEDIA[activeIdx].src}
-                                        alt={MEDIA[activeIdx].alt}
-                                        fill
-                                        style={{ objectFit: "cover" }}
-                                        priority
-                                    />
-                                )}
-                            </motion.div>
-                        </AnimatePresence>
-
-                        {/* Overlays */}
-                        <div style={{
-                            position: "absolute", inset: 0, pointerEvents: "none", zIndex: 2,
-                            background: "linear-gradient(180deg, transparent 70%, rgba(0,0,0,0.2) 100%)",
-                        }} />
-
-                        {/* Caption overlay */}
-                        <AnimatePresence mode="wait">
-                            <motion.div
-                                key={activeIdx}
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -10 }}
-                                transition={{ duration: 0.4 }}
-                                style={{
-                                    position: "absolute",
-                                    bottom: 20,
-                                    left: 22,
-                                    zIndex: 3,
-                                }}
-                            >
-                                <span style={{
-                                    fontSize: 9,
-                                    fontWeight: 600,
-                                    letterSpacing: ".15em",
-                                    textTransform: "uppercase",
-                                    color: "#fff",
-                                    background: "rgba(0,0,0,0.4)",
-                                    backdropFilter: "blur(12px)",
-                                    padding: "6px 14px",
-                                    borderRadius: 4,
-                                }}>
-                                    {MEDIA[activeIdx].caption}
-                                </span>
-                            </motion.div>
-                        </AnimatePresence>
-                    </div>
-
-                    {/* ── Thumbnail strip ── */}
-                    <div style={{
-                        display: "flex",
-                        gap: 12,
-                        marginTop: 16,
-                        padding: "0 22px"
-                    }}>
-                        {MEDIA.map((med, i) => (
-                            <button
-                                key={i}
-                                onClick={() => selectMedia(i)}
-                                className="h2m-thumb"
-                                style={{
-                                    flex: 1,
-                                    aspectRatio: "1",
-                                    borderRadius: 8,
-                                    overflow: "hidden",
-                                    position: "relative",
-                                    border: i === activeIdx ? "2px solid #1a1a1a" : "1px solid #eee",
-                                    cursor: "pointer",
-                                    padding: 0,
-                                    background: "#fff",
-                                    opacity: i === activeIdx ? 1 : 0.4,
-                                }}
-                            >
-                                {med.type === 'video' ? (
-                                    <video src={med.src} muted style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                                ) : (
-                                    <Image
-                                        src={med.src}
-                                        alt={med.alt}
-                                        fill
-                                        style={{ objectFit: "cover" }}
-                                    />
-                                )}
-                            </button>
-                        ))}
-                    </div>
-
-                    {/* Progress bar */}
-                    <div style={{
-                        marginTop: 12,
-                        height: 1,
-                        background: "rgba(0,0,0,0.05)",
-                        overflow: "hidden",
-                        margin: "12px 22px 0"
-                    }}>
-                        <motion.div
-                            key={activeIdx}
-                            initial={{ width: "0%" }}
-                            animate={{ width: "100%" }}
-                            transition={{ duration: 6, ease: "linear" }}
-                            style={{
-                                height: "100%",
-                                background: "#1a1a1a",
-                                borderRadius: 2,
-                            }}
+                        <Image
+                            src="/img4.jpeg"
+                            alt="Ashish Yaduvanshi"
+                            fill
+                            sizes="(max-width: 640px) 100vw, 640px"
+                            style={{ objectFit: "cover" }}
+                            priority
                         />
                     </div>
                 </motion.div>
 
                 <motion.div variants={fadeUp} style={{ display: "flex", gap: 10 }}>
                     <button
+                        onClick={() => {
+                            document.getElementById("booking-calendar-section")?.scrollIntoView({ behavior: "smooth" });
+                        }}
                         className="h2m-cta-solid"
                         style={{
                             fontFamily: fontUI,
@@ -560,7 +411,7 @@ export default function HeroSection2() {
                             background: "#1a1a1a",
                             color: "#fff",
                             border: "none",
-                            padding: "16px 24px",
+                            padding: "12px 20px",
                             borderRadius: 12,
                             cursor: "pointer",
                             flex: 1,
@@ -583,7 +434,7 @@ export default function HeroSection2() {
                             background: "transparent",
                             color: "#1a1a1a",
                             border: "1.5px solid #1a1a1a",
-                            padding: "16px 24px",
+                            padding: "12px 20px",
                             borderRadius: 12,
                             cursor: "pointer",
                             flex: 1,
@@ -591,7 +442,7 @@ export default function HeroSection2() {
                             textDecoration: "none"
                         }}
                     >
-                        ↓ Resume
+                        ↓ Download CV
                     </a>
                 </motion.div>
 
@@ -618,7 +469,7 @@ export default function HeroSection2() {
                             }}
                         >
                             <div style={{
-                                fontSize: 26,
+                                fontSize: 30,
                                 fontWeight: 900,
                                 letterSpacing: "-.02em",
                                 color: "#1a1a1a",
@@ -718,7 +569,9 @@ export default function HeroSection2() {
                     {["LinkedIn", "GitHub", "Twitter"].map((s) => (
                         <a
                             key={s}
-                            href="#"
+                            href={SOCIAL_LINKS[s as keyof typeof SOCIAL_LINKS]}
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className="h2m-social"
                             style={{
                                 fontSize: 9,

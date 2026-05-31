@@ -23,12 +23,51 @@ const s = {
     font: "'Plus Jakarta Sans', sans-serif",
 };
 
+/** Convert "10:00 AM" → "10:00", "01:30 PM" → "13:30" */
+function to24hr(time12: string): string {
+    const [timePart, meridiem] = time12.split(" ");
+    const [rawHours, minutes] = timePart.split(":");
+    let hours = parseInt(rawHours, 10);
+    if (meridiem === "PM" && hours !== 12) hours += 12;
+    if (meridiem === "AM" && hours === 12) hours = 0;
+    return `${String(hours).padStart(2, "0")}:${minutes}`;
+}
+
+/** Format a Date as "YYYY-MM-DD" */
+function formatDateISO(date: Date): string {
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, "0");
+    const d = String(date.getDate()).padStart(2, "0");
+    return `${y}-${m}-${d}`;
+}
+
+const inputStyle: React.CSSProperties = {
+    width: "100%",
+    padding: "12px 14px",
+    borderRadius: "12px",
+    border: "1.5px solid #E8E6E0",
+    fontSize: "13px",
+    fontWeight: 500,
+    color: "#0E0E0E",
+    background: "#FAFAF8",
+    outline: "none",
+    transition: "border-color 0.2s",
+    fontFamily: "'Plus Jakarta Sans', sans-serif",
+    boxSizing: "border-box" as const,
+};
+
 export default function BookingCalendar() {
     const [view, setView] = useState<"calendar" | "time" | "confirm" | "success">("calendar");
     const [currentDate, setCurrentDate] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
     const [selectedTime, setSelectedTime] = useState<string | null>(null);
     const [isBooking, setIsBooking] = useState(false);
+    const [bookingError, setBookingError] = useState<string | null>(null);
+
+    // Form fields
+    const [userName, setUserName] = useState("");
+    const [userEmail, setUserEmail] = useState("");
+    const [userMessage, setUserMessage] = useState("");
 
     // Calendar logic
     const month = currentDate.getMonth();
@@ -81,18 +120,48 @@ export default function BookingCalendar() {
     };
 
     const handleBooking = async () => {
+        if (!selectedDate || !selectedTime) return;
+        if (!userName.trim() || !userEmail.trim()) return;
+
         setIsBooking(true);
-        // Simulate API call
-        await new Promise(r => setTimeout(r, 1500));
-        setIsBooking(false);
-        setView("success");
-        toast.success("Call booked! Check your email.");
+        setBookingError(null);
+
+        try {
+            const response = await fetch("/api/book", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name: userName.trim(),
+                    email: userEmail.trim(),
+                    message: userMessage.trim() || undefined,
+                    date: formatDateISO(selectedDate),
+                    time: to24hr(selectedTime),
+                }),
+            });
+
+            const data = await response.json() as { success?: boolean; error?: string };
+
+            if (data.success) {
+                setView("success");
+                toast.success("Booking request sent! Ashish will email you a Meet link shortly.");
+            } else {
+                setBookingError(data.error || "Something went wrong. Please try again.");
+            }
+        } catch {
+            setBookingError("Something went wrong. Please try again.");
+        } finally {
+            setIsBooking(false);
+        }
     };
 
     const reset = () => {
         setView("calendar");
         setSelectedDate(null);
         setSelectedTime(null);
+        setUserName("");
+        setUserEmail("");
+        setUserMessage("");
+        setBookingError(null);
     };
 
     return (
@@ -288,8 +357,8 @@ export default function BookingCalendar() {
                         transition={{ duration: 0.3 }}
                         style={{ display: "flex", flexDirection: "column", height: "100%" }}
                     >
-                        <div style={{ marginBottom: "24px" }}>
-                            <button onClick={() => setView("time")} style={{ background: "transparent", border: "none", cursor: "pointer", padding: "4px", marginBottom: "12px" }}>
+                        <div style={{ marginBottom: "16px" }}>
+                            <button onClick={() => setView("time")} style={{ background: "transparent", border: "none", cursor: "pointer", padding: "4px", marginBottom: "8px" }}>
                                 <ChevronLeft size={18} />
                             </button>
                             <h3 style={{ fontSize: "18px", fontWeight: 800, color: "#0E0E0E", letterSpacing: "-0.5px" }}>
@@ -297,56 +366,102 @@ export default function BookingCalendar() {
                             </h3>
                         </div>
 
-                        <div style={{ background: "#FEF2F2", padding: "20px", borderRadius: "18px", marginBottom: "24px", border: "1px solid #FEE2E2" }}>
-                            <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "16px" }}>
-                                <div style={{ width: "40px", height: "40px", borderRadius: "12px", background: "#DC2626", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                                    <Video size={20} color="#fff" />
+                        <div style={{ background: "#FEF2F2", padding: "16px", borderRadius: "14px", marginBottom: "16px", border: "1px solid #FEE2E2" }}>
+                            <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "12px" }}>
+                                <div style={{ width: "36px", height: "36px", borderRadius: "10px", background: "#DC2626", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                    <Video size={18} color="#fff" />
                                 </div>
                                 <div>
-                                    <p style={{ fontSize: "14px", fontWeight: 700, color: "#0E0E0E" }}>High-Bandwidth Call</p>
-                                    <p style={{ fontSize: "12px", color: "#666" }}>Google Meet · 15 min</p>
+                                    <p style={{ fontSize: "13px", fontWeight: 700, color: "#0E0E0E" }}>High-Bandwidth Call</p>
+                                    <p style={{ fontSize: "11px", color: "#666" }}>Google Meet · 60 min</p>
                                 </div>
                             </div>
 
-                            <div style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "13px", color: "#444", fontWeight: 600 }}>
+                            <div style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "12px", color: "#444", fontWeight: 600 }}>
                                 <CalendarRange size={14} color="#DC2626" />
                                 {selectedDate?.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
                             </div>
-                            <div style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "13px", color: "#444", fontWeight: 600, marginTop: "10px" }}>
+                            <div style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: "12px", color: "#444", fontWeight: 600, marginTop: "6px" }}>
                                 <Timer size={14} color="#DC2626" />
                                 {selectedTime}
                             </div>
                         </div>
 
+                        {/* Form Fields */}
+                        <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginBottom: "16px" }}>
+                            <input
+                                type="text"
+                                placeholder="Your Name *"
+                                value={userName}
+                                onChange={(e) => setUserName(e.target.value)}
+                                style={inputStyle}
+                                onFocus={(e) => { e.currentTarget.style.borderColor = "#DC2626"; }}
+                                onBlur={(e) => { e.currentTarget.style.borderColor = "#E8E6E0"; }}
+                            />
+                            <input
+                                type="email"
+                                placeholder="Your Email *"
+                                value={userEmail}
+                                onChange={(e) => setUserEmail(e.target.value)}
+                                style={inputStyle}
+                                onFocus={(e) => { e.currentTarget.style.borderColor = "#DC2626"; }}
+                                onBlur={(e) => { e.currentTarget.style.borderColor = "#E8E6E0"; }}
+                            />
+                            <textarea
+                                placeholder="Message (optional)"
+                                value={userMessage}
+                                onChange={(e) => setUserMessage(e.target.value)}
+                                rows={2}
+                                style={{
+                                    ...inputStyle,
+                                    resize: "none",
+                                }}
+                                onFocus={(e) => { e.currentTarget.style.borderColor = "#DC2626"; }}
+                                onBlur={(e) => { e.currentTarget.style.borderColor = "#E8E6E0"; }}
+                            />
+                        </div>
+
+                        {/* Error message */}
+                        {bookingError && (
+                            <p style={{ color: "#DC2626", fontSize: "12px", fontWeight: 600, marginBottom: "10px", textAlign: "center" }}>
+                                {bookingError}
+                            </p>
+                        )}
+
                         <div style={{ marginTop: "auto" }}>
                             <motion.button
-                                whileHover={{ scale: 1.02, background: "#991B1B" }}
-                                whileTap={{ scale: 0.98 }}
+                                whileHover={!isBooking ? { scale: 1.02, background: "#991B1B" } : {}}
+                                whileTap={!isBooking ? { scale: 0.98 } : {}}
                                 onClick={handleBooking}
-                                disabled={isBooking}
+                                disabled={isBooking || !userName.trim() || !userEmail.trim()}
                                 style={{
                                     width: "100%",
                                     padding: "16px",
                                     borderRadius: "14px",
-                                    background: "#DC2626",
-                                    color: "#fff",
+                                    background: (!userName.trim() || !userEmail.trim()) ? "#E8E6E0" : "#DC2626",
+                                    color: (!userName.trim() || !userEmail.trim()) ? "#999" : "#fff",
                                     fontWeight: 700,
                                     fontSize: "14px",
                                     border: "none",
-                                    cursor: "pointer",
+                                    cursor: (!userName.trim() || !userEmail.trim()) ? "not-allowed" : "pointer",
                                     display: "flex",
                                     alignItems: "center",
                                     justifyContent: "center",
-                                    gap: "8px"
+                                    gap: "8px",
+                                    opacity: isBooking ? 0.8 : 1,
+                                    transition: "background 0.2s, color 0.2s, opacity 0.2s",
                                 }}
                             >
                                 {isBooking ? (
-                                    <motion.div
-                                        animate={{ rotate: 360 }}
-                                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                                    >
-                                        <Zap size={18} />
-                                    </motion.div>
+                                    <>
+                                        <motion.div
+                                            animate={{ rotate: 360 }}
+                                            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                                        >
+                                            <Zap size={18} />
+                                        </motion.div>
+                                        Booking...
+                                    </>
                                 ) : (
                                     <>
                                         Confirm Booking
@@ -374,8 +489,8 @@ export default function BookingCalendar() {
                             <ShieldCheck size={32} color="#fff" />
                         </motion.div>
                         <h3 style={{ fontSize: "20px", fontWeight: 800, color: "#0E0E0E", marginBottom: "12px" }}>You&apos;re all set!</h3>
-                        <p style={{ fontSize: "14px", color: "#666", maxWidth: "240px", lineHeight: "1.6" }}>
-                            Check your inbox for the calendar invite and meeting link.
+                        <p style={{ fontSize: "14px", color: "#666", maxWidth: "260px", lineHeight: "1.6" }}>
+                            Booking request sent! Ashish will review the slot and email you a Google Meet invite shortly.
                         </p>
 
                         <motion.button
