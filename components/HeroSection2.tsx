@@ -13,7 +13,7 @@ import { motion, Variants } from "framer-motion";
 
 
 const STATS = [
-    { num: "2+", label: "Years Experience" },
+    { num: "1.5+", label: "Years Experience" },
     { num: "12+", label: "Products Shipped" },
     { num: "8", label: "Core Technologies" },
 ] as const;
