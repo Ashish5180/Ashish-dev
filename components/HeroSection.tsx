@@ -19,7 +19,7 @@ const SOCIAL_LINKS = {
 } as const;
 
 const STATS = [
-    { num: "2+", label: "Years Exp." },
+    { num: "1.5+", label: "Years Exp." },
     { num: "12+", label: "Products" },
     { num: "8", label: "Technologies" },
 ] as const;
