@@ -1,273 +1,234 @@
 "use client";
 
 import React, { useState } from "react";
-import {
-  FolderGit2,
-  CheckCircle2,
-  Cpu,
-  Mail,
-  MessageSquare,
-  HardDrive,
-  Terminal,
-  ArrowUpRight,
-} from "lucide-react";
+import { ArrowUpRight, Cpu, Bot, Rocket, ShieldAlert } from "lucide-react";
 
-export type Project = {
+export interface ProjectData {
   id: string;
   title: string;
-  subtitle: string;
-  description: string;
-  techStack: string[];
-  highlights: string[];
-  metrics?: {
+  categoryTag: string;
+  category: "all" | "ai" | "devops" | "backend";
+  summary: string;
+  architecture: {
+    heading: string;
+    detail: string;
+  }[];
+  keyMetric: {
     label: string;
     value: string;
-  }[];
-  github?: string;
-  live?: string;
-  featured?: boolean;
-};
+  };
+  techStack: string[];
+  githubUrl: string;
+  icon: React.ComponentType<{ className?: string }>;
+  isFlagship?: boolean;
+}
 
-export const projects: Project[] = [
+function GithubIcon({ className = "h-4 w-4" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+      <path d="M9 18c-4.51 2-5-2-7-2" />
+    </svg>
+  );
+}
+
+export const PROJECTS: ProjectData[] = [
   {
-    id: "reachinbox",
-    title: "ReachInbox",
-    subtitle: "Distributed Email Job Scheduler & Analytics Platform",
-    description:
-      "Full-stack distributed email infrastructure for scheduling, throttling, dispatching, monitoring, and recovering high-volume outreach campaigns.",
-    techStack: [
-      "Next.js",
-      "React",
-      "TypeScript",
-      "Node.js",
-      "Express",
-      "PostgreSQL",
-      "Redis",
-      "BullMQ",
-    ],
-    highlights: [
-      "Built a zero-cron distributed scheduler using BullMQ delayed queues backed by Redis ZSETs, with PostgreSQL as the persistent job state machine.",
-      "Designed atomic O(1) Redis Lua token-bucket rate limiting with adaptive cooldowns for SMTP 429/503 failures.",
-      "Optimized 5,000-lead campaign ingestion using PostgreSQL UNNEST and BullMQ addBulk(), reducing thousands of network operations to 2 calls.",
-      "Implemented SHA-256 idempotency, dead-letter queue recovery, retry handling, multi-sender isolation, and restart-safe job persistence.",
-      "Built a real-time dashboard with SSE telemetry, delivery analytics, heatmaps, authentication, and live job controls.",
-    ],
-    metrics: [
+    id: "agentos",
+    title: "AgentOS — Autonomous AI Agent Platform",
+    categoryTag: "Full-Stack & Cloud AI · Go + Next.js + AWS",
+    category: "ai",
+    summary:
+      "A full-stack platform to run, schedule, and monitor autonomous AI agents safely in the cloud with human approval gates for sensitive actions.",
+    architecture: [
       {
-        label: "Batch scheduling",
-        value: "315ms",
+        heading: "Serverless Workflow Engine",
+        detail:
+          "Uses AWS Step Functions (waitForTaskToken) to pause AI agents whenever they request sensitive permissions and resume instantly after human approval.",
       },
       {
-        label: "Campaign size",
-        value: "5K leads",
+        heading: "Reliable Database Transactions",
+        detail:
+          "Implements the Transactional Outbox pattern in PostgreSQL (pgx/v5) with optimistic locking so no task events are ever lost.",
       },
       {
-        label: "Rate limiter",
-        value: "O(1)",
+        heading: "Instant Cache Updates",
+        detail:
+          "Caches agent permissions and long-term user memory in Redis with instant write-through invalidation.",
+      },
+      {
+        heading: "Live Mission Control UI",
+        detail:
+          "Next.js 16 and React 19 dashboard with real-time step receipts, cron scheduling via EventBridge, and one-click approvals.",
       },
     ],
-    github: "#",
-    live: "#",
-    featured: true,
+    keyMetric: {
+      label: "Governance",
+      value: "Human-in-the-Loop Safe",
+    },
+    techStack: ["Go", "Next.js 16", "AWS Step Functions", "PostgreSQL", "Redis", "AWS CDK"],
+    githubUrl: "https://github.com/Ashish5180",
+    icon: Bot,
+    isFlagship: true,
   },
-
   {
-    id: "whatsapp-router",
-    title: "WhatsApp Signal Router",
-    subtitle: "AI-Powered Multimodal Notification Router",
-    description:
-      "Multimodal AI system that analyzes incoming WhatsApp messages and intelligently decides whether to notify, digest, or mute them.",
-    techStack: [
-      "Python",
-      "Gemini",
-      "Faster-Whisper",
-      "LLM",
-      "OCR",
-      "ASR",
-      "Rule Engine",
-    ],
-    highlights: [
-      "Built an end-to-end multimodal pipeline handling text, images, and voice notes using Gemini Vision OCR and local Faster-Whisper transcription.",
-      "Combined deterministic safety rules with LLM reasoning for messages involving OTPs, money, links, urgency, and unknown senders.",
-      "Implemented a confidence-weighted safety fallback that applies conservative routing when the model is uncertain.",
-      "Created adaptive personalization using historical interaction signals to calculate a 0.00–1.00 sender and group trust score.",
-      "Added intelligent digest clustering that groups low-priority messages and generates concise summaries.",
-    ],
-    metrics: [
+    id: "release-flight-control",
+    title: "Release Flight Control — Staged Deployment & Rollback System",
+    categoryTag: "Backend & DevOps Control Plane · Go + Next.js",
+    category: "devops",
+    summary:
+      "A deployment management platform that rolls out app updates in safe stages (1% → 5% → 25% → 100%), monitors live error metrics, and triggers automatic rollbacks when bugs happen.",
+    architecture: [
       {
-        label: "Action accuracy",
-        value: "86.7%",
+        heading: "Automated Metric Guardrails",
+        detail:
+          "Background Go workers continuously monitor live app health metrics and flag releases if success rates drop below threshold.",
       },
       {
-        label: "Mute precision",
-        value: "100%",
+        heading: "Dynamic Feature Flag Control",
+        detail:
+          "Integrates with Firebase Remote Config via clean adapter interfaces to update rollout percentages or revert versions instantly.",
       },
       {
-        label: "Routing modes",
-        value: "3",
+        heading: "Live Dashboard Streaming",
+        detail:
+          "Streams real-time deployment status and immutable audit logs to the Next.js frontend using Server-Sent Events (SSE).",
+      },
+      {
+        heading: "Safe Concurrency",
+        detail:
+          "Built with Go goroutines, channels, sync.RWMutex, and graceful OS signal shutdown (SIGINT/SIGTERM).",
       },
     ],
-    github: "#",
-    featured: true,
+    keyMetric: {
+      label: "Automation",
+      value: "Real-Time Auto-Rollback",
+    },
+    techStack: ["Go", "Next.js", "PostgreSQL", "Server-Sent Events (SSE)", "Firebase", "TypeScript"],
+    githubUrl: "https://github.com/Ashish5180",
+    icon: Rocket,
+    isFlagship: true,
   },
-
   {
-    id: "mini-dropbox",
-    title: "Mini-Dropbox",
-    subtitle: "Distributed File Storage System",
-    description:
-      "Go-based distributed file-storage system with master-node coordination, content-addressed storage, deduplication, and cross-node retrieval.",
-    techStack: [
-      "Go",
-      "REST API",
-      "Distributed Systems",
-      "Concurrency",
-      "Caching",
-      "sync.Pool",
-    ],
-    highlights: [
-      "Engineered distributed file storage in Go with master-node coordination and cross-node retrieval.",
-      "Implemented content-addressed storage and deduplication using MD5-based file identity.",
-      "Designed concurrent-safe storage operations using RWMutex across storage nodes under load.",
-      "Optimized memory and retrieval performance using sync.Pool buffer reuse and an in-memory existence cache.",
-    ],
-    metrics: [
+    id: "sketchtalk",
+    title: "SketchTalk — Voice-to-Architecture Whiteboard",
+    categoryTag: "Full-Stack AI Product · FastAPI + Gemini + React",
+    category: "ai",
+    summary:
+      "An interactive AI whiteboard where engineers speak system architectures out loud and watch validated diagrams build and update live on canvas.",
+    architecture: [
       {
-        label: "Throughput",
-        value: "2,000 req/s",
+        heading: "Hybrid Voice Pipeline",
+        detail:
+          "Combines Web Speech captions, faster-whisper audio streaming, and RapidFuzz phonetic correction to fix spoken tech jargon (\"post gress\" → PostgreSQL).",
       },
       {
-        label: "Performance",
-        value: "4×",
+        heading: "Zero-Latency Rule Engine",
+        detail:
+          "Executes common voice commands (\"add Redis\", \"replace RabbitMQ with Kafka\") in <1ms via deterministic rules, calling Google Gemini only for complex sentences.",
       },
       {
-        label: "Memory reduction",
-        value: "43%",
+        heading: "Hallucination Guardrails",
+        detail:
+          "Strict Pydantic semantic validator blocks broken connections, self-loops, and invalid graph edits (0% unsafe mutations).",
       },
       {
-        label: "Retrieval time",
-        value: "−55%",
+        heading: "Interactive Studio UI",
+        detail:
+          "Built with Next.js 16 and React Flow v12 featuring smart node placement, O(1) undo/redo, and Mermaid/JSON export.",
       },
     ],
-    github: "#",
+    keyMetric: {
+      label: "Latency",
+      value: "<1ms Fast-Path Edits",
+    },
+    techStack: ["Python (FastAPI)", "Google Gemini", "Next.js 16", "React Flow", "Faster-Whisper", "WebSockets"],
+    githubUrl: "https://github.com/Ashish5180",
+    icon: Cpu,
+    isFlagship: false,
   },
-
   {
-    id: "ashos",
-    title: "ASHOS",
-    subtitle: "AI-Powered CLI Personal OS",
-    description:
-      "Event-driven Go CLI combining RAG, hybrid vector search, modular infrastructure, and AI-powered productivity workflows.",
-    techStack: [
-      "Go",
-      "OpenAI",
-      "RAG",
-      "SQLite",
-      "SQLite-vec",
-      "Vector Search",
-    ],
-    highlights: [
-      "Built an event-driven CLI OS in Go using dependency injection and interface-driven storage.",
-      "Implemented a RAG engine from scratch using OpenAI embeddings, SQLite-vec, custom cosine similarity, and GPT synthesis.",
-      "Integrated 4+ data sources through an asynchronous ingestion pipeline.",
-      "Exposed 4 AI productivity commands while enforcing concurrent access safety across 6+ modules.",
-    ],
-    metrics: [
+    id: "fault-injection-storage",
+    title: "Distributed Fault-Injection Testing Engine & Mini-Dropbox",
+    categoryTag: "Core Backend & Reliability · Python + Go",
+    category: "backend",
+    summary:
+      "High-performance backend testing and storage systems: a deterministic fault-injection engine for microservices and a concurrent file storage server in Go.",
+    architecture: [
       {
-        label: "Data sources",
-        value: "4+",
+        heading: "Distributed Bug Detection",
+        detail:
+          "Simulates network drops, delays, and race conditions across 4 microservices, catching 15/15 concurrency bugs with 0 false alarms across 5,000 workflows (178k events/sec).",
       },
       {
-        label: "AI commands",
-        value: "4",
+        heading: "Root-Cause Trace Slicer",
+        detail:
+          "Automatically shrinks 40-event crash logs down to the exact 5 causal events that caused the failure, with 100% reproducible SHA-256 replay.",
       },
       {
-        label: "Concurrent modules",
-        value: "6+",
+        heading: "High-Speed File Storage (Mini-Dropbox)",
+        detail:
+          "Built a content-addressed storage engine in Go using sync.Pool 32KB buffers, boosting concurrent throughput 4x to 2,000 req/s and cutting RAM usage by 43%.",
+      },
+      {
+        heading: "AI Eval & Fine-Tuning Suite (AgentGym)",
+        detail:
+          "Created 3 sandboxed AI testing environments backed by 106 passing unit tests and ran local LoRA fine-tuning on Apple Silicon (mlx-lm).",
       },
     ],
-    github: "#",
+    keyMetric: {
+      label: "Throughput",
+      value: "2,000 req/s (4x Gain)",
+    },
+    techStack: ["Go", "Python 3.12", "SQLite", "Hypothesis Fuzzing", "Pytest", "sync.Pool"],
+    githubUrl: "https://github.com/Ashish5180",
+    icon: ShieldAlert,
+    isFlagship: false,
   },
 ];
 
-function getProjectIcon(id: string) {
-  switch (id) {
-    case "reachinbox":
-      return <Mail className="h-6 w-6 text-blue-600" />;
-    case "whatsapp-router":
-      return <MessageSquare className="h-6 w-6 text-emerald-600" />;
-    case "mini-dropbox":
-      return <HardDrive className="h-6 w-6 text-amber-600" />;
-    case "ashos":
-      return <Terminal className="h-6 w-6 text-indigo-600" />;
-    default:
-      return <Cpu className="h-6 w-6 text-slate-700" />;
-  }
-}
+export function ProjectsSection({ className = "" }: { className?: string }) {
+  const [activeFilter, setActiveFilter] = useState<"all" | "ai" | "devops" | "backend">("all");
 
-export interface ProjectsSectionProps {
-  data?: Project[];
-  className?: string;
-}
-
-export function ProjectsSection({
-  data = projects,
-  className = "",
-}: ProjectsSectionProps) {
-  const [activeFilter, setActiveFilter] = useState<string>("all");
-
-  const filteredProjects = data.filter((project) => {
-    if (activeFilter === "featured") return project.featured;
-    if (activeFilter === "go") return project.techStack.includes("Go");
-    if (activeFilter === "ai")
-      return (
-        project.techStack.includes("AI / RAG") ||
-        project.techStack.includes("LLM") ||
-        project.techStack.includes("OpenAI") ||
-        project.techStack.includes("Gemini")
-      );
-    return true;
-  });
+  const filteredProjects =
+    activeFilter === "all"
+      ? PROJECTS
+      : PROJECTS.filter((p) => p.category === activeFilter);
 
   return (
     <section
       id="projects"
-      aria-label="Featured Projects"
-      className={`relative z-20 w-full border-t border-slate-200 bg-slate-50/60 px-4 py-24 text-slate-900 sm:px-6 lg:px-8 scroll-mt-16 ${className}`}
+      aria-label="Featured Engineering Projects"
+      className={`relative z-20 w-full border-t border-[#f0f0f5]/[0.08] bg-transparent px-6 py-24 text-[#f0f0f5] sm:px-8 sm:py-32 lg:px-12 scroll-mt-20 ${className}`}
     >
       <div className="mx-auto max-w-6xl">
-        {/* Section Header */}
-        <div className="mb-12 flex flex-col items-start justify-between gap-6 border-b border-slate-200 pb-6 md:flex-row md:items-end">
+        {/* Section Heading */}
+        <div className="flex flex-col items-start justify-between gap-6 border-b border-[#f0f0f5]/[0.06] pb-10 md:flex-row md:items-end">
           <div>
-            <div className="inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-wider text-slate-700 shadow-xs">
-              <FolderGit2 className="h-3.5 w-3.5 text-blue-600" />
-              <span>Selected Work</span>
-            </div>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-              Systems &amp; Production Projects
+            <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-[-0.035em] text-[#f0f0f5]">
+              Featured Engineering Projects
             </h2>
-            <p className="mt-1 max-w-2xl text-sm text-slate-600">
-              Distributed schedulers, multimodal notification routers,
-              content-addressed storage, and custom RAG engines built for scale.
+            <p className="mt-3 max-w-2xl text-base text-[#8b92a8] leading-relaxed">
+              Full-stack platforms, AI agent systems, and distributed backends built from scratch.
             </p>
           </div>
 
-          {/* Interactive Filter Pills */}
-          <div className="flex flex-wrap items-center gap-1.5 rounded-xl border border-slate-200 bg-white p-1 shadow-xs">
+          {/* Filter Tabs */}
+          <div className="flex flex-wrap items-center gap-1.5 rounded-xl border border-[#f0f0f5]/[0.08] bg-[#0c1220] p-1 font-mono text-xs">
             {[
               { id: "all", label: "All Projects" },
-              { id: "featured", label: "Featured" },
-              { id: "go", label: "Go & Systems" },
-              { id: "ai", label: "AI & RAG" },
+              { id: "ai", label: "Full-Stack & AI" },
+              { id: "devops", label: "DevOps & Control" },
+              { id: "backend", label: "Backend & Systems" },
             ].map((tab) => (
               <button
                 key={tab.id}
                 type="button"
-                onClick={() => setActiveFilter(tab.id)}
-                className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-all duration-200 ${
+                onClick={() => setActiveFilter(tab.id as typeof activeFilter)}
+                className={`rounded-lg px-3 py-1.5 font-medium transition-colors cursor-pointer ${
                   activeFilter === tab.id
-                    ? "bg-slate-900 text-white shadow-xs"
-                    : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                    ? "bg-[#ff2d7b] text-white shadow-[0_2px_12px_rgba(255,45,123,0.3)]"
+                    : "text-[#8b92a8] hover:text-[#f0f0f5]"
                 }`}
               >
                 {tab.label}
@@ -276,132 +237,114 @@ export function ProjectsSection({
           </div>
         </div>
 
-        {/* Project Cards Grid */}
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-          {filteredProjects.map((project) => (
-            <article
-              key={project.id}
-              className="group relative flex flex-col justify-between rounded-3xl border border-slate-200/90 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-lg sm:p-8"
-            >
-              <div>
-                {/* Header Row: Icon + Badges + Links */}
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex items-center gap-3.5">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-slate-200 bg-slate-50 shadow-2xs transition-transform duration-300 group-hover:scale-105">
-                      {getProjectIcon(project.id)}
+        {/* Projects Cards Layout */}
+        <div className="mt-12 space-y-8">
+          {filteredProjects.map((project) => {
+            const Icon = project.icon;
+            return (
+              <article
+                key={project.id}
+                className={`rounded-2xl border transition-all p-6 sm:p-8 ${
+                  project.isFlagship
+                    ? "border-[#f0f0f5]/[0.1] bg-[#0c1220]/90 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.6)]"
+                    : "border-[#f0f0f5]/[0.06] bg-[#0a0e1a]/60 hover:border-[#f0f0f5]/[0.12]"
+                }`}
+              >
+                {/* Title & Metadata Row */}
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-[#f0f0f5]/[0.06] pb-5">
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[#f0f0f5]/[0.08] bg-[#111827] text-[#f0f0f5]">
+                      <Icon className="h-5 w-5 text-[#ff2d7b]" />
                     </div>
+
                     <div>
-                      <div className="flex items-center gap-2">
-                        <h3 className="text-xl font-bold tracking-tight text-slate-900">
+                      <div className="flex items-center gap-2.5">
+                        <h3 className="font-display text-2xl font-bold tracking-tight text-[#f0f0f5]">
                           {project.title}
                         </h3>
-                        {project.featured && (
-                          <span className="rounded-full border border-amber-200 bg-amber-50 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-amber-700">
-                            Featured
+                        {project.isFlagship && (
+                          <span className="rounded border border-[#ff2d7b]/40 bg-[#ff2d7b]/10 px-2 py-0.5 font-mono text-[10px] font-semibold text-[#ff2d7b]">
+                            Flagship
                           </span>
                         )}
                       </div>
-                      <p className="text-xs font-medium text-slate-500">
-                        {project.subtitle}
+                      <p className="font-mono text-xs text-[#8b92a8] mt-0.5">
+                        {project.categoryTag}
                       </p>
                     </div>
                   </div>
 
-                  {/* Actions Links */}
-                  <div className="flex items-center gap-1.5">
-                    {project.github && (
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="flex h-8 w-8 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 transition-colors hover:border-slate-300 hover:bg-slate-50 hover:text-slate-950"
-                        title="GitHub Repository"
-                      >
-                        <svg
-                          className="h-4 w-4"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
-                          <path d="M9 18c-4.51 2-5-2-7-2" />
-                        </svg>
-                      </a>
-                    )}
-                    {project.live && (
-                      <a
-                        href={project.live}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="flex h-8 w-8 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 transition-colors hover:border-slate-300 hover:bg-slate-50 hover:text-blue-600"
-                        title="Live Demo"
-                      >
-                        <ArrowUpRight className="h-4 w-4" />
-                      </a>
-                    )}
+                  {/* Actions & Metrics */}
+                  <div className="flex items-center gap-3 self-end sm:self-center">
+                    <div className="text-right hidden sm:block">
+                      <span className="block font-mono text-[10px] text-[#5a6380] uppercase tracking-wider">
+                        {project.keyMetric.label}
+                      </span>
+                      <span className="font-mono text-xs font-semibold text-sky-300">
+                        {project.keyMetric.value}
+                      </span>
+                    </div>
+
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 rounded-lg border border-[#f0f0f5]/[0.08] bg-[#111827] px-3 py-1.5 font-mono text-xs text-[#f0f0f5] hover:border-[#ff2d7b]/50 hover:text-[#ff2d7b] transition-colors"
+                      aria-label={`View ${project.title} on GitHub`}
+                    >
+                      <GithubIcon className="h-3.5 w-3.5" />
+                      <span>Code</span>
+                      <ArrowUpRight className="h-3.5 w-3.5 text-[#5a6380]" />
+                    </a>
                   </div>
                 </div>
 
-                {/* Description */}
-                <p className="mt-5 text-sm font-normal leading-relaxed text-slate-700">
-                  {project.description}
+                {/* Summary Description */}
+                <p className="mt-5 text-base leading-relaxed text-[#f0f0f5]">
+                  {project.summary}
                 </p>
 
-                {/* Performance Metrics Bar (if available) */}
-                {project.metrics && project.metrics.length > 0 && (
-                  <div className="mt-5 grid grid-cols-3 gap-2.5 rounded-2xl border border-slate-100 bg-slate-50/80 p-3 text-center">
-                    {project.metrics.map((metric, idx) => (
-                      <div key={idx} className="flex flex-col items-center">
-                        <span className="text-base font-extrabold tracking-tight text-slate-900 font-mono sm:text-lg">
-                          {metric.value}
-                        </span>
-                        <span className="text-[10px] font-medium text-slate-500">
-                          {metric.label}
-                        </span>
-                      </div>
-                    ))}
+                {/* Key Features / Architectural Mechanics Grid */}
+                <div className="mt-6 space-y-2.5 border-t border-[#f0f0f5]/[0.06] pt-5">
+                  <div className="font-mono text-xs text-[#5a6380] uppercase tracking-wider mb-2">
+                    Key Features &amp; Architecture
                   </div>
-                )}
-
-                {/* Engineering Highlights */}
-                <div className="mt-5 space-y-2 border-t border-slate-100 pt-4">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 font-mono">
-                    Key Implementations
-                  </span>
-                  <div className="space-y-2 pt-1">
-                    {project.highlights.slice(0, 3).map((highlight, idx) => (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs leading-relaxed text-[#8b92a8]">
+                    {project.architecture.map((item, i) => (
                       <div
-                        key={idx}
-                        className="flex items-start gap-2.5 text-xs font-normal leading-relaxed text-slate-700"
+                        key={i}
+                        className="flex flex-col gap-1 rounded-xl border border-[#f0f0f5]/[0.04] bg-[#111827]/40 p-4"
                       >
-                        <div className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-slate-100 text-emerald-700 font-bold">
-                          <CheckCircle2 className="h-3 w-3 text-emerald-600" />
+                        <div className="flex items-center gap-2">
+                          <span className="font-mono text-[#ff2d7b] font-bold text-xs">
+                            0{i + 1}
+                          </span>
+                          <span className="font-semibold text-[#f0f0f5]">
+                            {item.heading}
+                          </span>
                         </div>
-                        <span>{highlight}</span>
+                        <p className="text-[#a3a9b8] leading-relaxed pl-6">
+                          {item.detail}
+                        </p>
                       </div>
                     ))}
                   </div>
                 </div>
-              </div>
 
-              {/* Tech Stack Chips (Bottom) */}
-              <div className="mt-6 border-t border-slate-100 pt-4">
-                <div className="flex flex-wrap gap-1.5">
+                {/* Tech Footprint Tags */}
+                <div className="mt-6 flex flex-wrap items-center gap-1.5 pt-2 border-t border-[#f0f0f5]/[0.04]">
                   {project.techStack.map((tech) => (
                     <span
                       key={tech}
-                      className="rounded-md border border-slate-200 bg-slate-50 px-2.5 py-0.5 text-[11px] font-medium text-slate-700 shadow-2xs transition-colors hover:border-slate-300 hover:bg-white"
+                      className="rounded-md border border-[#f0f0f5]/[0.06] bg-[#0c1220] px-2.5 py-1 font-mono text-xs text-[#8b92a8]"
                     >
                       {tech}
                     </span>
                   ))}
                 </div>
-              </div>
-            </article>
-          ))}
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>

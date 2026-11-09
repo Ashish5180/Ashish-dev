@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <defs>
+    <linearGradient id="bg3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#020617" />
+    </linearGradient>
+    <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6" />
+      <stop offset="50%" stop-color="#ec4899" />
+      <stop offset="100%" stop-color="#3b82f6" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="800" fill="url(#bg3)" />
+
+  <!-- Domain Warping Contour Lines -->
+  <g opacity="0.85">
+    <path d="M 100 500 C 300 200, 500 700, 700 400 C 900 100, 1100 500, 1200 350" fill="none" stroke="url(#waveGrad)" stroke-width="4" />
+    <path d="M 100 530 C 310 230, 510 720, 710 420 C 910 130, 1110 520, 1200 380" fill="none" stroke="#8b5cf6" stroke-width="2.5" opacity="0.7" />
+    <path d="M 100 560 C 320 260, 520 740, 720 440 C 920 160, 1120 540, 1200 410" fill="none" stroke="#ec4899" stroke-width="2" opacity="0.5" />
+    <path d="M 100 590 C 330 290, 530 760, 730 460 C 930 190, 1130 560, 1200 440" fill="none" stroke="#3b82f6" stroke-width="1.5" opacity="0.35" />
+  </g>
+
+  <!-- Mathematical coordinates & formula overlay -->
+  <text x="80" y="120" font-family="monospace" font-size="14" fill="#94a3b8" letter-spacing="2">CREATIVE CODE &amp; SHADERS · 03</text>
+  <text x="80" y="160" font-family="sans-serif" font-weight="800" font-size="44" fill="#f8fafc" letter-spacing="-1">GPU DOMAIN WARPING</text>
+  <text x="80" y="195" font-family="sans-serif" font-weight="400" font-size="20" fill="#64748b">Procedural Turbulence &amp; Fractional Brownian Motion in GLSL</text>
+
+  <!-- Formula Callout -->
+  <g transform="translate(680, 220)">
+    <rect x="0" y="0" width="440" height="100" fill="#020617" stroke="#334155" stroke-width="1.5" rx="8" />
+    <text x="24" y="42" font-family="monospace" font-size="14" fill="#ec4899">vec2 q = vec2(fbm(p), fbm(p + vec2(5.2, 1.3)));</text>
+    <text x="24" y="72" font-family="monospace" font-size="14" fill="#38bdf8">float n = fbm(p + 4.0 * q + vec2(1.7, 9.2));</text>
+  </g>
+
+  <!-- Footer -->
+  <text x="80" y="730" font-family="monospace" font-size="13" fill="#475569">GLSL FRAGMENT PIPELINE · 60 FPS RENDER LOOP · PROCEDURAL NOISE</text>
+  <text x="1040" y="730" font-family="monospace" font-size="13" fill="#ec4899">ASHISH YADAV</text>
+</svg>
+

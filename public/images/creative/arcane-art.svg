@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <defs>
+    <linearGradient id="arcaneBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#022c22" />
+      <stop offset="50%" stop-color="#064e3b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="hextech" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#06b6d4" />
+      <stop offset="50%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#ec4899" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="800" fill="url(#arcaneBg)" />
+
+  <!-- Painterly Brushstroke Shapes & Hextech Glow -->
+  <g opacity="0.85">
+    <!-- Zaun Chemtech Green & Hextech Blue brush strokes -->
+    <path d="M 120 520 Q 300 240 600 480 T 1100 320" fill="none" stroke="url(#hextech)" stroke-width="18" stroke-linecap="round" opacity="0.8" />
+    <path d="M 80 560 Q 280 280 580 510 T 1080 350" fill="none" stroke="#10b981" stroke-width="12" stroke-linecap="round" opacity="0.6" />
+    <path d="M 160 480 Q 340 200 640 450 T 1140 290" fill="none" stroke="#ec4899" stroke-width="8" stroke-linecap="round" opacity="0.7" />
+
+    <!-- Stained glass geometric linework -->
+    <polygon points="600,200 750,320 680,480 520,480 450,320" fill="none" stroke="#fbbf24" stroke-width="2" />
+    <circle cx="600" cy="340" r="60" fill="none" stroke="#38bdf8" stroke-width="2" />
+    <circle cx="600" cy="340" r="12" fill="#38bdf8" />
+  </g>
+
+  <!-- Typography -->
+  <text x="80" y="90" font-family="monospace" font-size="13" fill="#34d399" letter-spacing="3">ANIMATION CRAFT · 04</text>
+  <text x="80" y="135" font-family="sans-serif" font-weight="900" font-size="44" fill="#ffffff" letter-spacing="-1">ARCANE: MOVING PAINT</text>
+  <text x="80" y="170" font-family="sans-serif" font-weight="500" font-size="18" fill="#94a3b8">Fortiche Studio &amp; The Blending of Matte Painting with 3D Rigging</text>
+
+  <!-- Footer -->
+  <text x="80" y="740" font-family="monospace" font-size="12" fill="#6ee7b7">FORTICHE PRODUCTION · HAND-PAINTED 2D TEXTURES OVER 3D MODELS · ASHISH YADAV</text>
+</svg>
+

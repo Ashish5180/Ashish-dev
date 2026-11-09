@@ -1,211 +1,145 @@
 "use client";
 
-import React, { useState } from "react";
-import { CloudShader } from "@/components/ui/cloud-shader";
-import {
-  ArrowRight,
-  FileText,
-  Compass,
-  Layers,
-  DownloadCloud,
-  Zap,
-  Palette,
-} from "lucide-react";
+import React from "react";
+import Link from "next/link";
+import { ArrowRight, FileText, ArrowUpRight } from "lucide-react";
+import { HeroSystemCockpit } from "@/components/hero-system-cockpit";
 
 export interface HeroSectionProps {
   className?: string;
 }
 
-const PRESETS = [
-  {
-    id: "azure",
-    label: "Azure Noon",
-    skyTopColor: "#1d4ed8",
-    skyBottomColor: "#93c5fd",
-    cloudColor: "#ffffff",
-    speed: 1,
-    count: 6,
-  },
-  {
-    id: "midnight",
-    label: "Cosmic Deep",
-    skyTopColor: "#0f172a",
-    skyBottomColor: "#334155",
-    cloudColor: "#94a3b8",
-    speed: 0.6,
-    count: 4,
-  },
-];
-
-const TECH_STACK = [
-  "GO",
-  "AWS",
-  "REACT",
-  "NEXT.JS",
-  "DISTRIBUTED SYSTEMS",
-  "AI",
-];
-
 export function HeroSection({ className = "" }: HeroSectionProps) {
-  const [activePreset, setActivePreset] = useState(PRESETS[0]);
-
   return (
     <section
-      aria-label="Hero Section"
-      className={`relative min-h-screen w-full overflow-hidden bg-slate-950 text-white ${className}`}
+      aria-label="Hero"
+      className={`relative min-h-screen w-full overflow-hidden bg-transparent ${className}`}
     >
-      {/* CloudShader Background Canvas */}
-      <CloudShader
-        className="fixed inset-0 h-screen w-screen"
-        speed={activePreset.speed}
-        count={activePreset.count}
-        skyTopColor={activePreset.skyTopColor}
-        skyBottomColor={activePreset.skyBottomColor}
-        cloudColor={activePreset.cloudColor}
-      />
+      <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col justify-between px-6 pt-28 pb-10 sm:px-8 sm:pt-36 sm:pb-12 lg:px-12">
+        {/* Main Grid: Left Stance + Right Workbench */}
+        <div className="my-auto grid grid-cols-1 items-center gap-10 py-6 lg:grid-cols-12 lg:gap-14">
+          {/* Left Column: Authoritative Technical Narrative */}
+          <div className="flex flex-col lg:col-span-6 xl:col-span-6">
+            {/* Minimal Status Eyebrow Badge */}
+            <div className="mb-4 inline-flex items-center gap-2 self-start rounded-full border border-white/[0.08] bg-[#0c1220]/80 px-3 py-1 backdrop-blur-md">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-60" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-sky-400" />
+              </span>
+              <span className="font-mono text-xs text-[#8b92a8]">
+                Software Engineer <span className="text-[#5a6380]">·</span> <span className="text-[#f0f0f5]">Backend, Full-Stack &amp; AI</span>
+              </span>
+            </div>
 
-      {/* Atmospheric Contrast Overlay */}
-      <div className="pointer-events-none fixed inset-0 z-0 bg-gradient-to-b from-black/35 via-black/15 to-black/60" />
+            {/* Main Name */}
+            <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-[5.25rem] font-bold leading-[0.96] tracking-[-0.035em] text-[#f0f0f5]">
+              Ashish Yadav
+            </h1>
 
-      {/* Hero Foreground Content */}
-      <div className="relative z-10 flex min-h-screen flex-col justify-between px-4 pt-28 pb-8 sm:px-6 lg:px-8">
-        <div className="mx-auto flex w-full max-w-4xl flex-1 flex-col items-center justify-center text-center">
-          {/* Eyebrow Badge */}
-          <div className="inline-flex items-center gap-2 rounded-full border border-sky-400/30 bg-sky-950/40 px-4 py-1.5 text-xs font-semibold tracking-wider uppercase text-sky-200 shadow-[0_4px_16px_0_rgba(0,0,0,0.2)] backdrop-blur-md transition-all hover:bg-sky-900/40 sm:text-xs">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75"></span>
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-sky-400"></span>
-            </span>
-            <span>Full-Stack Engineer · Go · AI · Distributed Systems</span>
+            {/* Technical Thesis Headline with subtle editorial italic flair */}
+            <p className="mt-4 font-display text-xl sm:text-2xl md:text-3xl font-normal leading-[1.3] tracking-[-0.02em] text-[#a3a9b8]">
+              Engineering <span className="italic font-serif text-white font-medium">high-throughput</span> cloud backends, <span className="italic font-serif text-white font-medium">scalable</span> full-stack platforms, and <span className="italic font-serif text-white font-medium">resilient</span> production AI systems.
+            </p>
+
+            {/* Crisp, Grounded Technical Scope */}
+            <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-[#8b92a8]">
+              I build end-to-end software designed for real-world traffic. Experienced across Go, Python, TypeScript (Next.js/React), Flutter, and AWS — from architecting serverless backends serving <strong className="font-medium text-[#f0f0f5]">100K+ active users</strong> at <span className="font-mono text-xs text-sky-300 bg-sky-400/10 px-1.5 py-0.5 rounded border border-sky-400/20">&lt;200ms p95 latency</span> to shipping 18 mobile apps with <strong className="font-medium text-[#f0f0f5]">250K+ downloads</strong> (4.9★) and autonomous AI agent infrastructure.
+            </p>
+
+            {/* 3-Second Recruiter Fast-Scan Cards (Minimal, Cohesive Palette, No Yellow/Purple) */}
+            <div className="mt-7 grid grid-cols-3 gap-2.5 max-w-xl">
+              <div className="group rounded-xl border border-white/[0.08] bg-[#0c1220]/70 p-3.5 backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 hover:border-white/20 hover:bg-[#0e1628]">
+                <span className="block font-mono text-[10px] tracking-wider uppercase text-[#8b92a8]">
+                  Scale <span className="text-[#5a6380]">/</span> <em className="italic font-serif lowercase text-sky-300">users</em>
+                </span>
+                <div className="mt-1 flex items-baseline gap-1">
+                  <span className="font-display text-xl sm:text-2xl font-bold tracking-tight text-[#f0f0f5]">100K</span>
+                  <span className="font-mono text-xs font-semibold text-sky-400">+</span>
+                </div>
+                <span className="mt-0.5 block font-mono text-[10px] text-[#5a6380] truncate">Active Daily Users</span>
+              </div>
+
+              <div className="group rounded-xl border border-white/[0.08] bg-[#0c1220]/70 p-3.5 backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 hover:border-white/20 hover:bg-[#0e1628]">
+                <span className="block font-mono text-[10px] tracking-wider uppercase text-[#8b92a8]">
+                  Mobile <span className="text-[#5a6380]">/</span> <em className="italic font-serif lowercase text-sky-300">apps</em>
+                </span>
+                <div className="mt-1 flex items-baseline gap-1">
+                  <span className="font-display text-xl sm:text-2xl font-bold tracking-tight text-[#f0f0f5]">250K</span>
+                  <span className="font-mono text-xs font-semibold text-white/70">+</span>
+                </div>
+                <span className="mt-0.5 block font-mono text-[10px] text-[#5a6380] truncate">4.9★ (18 Apps Shipped)</span>
+              </div>
+
+              <div className="group rounded-xl border border-white/[0.08] bg-[#0c1220]/70 p-3.5 backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 hover:border-white/20 hover:bg-[#0e1628]">
+                <span className="block font-mono text-[10px] tracking-wider uppercase text-[#8b92a8]">
+                  Latency <span className="text-[#5a6380]">/</span> <em className="italic font-serif lowercase text-sky-300">target</em>
+                </span>
+                <div className="mt-1 flex items-baseline gap-1">
+                  <span className="font-mono text-sm text-sky-400 font-bold">&lt;</span>
+                  <span className="font-display text-xl sm:text-2xl font-bold tracking-tight text-[#f0f0f5]">200</span>
+                  <span className="font-mono text-xs text-sky-400">ms</span>
+                </div>
+                <span className="mt-0.5 block font-mono text-[10px] text-[#5a6380] truncate">p95 Production Target</span>
+              </div>
+            </div>
+
+            {/* Primary Actions */}
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <a
+                href="/resume.pdf"
+                target="_blank"
+                rel="noreferrer"
+                className="group inline-flex h-12 items-center gap-2 rounded-xl bg-[#ff2d7b] px-6 text-sm font-semibold text-white shadow-[0_8px_24px_rgba(255,45,123,0.3)] transition-all duration-150 hover:bg-[#e6256e] hover:shadow-[0_12px_32px_rgba(255,45,123,0.45)] active:scale-[0.98]"
+              >
+                <FileText className="h-4 w-4" />
+                <span>View Resume</span>
+                <ArrowRight className="h-3.5 w-3.5 transition-transform duration-150 group-hover:translate-x-1" />
+              </a>
+
+              <a
+                href="#projects"
+                className="inline-flex h-12 items-center gap-2 rounded-xl border border-white/10 bg-[#111827]/80 px-5 text-sm font-medium text-[#f0f0f5] backdrop-blur-md transition-colors duration-150 hover:border-white/25 hover:bg-[#1a233a]"
+              >
+                <span>Explore Projects</span>
+                <ArrowUpRight className="h-4 w-4 text-[#8b92a8]" />
+              </a>
+
+              <Link
+                href="/creative"
+                className="group inline-flex h-12 items-center gap-2.5 rounded-xl border border-white/10 bg-[#111827]/80 px-5 text-sm font-medium text-[#f0f0f5] backdrop-blur-md transition-all duration-150 hover:border-white/25 hover:bg-[#162035] active:scale-[0.98]"
+                title="Read Ashish's creative essays, cinema frames & visual storytelling"
+              >
+                <span className="flex h-2 w-2 rounded-full bg-sky-400 transition-transform duration-150 group-hover:scale-125" />
+                <span>My <span className="italic font-serif text-white">Creative</span> Side</span>
+                <span className="font-mono text-xs text-[#8b92a8] group-hover:text-[#a3a9b8]">/atelier</span>
+                <ArrowUpRight className="h-4 w-4 text-[#8b92a8] transition-transform duration-150 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white" />
+              </Link>
+            </div>
           </div>
 
-          {/* Headline */}
-          <h1 className="mt-6 max-w-3xl text-balance text-4xl font-extrabold tracking-tight text-white drop-shadow-[0_2px_14px_rgba(0,0,0,0.45)] sm:text-6xl md:text-7xl">
-            I’m Ashish Yadav.
-            <br />
-            <span className="bg-gradient-to-r from-white via-sky-100 to-sky-300 bg-clip-text text-transparent">
-              I Build Fast Systems for
-            </span>
-            <br />
-            <span>Problems That Don’t Stay Small.</span>
-          </h1>
-
-          {/* Subheadline */}
-          <p className="mt-6 max-w-2xl text-pretty text-base font-normal leading-relaxed text-sky-100/90 drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)] sm:text-lg md:text-xl">
-            I’m a Full-Stack Engineer focused on Go, distributed systems, cloud
-            infrastructure, and production AI. I’ve architected systems across 50+
-            product domains and shipped AI infrastructure for a 100K+ download
-            app with sub-200ms backend latency.
-          </p>
-
-          {/* Action CTAs */}
-          <div className="mt-8 flex w-full flex-col items-center justify-center gap-3.5 sm:w-auto sm:flex-row">
-            <a
-              href="/resume.pdf"
-              target="_blank"
-              rel="noreferrer"
-              className="group flex h-12 w-full items-center justify-center gap-2.5 rounded-xl bg-white px-7 text-base font-semibold text-slate-900 shadow-[0_8px_24px_rgba(255,255,255,0.3)] transition-all duration-300 hover:scale-[1.02] hover:bg-sky-50 hover:shadow-[0_12px_32px_rgba(255,255,255,0.45)] active:scale-95 sm:w-auto"
-            >
-              <FileText className="h-4 w-4" />
-              <span>View Resume</span>
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </a>
-
-            <a
-              href="#projects"
-              className="group flex h-12 w-full items-center justify-center gap-2.5 rounded-xl border border-white/30 bg-white/10 px-7 text-base font-medium text-white shadow-[0_8px_24px_rgba(0,0,0,0.15)] backdrop-blur-xl transition-all duration-300 hover:border-white/50 hover:bg-white/20 active:scale-95 sm:w-auto"
-            >
-              <Compass className="h-4 w-4 text-sky-200 transition-transform group-hover:scale-110" />
-              <span>Explore My Work</span>
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </a>
-          </div>
-
-          {/* Atmosphere Theme Switcher (Subtle Frosted Pill) */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-2 rounded-2xl border border-white/20 bg-black/25 p-1.5 shadow-[0_8px_32px_0_rgba(0,0,0,0.25)] backdrop-blur-xl">
-            <span className="flex items-center gap-1.5 px-3 text-xs font-semibold uppercase tracking-wider text-sky-200/80">
-              <Palette className="h-3.5 w-3.5" />
-              Theme:
-            </span>
-            {PRESETS.map((preset) => {
-              const isActive = activePreset.id === preset.id;
-              return (
-                <button
-                  key={preset.id}
-                  type="button"
-                  onClick={() => setActivePreset(preset)}
-                  className={`flex items-center gap-1.5 rounded-xl px-3.5 py-1.5 text-xs font-medium transition-all duration-200 ${isActive
-                      ? "border border-white/40 bg-white/30 text-white shadow-md backdrop-blur-lg"
-                      : "text-white/70 hover:bg-white/10 hover:text-white"
-                    }`}
-                >
-                  <span
-                    className="h-2.5 w-2.5 rounded-full border border-white/50 shadow-sm"
-                    style={{ backgroundColor: preset.skyBottomColor }}
-                  />
-                  {preset.label}
-                </button>
-              );
-            })}
+          {/* Right Column: Live Go Systems Workbench */}
+          <div className="w-full lg:col-span-6 xl:col-span-6">
+            <HeroSystemCockpit />
           </div>
         </div>
 
-        {/* ========================================================= */}
-        {/* Bottom Section: Stat Cards + Tech Stack Ticker Bar */}
-        {/* ========================================================= */}
-        <div className="mx-auto mt-10 w-full max-w-4xl space-y-4">
-          {/* Key Metrics Grid */}
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            {/* Stat 1 */}
-            <div className="group flex flex-col items-center justify-center rounded-2xl border border-white/20 bg-white/10 p-5 text-center shadow-[0_8px_24px_rgba(0,0,0,0.15)] backdrop-blur-xl transition-all duration-300 hover:border-white/40 hover:bg-white/15 dark:border-white/10 dark:bg-black/30">
-              <div className="flex items-center gap-2">
-                <Layers className="h-5 w-5 text-sky-300" />
-                <span className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-                  50+
-                </span>
-              </div>
-              <span className="mt-1 text-sm font-medium text-sky-100/90">
-                Product Domains
-              </span>
+        {/* Bottom Recruiter Quick-Scan HUD Bar */}
+        <div className="mt-12 sm:mt-8 border-t border-[#f0f0f5]/[0.06] pt-5">
+          <div className="flex flex-wrap items-center justify-between gap-y-3 font-mono text-xs text-[#8b92a8]">
+            <div className="flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-sky-400" />
+              <span>Production Scale: <strong className="text-[#f0f0f5]">100K+ Active Users</strong></span>
+              <span className="text-[#5a6380] hidden sm:inline">·</span>
+              <span className="hidden sm:inline">App Downloads: <strong className="text-[#f0f0f5]">250K+ (4.9★ Rating)</strong></span>
             </div>
 
-            {/* Stat 2 */}
-            <div className="group flex flex-col items-center justify-center rounded-2xl border border-white/20 bg-white/10 p-5 text-center shadow-[0_8px_24px_rgba(0,0,0,0.15)] backdrop-blur-xl transition-all duration-300 hover:border-white/40 hover:bg-white/15 dark:border-white/10 dark:bg-black/30">
-              <div className="flex items-center gap-2">
-                <DownloadCloud className="h-5 w-5 text-amber-300" />
-                <span className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-                  100K+
-                </span>
-              </div>
-              <span className="mt-1 text-sm font-medium text-sky-100/90">
-                App Downloads
-              </span>
+            <div className="flex items-center gap-2">
+              <span>API Latency: <strong className="text-sky-300">&lt;200ms p95 SLA</strong></span>
+              <span className="text-[#5a6380] hidden sm:inline">·</span>
+              <span className="hidden sm:inline">Mobile Ecosystem: <strong className="text-[#f0f0f5]">18 Production Apps</strong></span>
+              <span className="text-[#5a6380] hidden sm:inline">·</span>
+              <span className="hidden sm:inline">Competitive Coding: <strong className="text-[#f0f0f5]">430+ Solved</strong></span>
             </div>
-
-            {/* Stat 3 */}
-            <div className="group flex flex-col items-center justify-center rounded-2xl border border-white/20 bg-white/10 p-5 text-center shadow-[0_8px_24px_rgba(0,0,0,0.15)] backdrop-blur-xl transition-all duration-300 hover:border-white/40 hover:bg-white/15 dark:border-white/10 dark:bg-black/30">
-              <div className="flex items-center gap-2">
-                <Zap className="h-5 w-5 text-emerald-300" />
-                <span className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-                  &lt;200ms
-                </span>
-              </div>
-              <span className="mt-1 text-sm font-medium text-sky-100/90">
-                AI Backend Latency
-              </span>
-            </div>
-          </div>
-
-          {/* Tech Stack Ticker Pill Bar */}
-          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 rounded-2xl border border-white/15 bg-white/5 px-6 py-3 text-center text-xs font-semibold tracking-wider text-sky-200/90 shadow-inner backdrop-blur-md sm:text-sm">
-            {TECH_STACK.map((tech, index) => (
-              <React.Fragment key={tech}>
-                <span className="transition-colors hover:text-white">{tech}</span>
-                {index < TECH_STACK.length - 1 && (
-                  <span className="text-white/30">•</span>
-                )}
-              </React.Fragment>
-            ))}
           </div>
         </div>
       </div>

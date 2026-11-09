@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <defs>
+    <linearGradient id="bg4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1c1917" />
+      <stop offset="100%" stop-color="#0c0a09" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="800" fill="url(#bg4)" />
+
+  <!-- Swiss Editorial Typography & Deletion Bars -->
+  <g transform="translate(80, 260)">
+    <text x="0" y="50" font-family="sans-serif" font-weight="900" font-size="64" fill="#292524" text-decoration="line-through">COMPLEX FRAMEWORKS</text>
+    <text x="0" y="130" font-family="sans-serif" font-weight="900" font-size="64" fill="#292524" text-decoration="line-through">PREMATURE ABSTRACTION</text>
+    <text x="0" y="210" font-family="sans-serif" font-weight="900" font-size="64" fill="#10b981">RADICAL SIMPLICITY</text>
+    <line x1="0" y1="235" x2="650" y2="235" stroke="#10b981" stroke-width="4" />
+  </g>
+
+  <!-- Typography -->
+  <text x="80" y="120" font-family="monospace" font-size="14" fill="#a8a29e" letter-spacing="2">ENGINEERING PHILOSOPHY · 04</text>
+  <text x="80" y="160" font-family="sans-serif" font-weight="800" font-size="44" fill="#fafaf9" letter-spacing="-1">TASTE AS SUBTRACTION</text>
+  <text x="80" y="195" font-family="sans-serif" font-weight="400" font-size="20" fill="#78716c">Crafting Durable Software by Deleting What Does Not Need to Exist</text>
+
+  <!-- Metrics -->
+  <text x="80" y="730" font-family="monospace" font-size="13" fill="#57534e">-2,400 LINES OF BOILERPLATE · +0 RUNTIME ALLOCATIONS · GO STANDARD LIBRARY</text>
+  <text x="1040" y="730" font-family="monospace" font-size="13" fill="#10b981">ASHISH YADAV</text>
+</svg>
+

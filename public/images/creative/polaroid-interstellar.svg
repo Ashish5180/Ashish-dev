@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <!-- Deep Cosmic Void Gradient -->
+    <radialGradient id="voidSpace" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#0a0a0f" />
+      <stop offset="60%" stop-color="#030712" />
+      <stop offset="100%" stop-color="#000000" />
+    </radialGradient>
+
+    <!-- Glowing Accretion Disk Gold Gradient -->
+    <linearGradient id="diskGold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.1" />
+      <stop offset="25%" stop-color="#f59e0b" stop-opacity="0.9" />
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="1" />
+      <stop offset="75%" stop-color="#f59e0b" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#d97706" stop-opacity="0.1" />
+    </linearGradient>
+
+    <!-- Warm bloom filter -->
+    <filter id="accretionBloom" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="16" result="blur1" />
+      <feGaussianBlur stdDeviation="6" result="blur2" />
+      <feMerge>
+        <feMergeNode in="blur1" />
+        <feMergeNode in="blur2" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Deep space background -->
+  <rect width="800" height="600" fill="url(#voidSpace)" />
+
+  <!-- Twinkling Stars Field -->
+  <g fill="#ffffff">
+    <circle cx="80" cy="90" r="1.5" opacity="0.8" />
+    <circle cx="140" cy="180" r="1" opacity="0.4" />
+    <circle cx="210" cy="70" r="2" opacity="0.9" />
+    <circle cx="290" cy="140" r="1.2" opacity="0.6" />
+    <circle cx="350" cy="60" r="1" opacity="0.5" />
+    <circle cx="480" cy="80" r="1.5" opacity="0.7" />
+    <circle cx="590" cy="120" r="2" opacity="0.85" />
+    <circle cx="680" cy="70" r="1" opacity="0.6" />
+    <circle cx="740" cy="150" r="1.5" opacity="0.75" />
+
+    <circle cx="70" cy="420" r="1.5" opacity="0.7" />
+    <circle cx="120" cy="510" r="1" opacity="0.5" />
+    <circle cx="190" cy="460" r="2" opacity="0.8" />
+    <circle cx="280" cy="530" r="1.2" opacity="0.6" />
+    <circle cx="520" cy="510" r="1.5" opacity="0.75" />
+    <circle cx="620" cy="480" r="1" opacity="0.5" />
+    <circle cx="710" cy="520" r="2" opacity="0.9" />
+    <circle cx="760" cy="440" r="1.2" opacity="0.65" />
+  </g>
+
+  <!-- Gargantua Accretion Disk (Gravitationally Lensed Light) -->
+  <g transform="translate(400, 300)">
+    <!-- Golden aura halo -->
+    <circle cx="0" cy="0" r="210" fill="#f59e0b" opacity="0.12" filter="url(#accretionBloom)" />
+    <circle cx="0" cy="0" r="160" fill="#fbbf24" opacity="0.2" filter="url(#accretionBloom)" />
+
+    <!-- Upper Gravitational Lensing Arc (Light bent around top of event horizon) -->
+    <path d="M -240 0 C -240 -160, 240 -160, 240 0" fill="none" stroke="url(#diskGold)" stroke-width="26" filter="url(#accretionBloom)" stroke-linecap="round" />
+    <path d="M -220 0 C -220 -140, 220 -140, 220 0" fill="none" stroke="#ffffff" stroke-width="8" opacity="0.85" stroke-linecap="round" />
+
+    <!-- Lower Gravitational Lensing Arc (Light bent beneath event horizon) -->
+    <path d="M -190 20 C -190 120, 190 120, 190 20" fill="none" stroke="url(#diskGold)" stroke-width="16" opacity="0.75" filter="url(#accretionBloom)" stroke-linecap="round" />
+
+    <!-- Main Horizontal Equatorial Accretion Disk Ring -->
+    <!-- Back of disk -->
+    <ellipse cx="0" cy="0" rx="320" ry="42" fill="none" stroke="url(#diskGold)" stroke-width="32" filter="url(#accretionBloom)" opacity="0.7" />
+    <ellipse cx="0" cy="0" rx="310" ry="38" fill="none" stroke="#ffffff" stroke-width="8" opacity="0.85" />
+
+    <!-- The Pitch Black Event Horizon (Sphere of Absolute Silence) -->
+    <circle cx="0" cy="0" r="95" fill="#000000" stroke="#000000" stroke-width="4" />
+    <!-- Fine glowing photon ring at edge of event horizon -->
+    <circle cx="0" cy="0" r="96" fill="none" stroke="#fde047" stroke-width="3" opacity="0.9" filter="url(#accretionBloom)" />
+    <circle cx="0" cy="0" r="96" fill="none" stroke="#ffffff" stroke-width="1.5" opacity="1" />
+
+    <!-- Front of Equatorial Accretion Disk (Crossing in front of the Black Hole) -->
+    <path d="M -320 0 Q 0 42 320 0" fill="none" stroke="url(#diskGold)" stroke-width="36" filter="url(#accretionBloom)" stroke-linecap="round" />
+    <path d="M -310 0 Q 0 38 310 0" fill="none" stroke="#ffffff" stroke-width="10" opacity="0.95" stroke-linecap="round" />
+    <!-- Golden dust wisps on equatorial disk -->
+    <path d="M -260 6 Q 0 45 260 6" fill="none" stroke="#f59e0b" stroke-width="8" opacity="0.8" />
+
+    <!-- Microscopic Endurance Spacecraft (Tiny white cross showing colossal scale) -->
+    <g transform="translate(190, -110)">
+      <!-- Ring of 12 modules -->
+      <circle cx="0" cy="0" r="9" fill="none" stroke="#ffffff" stroke-width="2" />
+      <circle cx="0" cy="0" r="3" fill="#ffffff" />
+      <!-- Solar reflection glint -->
+      <line x1="-14" y1="0" x2="14" y2="0" stroke="#fde047" stroke-width="1" opacity="0.8" />
+      <line x1="0" y1="-14" x2="0" y2="14" stroke="#fde047" stroke-width="1" opacity="0.8" />
+    </g>
+  </g>
+</svg>
+

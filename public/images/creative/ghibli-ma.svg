@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <defs>
+    <linearGradient id="ghibliSky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="60%" stop-color="#334155" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="800" fill="url(#ghibliSky)" />
+
+  <!-- Miyazaki Negative Space Horizon & Water Plane -->
+  <g opacity="0.8">
+    <!-- Train tracks in shallow sea (Spirited Away motif) -->
+    <line x1="0" y1="520" x2="1200" y2="520" stroke="#94a3b8" stroke-width="1.5" />
+    <line x1="0" y1="540" x2="1200" y2="540" stroke="#cbd5e1" stroke-width="2" />
+    <line x1="0" y1="560" x2="1200" y2="560" stroke="#64748b" stroke-width="1.5" />
+
+    <!-- Distant floating electric poles -->
+    <line x1="450" y1="460" x2="450" y2="550" stroke="#cbd5e1" stroke-width="2" />
+    <line x1="440" y1="480" x2="460" y2="480" stroke="#cbd5e1" stroke-width="1.5" />
+    <line x1="750" y1="480" x2="750" y2="540" stroke="#cbd5e1" stroke-width="1.5" />
+    <line x1="742" y1="495" x2="758" y2="495" stroke="#cbd5e1" stroke-width="1" />
+
+    <!-- Cumulonimbus cloud contour in negative space -->
+    <path d="M 650 480 C 650 360, 720 280, 800 280 C 850 280, 890 310, 910 350 C 950 340, 1000 370, 1020 420 C 1050 420, 1080 450, 1080 480 Z" fill="#475569" opacity="0.4" />
+  </g>
+
+  <!-- Typography -->
+  <text x="80" y="100" font-family="monospace" font-size="13" fill="#38bdf8" letter-spacing="2">ANIMATION PHILOSOPHY · 04</text>
+  <text x="80" y="145" font-family="sans-serif" font-weight="900" font-size="44" fill="#ffffff" letter-spacing="-1">STUDIO GHIBLI: THE ART OF MA</text>
+  <text x="80" y="180" font-family="sans-serif" font-weight="500" font-size="18" fill="#94a3b8">Why Deliberate Pauses Make Both Stories and Distributed Systems Breathe</text>
+
+  <!-- Quote from Miyazaki -->
+  <g transform="translate(80, 260)">
+    <rect x="0" y="0" width="480" height="85" fill="#0f172a" stroke="#334155" stroke-width="1" rx="8" />
+    <text x="24" y="35" font-family="sans-serif" font-style="italic" font-size="14" fill="#f1f5f9">&quot;If you just have non-stop action, it becomes numb.&quot;</text>
+    <text x="24" y="62" font-family="monospace" font-size="12" fill="#38bdf8">— Hayao Miyazaki on &apos;Ma&apos; (Empty Space)</text>
+  </g>
+
+  <!-- Footer -->
+  <text x="80" y="740" font-family="monospace" font-size="12" fill="#64748b">DIRECTOR: HAYAO MIYAZAKI · STUDIO GHIBLI · CEL ANIMATION &amp; PACING ARCHITECTURE</text>
+  <text x="1050" y="740" font-family="monospace" font-size="12" fill="#38bdf8">ASHISH YADAV</text>
+</svg>
+

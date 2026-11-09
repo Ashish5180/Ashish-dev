@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#111827" />
+      <stop offset="100%" stop-color="#030712" />
+    </linearGradient>
+    <pattern id="hex" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 0 15 L 15 0 L 30 15 L 15 30 Z" fill="none" stroke="#1f2937" stroke-width="0.8" />
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="800" fill="url(#bg2)" />
+  <rect width="1200" height="800" fill="url(#hex)" opacity="0.6" />
+
+  <!-- 64-Byte Cache Line Memory Grid Diagram -->
+  <g transform="translate(480, 260)">
+    <!-- 8x8 Matrix representation of 64 bytes -->
+    <rect x="0" y="0" width="360" height="240" fill="#030712" stroke="#374151" stroke-width="2" rx="8" />
+    <!-- Cache line slots -->
+    <line x1="90" y1="0" x2="90" y2="240" stroke="#1f2937" stroke-width="1.5" />
+    <line x1="180" y1="0" x2="180" y2="240" stroke="#1f2937" stroke-width="1.5" />
+    <line x1="270" y1="0" x2="270" y2="240" stroke="#1f2937" stroke-width="1.5" />
+    <line x1="0" y1="80" x2="360" y2="80" stroke="#1f2937" stroke-width="1.5" />
+    <line x1="0" y1="160" x2="360" y2="160" stroke="#1f2937" stroke-width="1.5" />
+
+    <!-- Active Cache Hits (Cyan/Rose highlight) -->
+    <rect x="0" y="0" width="90" height="80" fill="#f43f5e" fill-opacity="0.25" stroke="#f43f5e" stroke-width="2" rx="4" />
+    <rect x="90" y="0" width="90" height="80" fill="#06b6d4" fill-opacity="0.25" stroke="#06b6d4" stroke-width="2" rx="4" />
+    <rect x="180" y="0" width="90" height="80" fill="#06b6d4" fill-opacity="0.25" stroke="#06b6d4" stroke-width="2" rx="4" />
+    <rect x="270" y="0" width="90" height="80" fill="#06b6d4" fill-opacity="0.25" stroke="#06b6d4" stroke-width="2" rx="4" />
+
+    <!-- Pointer Indirection Breakage Indicator -->
+    <path d="M 45 40 Q 150 -60 270 40" fill="none" stroke="#f43f5e" stroke-width="2.5" stroke-dasharray="4,4" />
+    <text x="140" y="-30" font-family="monospace" font-size="12" fill="#f43f5e">POINTER JUMP (L1 MISS)</text>
+  </g>
+
+  <!-- Typography -->
+  <text x="80" y="120" font-family="monospace" font-size="14" fill="#9ca3af" letter-spacing="2">PERFORMANCE CRAFT · 02</text>
+  <text x="80" y="160" font-family="sans-serif" font-weight="800" font-size="44" fill="#f9fafb" letter-spacing="-1">CPU CACHE LINE GEOMETRY</text>
+  <text x="80" y="195" font-family="sans-serif" font-weight="400" font-size="20" fill="#6b7280">Memory Layout &amp; Zero-Allocation Structs in Go</text>
+
+  <!-- Footer -->
+  <text x="80" y="730" font-family="monospace" font-size="13" fill="#4b5563">L1 D-CACHE: 64B ALIGNMENT · FALSE SHARING ELIMINATION · p99: 850µs</text>
+  <text x="1040" y="730" font-family="monospace" font-size="13" fill="#06b6d4">ASHISH YADAV</text>
+</svg>
+

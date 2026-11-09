@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <defs>
+    <linearGradient id="twilight" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="35%" stop-color="#312e81" />
+      <stop offset="65%" stop-color="#be185d" />
+      <stop offset="85%" stop-color="#f97316" />
+      <stop offset="100%" stop-color="#fde047" />
+    </linearGradient>
+  </defs>
+
+  <!-- Sky gradient -->
+  <rect width="1200" height="800" fill="url(#twilight)" />
+
+  <!-- Stars in upper atmosphere -->
+  <g fill="#ffffff" opacity="0.8">
+    <circle cx="150" cy="80" r="1.5" />
+    <circle cx="280" cy="120" r="2" />
+    <circle cx="420" cy="60" r="1" />
+    <circle cx="650" cy="90" r="2.5" />
+    <circle cx="820" cy="130" r="1.5" />
+    <circle cx="980" cy="70" r="2" />
+    <circle cx="1100" cy="110" r="1.5" />
+    <circle cx="340" cy="180" r="1" />
+    <circle cx="780" cy="190" r="1.5" />
+  </g>
+
+  <!-- Massive Makoto Shinkai Cumulonimbus Sunset Cloud -->
+  <g opacity="0.9">
+    <path d="M 500 700 C 500 520, 600 420, 720 420 C 760 380, 840 360, 920 390 C 980 340, 1080 360, 1120 440 C 1170 450, 1220 500, 1220 580 C 1220 700, 1100 750, 900 750 Z" fill="#ffffff" fill-opacity="0.18" />
+    <path d="M 540 700 C 540 550, 630 460, 730 460 C 780 430, 840 410, 910 430 C 970 390, 1060 410, 1100 470 C 1140 480, 1190 530, 1190 600 C 1190 700, 1080 740, 900 740 Z" fill="#fed7aa" fill-opacity="0.3" />
+  </g>
+
+  <!-- Japanese Telephone Wires & Distant City Silhouette -->
+  <g stroke="#09090b" stroke-width="1.5" opacity="0.95">
+    <!-- Utility poles -->
+    <line x1="220" y1="500" x2="220" y2="780" stroke-width="6" />
+    <line x1="200" y1="540" x2="240" y2="540" stroke-width="3" />
+    <line x1="190" y1="580" x2="250" y2="580" stroke-width="3" />
+
+    <line x1="580" y1="560" x2="580" y2="780" stroke-width="5" />
+    <line x1="565" y1="590" x2="595" y2="590" stroke-width="2.5" />
+
+    <!-- Catenary wires across the sky -->
+    <path d="M 0 520 Q 220 570 580 590 T 1200 620" fill="none" stroke-width="1.8" />
+    <path d="M 0 540 Q 220 600 580 610 T 1200 640" fill="none" stroke-width="1.5" />
+    <path d="M 0 560 Q 220 630 580 640 T 1200 670" fill="none" stroke-width="1.2" />
+  </g>
+
+  <!-- Ground silhouette -->
+  <rect x="0" y="740" width="1200" height="60" fill="#09090b" />
+
+  <!-- Typography -->
+  <text x="80" y="90" font-family="monospace" font-size="13" fill="#fde047" letter-spacing="3">ANIME CINEMATOGRAPHY · 02</text>
+  <text x="80" y="135" font-family="sans-serif" font-weight="900" font-size="44" fill="#ffffff" letter-spacing="-1">MAKOTO SHINKAI: TWILIGHT SKIES</text>
+  <text x="80" y="170" font-family="sans-serif" font-weight="500" font-size="18" fill="#e2e8f0">The Emotional Weight of Clouds, Distance &amp; The Magic Hour (Kataware-doki)</text>
+
+  <!-- Quote -->
+  <g transform="translate(80, 230)">
+    <rect x="0" y="0" width="460" height="65" fill="#09090b" fill-opacity="0.65" stroke="#fbcfe8" stroke-width="1" rx="8" />
+    <text x="20" y="28" font-family="sans-serif" font-style="italic" font-size="13" fill="#fdf2f8">&quot;Somewhere in this world, there is someone I am meant to meet.&quot;</text>
+    <text x="20" y="48" font-family="monospace" font-size="11" fill="#f472b6">— Your Name (Kimi no Na wa) · Studio CoMix Wave</text>
+  </g>
+
+  <!-- Footer -->
+  <text x="80" y="770" font-family="monospace" font-size="12" fill="#94a3b8">PALETTE: INDIGO, MAGENTA, AMBER · ANIME LIGHTING STUDY · ASHISH YADAV ATELIER</text>
+</svg>
+

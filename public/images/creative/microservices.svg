@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#18181b" />
+      <stop offset="100%" stop-color="#09090b" />
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#27272a" stroke-width="0.8" />
+    </pattern>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#ef4444" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="800" fill="url(#bg)" />
+  <rect width="1200" height="800" fill="url(#grid)" opacity="0.65" />
+
+  <!-- Architectural Isometric Blueprint Lines -->
+  <g stroke="#3f3f46" stroke-width="1.5" fill="none" opacity="0.8">
+    <polygon points="600,180 880,320 600,460 320,320" stroke="url(#accent)" stroke-width="2.5" fill="#18181b" fill-opacity="0.6" />
+    <polygon points="600,280 880,420 600,560 320,420" stroke="#71717a" stroke-width="1.5" />
+    <polygon points="600,380 880,520 600,660 320,520" stroke="#52525b" stroke-width="1" />
+    <line x1="600" y1="180" x2="600" y2="660" stroke="#f59e0b" stroke-width="2" stroke-dasharray="6,4" />
+    <line x1="320" y1="320" x2="320" y2="520" stroke="#71717a" />
+    <line x1="880" y1="320" x2="880" y2="520" stroke="#71717a" />
+  </g>
+
+  <!-- Nodes & Data Flow Marks -->
+  <circle cx="600" cy="180" r="8" fill="#f59e0b" />
+  <circle cx="880" cy="320" r="6" fill="#ef4444" />
+  <circle cx="320" cy="320" r="6" fill="#3b82f6" />
+  <circle cx="600" cy="460" r="7" fill="#10b981" />
+
+  <!-- Typographic Markings -->
+  <text x="80" y="120" font-family="monospace" font-size="14" fill="#a1a1aa" letter-spacing="2">ARCHITECTURAL DISPATCH · 01</text>
+  <text x="80" y="160" font-family="sans-serif" font-weight="800" font-size="44" fill="#fafafa" letter-spacing="-1">THE MODULAR MONOLITH</text>
+  <text x="80" y="195" font-family="sans-serif" font-weight="400" font-size="20" fill="#71717a">Single-Instance Postgres vs 14-Service Sprawl</text>
+
+  <!-- Technical Telemetry Footer -->
+  <text x="80" y="730" font-family="monospace" font-size="13" fill="#52525b">LATENCY BUDGET: &lt;1.2ms · SCHEMA CONCURRENCY: 50,000 req/s · PARTITION: ZERO-SCANS</text>
+  <text x="1040" y="730" font-family="monospace" font-size="13" fill="#f59e0b">ASHISH YADAV</text>
+</svg>
+

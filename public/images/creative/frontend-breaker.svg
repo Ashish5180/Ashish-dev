@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <defs>
+    <linearGradient id="breakerBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#18181b" />
+      <stop offset="100%" stop-color="#09090b" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="800" fill="url(#breakerBg)" />
+
+  <!-- Layout Thrashing & Frame Drop Waveform -->
+  <g transform="translate(100, 260)">
+    <!-- 60 FPS Target Line -->
+    <line x1="0" y1="60" x2="1000" y2="60" stroke="#10b981" stroke-width="1.5" stroke-dasharray="6,4" />
+    <text x="1010" y="65" font-family="monospace" font-size="12" fill="#10b981">16.6ms (60 FPS)</text>
+
+    <!-- 120 FPS Target Line -->
+    <line x1="0" y1="20" x2="1000" y2="20" stroke="#3b82f6" stroke-width="1" stroke-dasharray="4,4" opacity="0.6" />
+    <text x="1010" y="25" font-family="monospace" font-size="12" fill="#3b82f6">8.3ms (120 FPS)</text>
+
+    <!-- 30 FPS / Frame Drop Warning Line -->
+    <line x1="0" y1="120" x2="1000" y2="120" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="6,4" />
+    <text x="1010" y="125" font-family="monospace" font-size="12" fill="#ef4444">33.3ms (DROPPED)</text>
+
+    <!-- Actual Render Latency Graph showing massive spike on un-debounced resize -->
+    <path d="M 0 55 L 120 50 L 240 58 L 360 52 L 480 54 L 540 220 L 600 280 L 660 140 L 720 58 L 840 54 L 1000 52" fill="none" stroke="#f43f5e" stroke-width="3.5" />
+
+    <!-- Spike Callout -->
+    <circle cx="570" cy="250" r="6" fill="#f43f5e" />
+    <rect x="520" y="270" width="220" height="60" fill="#27272a" stroke="#ef4444" stroke-width="1" rx="6" />
+    <text x="535" y="295" font-family="monospace" font-size="12" fill="#fecdd3">LAYOUT THRASHING</text>
+    <text x="535" y="315" font-family="monospace" font-size="10" fill="#a1a1aa">getBoundingClientRect() in loop</text>
+  </g>
+
+  <!-- Typography -->
+  <text x="80" y="100" font-family="monospace" font-size="13" fill="#34d399" letter-spacing="2">FRONTEND STRESS LAB · 03</text>
+  <text x="80" y="145" font-family="sans-serif" font-weight="900" font-size="44" fill="#ffffff" letter-spacing="-1">BREAKING FRONTEND APPS</text>
+  <text x="80" y="180" font-family="sans-serif" font-weight="500" font-size="18" fill="#9ca3af">A Backend Engineer&apos;s Guide to Memory Leaks, Hydration Mismatches &amp; 16ms Budgets</text>
+
+  <!-- Footer -->
+  <text x="80" y="740" font-family="monospace" font-size="12" fill="#52525b">STRESS SCENARIOS: 10,000 DOM NODES · UNTHROTTLED SCROLL · EVENT-LOOP BLOCKING</text>
+  <text x="1050" y="740" font-family="monospace" font-size="12" fill="#34d399">ASHISH YADAV</text>
+</svg>
+
