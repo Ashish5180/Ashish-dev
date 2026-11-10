@@ -25,7 +25,7 @@ export function ExperienceSkeleton() {
   return (
     <section
       aria-label="Loading Work Experience"
-      className="relative z-20 w-full border-t border-[#f0f0f5]/[0.08] bg-transparent px-6 py-24 text-[#f0f0f5] sm:px-8 sm:py-32 lg:px-12 min-h-[1100px]"
+      className="relative z-20 w-full border-t border-[#f0f0f5]/[0.08] bg-transparent px-4 py-20 text-[#f0f0f5] sm:px-8 sm:py-32 lg:px-12 min-h-[1100px]"
     >
       <div className="mx-auto max-w-6xl">
         {/* Section Header */}
@@ -106,7 +106,7 @@ export function ProjectsSkeleton() {
   return (
     <section
       aria-label="Loading Featured Projects"
-      className="relative z-20 w-full border-t border-[#f0f0f5]/[0.08] bg-transparent px-6 py-24 text-[#f0f0f5] sm:px-8 sm:py-32 lg:px-12 min-h-[950px]"
+      className="relative z-20 w-full border-t border-[#f0f0f5]/[0.08] bg-transparent px-4 py-20 text-[#f0f0f5] sm:px-8 sm:py-32 lg:px-12 min-h-[950px]"
     >
       <div className="mx-auto max-w-6xl">
         {/* Header */}
@@ -169,7 +169,7 @@ export function ContactSkeleton() {
   return (
     <section
       aria-label="Loading Contact Section"
-      className="relative z-20 w-full border-t border-[#f0f0f5]/[0.08] bg-transparent px-6 py-24 text-[#f0f0f5] sm:px-8 sm:py-32 lg:px-12 min-h-[800px]"
+      className="relative z-20 w-full border-t border-[#f0f0f5]/[0.08] bg-transparent px-4 py-20 text-[#f0f0f5] sm:px-8 sm:py-32 lg:px-12 min-h-[800px]"
     >
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-col items-start justify-between gap-6 border-b border-[#f0f0f5]/[0.06] pb-10 md:flex-row md:items-end">

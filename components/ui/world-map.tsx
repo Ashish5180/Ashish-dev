@@ -10,11 +10,14 @@ export interface MapUserNode {
   id: string;
   lat: number;
   lng: number;
-  name: string;
-  role: string;
+  title?: string;
+  name?: string;
+  subtitle?: string;
+  role?: string;
   city: string;
   country: string;
-  avatar: string;
+  image?: string;
+  avatar?: string;
   headline?: string;
   isOrigin?: boolean;
   status?: string;
@@ -178,11 +181,11 @@ export default function WorldMap({
                       ? "h-8 w-8 sm:h-9 sm:w-9 group-hover:scale-115"
                       : "h-7 w-7 sm:h-8 sm:w-8 group-hover:scale-115"
                   }`}
-                  title={`${node.name} (${node.city})`}
+                  title={`${node.title || node.name || "Collaborator"} (${node.city})`}
                 >
                   <Image
-                    src={node.avatar}
-                    alt={node.name}
+                    src={node.image || node.avatar || "/images/my.png"}
+                    alt={node.title || node.name || "Collaborator"}
                     fill
                     sizes="36px"
                     className="object-cover"
@@ -207,8 +210,8 @@ export default function WorldMap({
                           {/* Zoomed PFP Lens */}
                           <div className="relative h-14 w-14 sm:h-16 sm:w-16 shrink-0 overflow-hidden rounded-full border border-white/20 bg-[#111827] shadow-[0_4px_16px_rgba(0,0,0,0.6)]">
                             <Image
-                              src={node.avatar}
-                              alt={`${node.name} Zoomed Avatar`}
+                              src={node.image || node.avatar || "/images/my.png"}
+                              alt={`${node.title || node.name || "Collaborator"} Zoomed Avatar`}
                               fill
                               sizes="64px"
                               className="object-cover scale-[1.35] transition-transform duration-200"
@@ -219,10 +222,10 @@ export default function WorldMap({
                           {/* Friend Name, SDE Title & Location */}
                           <div className="flex flex-col min-w-0">
                             <span className="font-display text-sm font-bold text-white truncate tracking-tight">
-                              {node.name}
+                              {node.title || node.name}
                             </span>
                             <span className="font-mono text-[11px] font-medium text-sky-300 truncate">
-                              {node.role}
+                              {node.subtitle || node.role}
                             </span>
                             <span className="font-mono text-[10px] text-[#8b92a8] truncate">
                               {node.city}, {node.country}

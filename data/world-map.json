@@ -1,0 +1,124 @@
+[
+  {
+    "id": "delhi",
+    "image": "/images/my.png",
+    "title": "Ashish Yadav (Me)",
+    "subtitle": "Software Engineer (Backend · Full-Stack · AI)",
+    "headline": "Building zero-allocation Go backends, serverless AWS platforms, and reliable AI systems.",
+    "city": "New Delhi",
+    "country": "India",
+    "lat": 28.6139,
+    "lng": 77.209,
+    "isOrigin": true
+  },
+  {
+    "id": "aniket",
+    "image": "/images/connections/aniket.png",
+    "title": "Aniket",
+    "subtitle": "Data Engineer",
+    "headline": "Designing robust ETL data pipelines, lakehouse architectures, and real-time streaming analytics.",
+    "city": "Delhi NCR",
+    "country": "India",
+    "lat": 37.7749,
+    "lng": -122.4194
+  },
+  {
+    "id": "devesh",
+    "image": "/images/connections/devesh.jpeg",
+    "title": "Devesh",
+    "subtitle": "Cyber Security Analyst",
+    "headline": "Specializing in threat modeling, vulnerability assessments, and enterprise network security monitoring.",
+    "city": "Delhi NCR",
+    "country": "India",
+    "lat": 40.7128,
+    "lng": -74.006
+  },
+  {
+    "id": "harsh",
+    "image": "/images/connections/harsh.jpeg",
+    "title": "Harsh",
+    "subtitle": "Full-Stack Engineer",
+    "headline": "Engineering end-to-end web applications with modern frontend architectures and scalable APIs.",
+    "city": "Delhi NCR",
+    "country": "India",
+    "lat": 43.6532,
+    "lng": -79.3832
+  },
+  {
+    "id": "aryan",
+    "image": "/images/connections/aryan.jpeg",
+    "title": "Aryan",
+    "subtitle": "Full-Stack Developer",
+    "headline": "Building intuitive user experiences, robust full-stack workflows, and API integrations.",
+    "city": "Delhi NCR",
+    "country": "India",
+    "lat": -23.5505,
+    "lng": -46.6333
+  },
+  {
+    "id": "kritika",
+    "image": "/images/connections/kritika.jpeg",
+    "title": "Kritika",
+    "subtitle": "Software Engineer",
+    "headline": "Building reliable backend services, distributed systems logic, and clean architectural patterns.",
+    "city": "Delhi NCR",
+    "country": "India",
+    "lat": 51.5074,
+    "lng": -0.1278
+  },
+  {
+    "id": "prithviraj",
+    "image": "/images/connections/prithviraj.jpeg",
+    "title": "Prithviraj",
+    "subtitle": "Frontend Engineer",
+    "headline": "Crafting polished, accessible UI components and high-performance client-side web apps.",
+    "city": "Delhi NCR",
+    "country": "India",
+    "lat": 25.2048,
+    "lng": 55.2708
+  },
+  {
+    "id": "kunal",
+    "image": "/images/connections/kunal.jpeg",
+    "title": "Kunal",
+    "subtitle": "Cyber Security Engineer",
+    "headline": "Implementing zero-trust infrastructure, penetration testing, and automated security controls.",
+    "city": "Delhi NCR",
+    "country": "India",
+    "lat": -33.9249,
+    "lng": 18.4241
+  },
+  {
+    "id": "aastha",
+    "image": "/images/connections/aastha.jpeg",
+    "title": "Aastha",
+    "subtitle": "Mobile & Frontend Engineer",
+    "headline": "Developing slick cross-platform mobile apps with Flutter and engaging user interfaces.",
+    "city": "Delhi NCR",
+    "country": "India",
+    "lat": 1.3521,
+    "lng": 103.8198
+  },
+  {
+    "id": "deepanshu",
+    "image": "/images/connections/deepanshu.png",
+    "title": "Deepanshu",
+    "subtitle": "AI Product Analyst",
+    "headline": "Analyzing AI/ML product metrics, user adoption patterns, and evaluation benchmarks.",
+    "city": "Delhi NCR",
+    "country": "India",
+    "lat": 35.6762,
+    "lng": 139.6503
+  },
+  {
+    "id": "parth",
+    "image": "/images/connections/parth.jpeg",
+    "title": "Parth",
+    "subtitle": "Cloud Architect & SDE",
+    "headline": "Architecting resilient multi-region cloud infrastructures, serverless systems, and cloud-native backends.",
+    "city": "Delhi NCR",
+    "country": "India",
+    "lat": -33.8688,
+    "lng": 151.2093
+  }
+]

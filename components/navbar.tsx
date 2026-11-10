@@ -204,7 +204,7 @@ export function Navbar({ className = "" }: NavbarProps) {
 
           {/* Hot-Pink Resume Button */}
           <a
-            href="/resume.pdf"
+            href="/Ashish_Yadav_Resume.pdf"
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center gap-1.5 rounded-lg bg-[#ff2d7b] px-3.5 py-1.5 font-mono text-xs font-semibold text-white shadow-[0_2px_12px_rgba(255,45,123,0.3)] hover:bg-[#e6256e] active:scale-[0.98] transition-all cursor-pointer"
@@ -312,7 +312,7 @@ export function Navbar({ className = "" }: NavbarProps) {
 
               {/* Mobile Resume CTA */}
               <a
-                href="/resume.pdf"
+                href="/Ashish_Yadav_Resume.pdf"
                 target="_blank"
                 rel="noreferrer"
                 className="mt-2 flex items-center justify-center gap-2 rounded-xl bg-[#ff2d7b] py-2.5 font-mono text-xs font-semibold text-white shadow-[0_2px_12px_rgba(255,45,123,0.3)] hover:bg-[#e6256e] active:scale-[0.98] transition-all"

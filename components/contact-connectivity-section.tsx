@@ -4,13 +4,12 @@ import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import type { MapUserNode } from "@/components/ui/world-map";
+import connectionsData from "@/data/world-map.json";
 import { UniversalLoader } from "@/components/ui/universal-loader";
 import {
   Mail,
   Copy,
   Check,
-  MapPin,
-  Clock,
   Send,
   ArrowUpRight,
 } from "lucide-react";
@@ -58,163 +57,15 @@ function LeetCodeIcon({ className = "h-4 w-4" }: { className?: string }) {
   );
 }
 
-// Well-spaced global hubs spanning distinct continents for maximum spatial clarity
-const COLLABORATOR_NODES: MapUserNode[] = [
-  {
-    id: "sf",
-    lat: 37.7749,
-    lng: -122.4194,
-    name: "Alex Chen",
-    role: "Staff AI Infra SDE",
-    headline: "Scaling distributed GPU clusters and high-throughput LLM inference backbones.",
-    city: "San Francisco",
-    country: "USA",
-    avatar: "https://assets.aceternity.com/avatars/1.webp",
-    status: "Active Node",
-    latency: "142ms",
-  },
-  {
-    id: "nyc",
-    lat: 40.7128,
-    lng: -74.006,
-    name: "Marcus Vance",
-    role: "Senior Platform SDE",
-    headline: "Engineering transactional event streams and fault-tolerant Kafka infrastructure.",
-    city: "New York",
-    country: "USA",
-    avatar: "https://assets.aceternity.com/avatars/4.webp",
-    status: "Active Node",
-    latency: "128ms",
-  },
-  {
-    id: "saopaulo",
-    lat: -23.5505,
-    lng: -46.6333,
-    name: "Beatriz Silva",
-    role: "Cloud Systems & DevOps SDE",
-    headline: "Architecting multi-region Kubernetes mesh networks with zero-downtime rollouts.",
-    city: "São Paulo",
-    country: "Brazil",
-    avatar: "https://assets.aceternity.com/avatars/6.webp",
-    status: "Active Node",
-    latency: "165ms",
-  },
-  {
-    id: "london",
-    lat: 51.5074,
-    lng: -0.1278,
-    name: "Sophia Bennett",
-    role: "Distributed Systems SDE",
-    headline: "Building consensus-driven microservices with Raft state machines and gRPC.",
-    city: "London",
-    country: "UK",
-    avatar: "https://assets.aceternity.com/avatars/2.webp",
-    status: "Active Node",
-    latency: "96ms",
-  },
-  {
-    id: "capetown",
-    lat: -33.9249,
-    lng: 18.4241,
-    name: "Kagiso Ndlovu",
-    role: "Core Performance & SRE",
-    headline: "Hardening production uptime, kernel-level eBPF tracing, and sub-millisecond p99 tuning.",
-    city: "Cape Town",
-    country: "South Africa",
-    avatar: "https://assets.aceternity.com/avatars/7.webp",
-    status: "Active Node",
-    latency: "155ms",
-  },
-  {
-    id: "delhi",
-    lat: 28.6139,
-    lng: 77.209,
-    name: "Ashish Yadav (Me)",
-    role: "Software Engineer (Backend · Full-Stack · AI)",
-    headline: "Building zero-allocation Go backends, serverless AWS platforms, and reliable AI systems.",
-    city: "New Delhi",
-    country: "India",
-    avatar: "/images/my.png",
-    isOrigin: true,
-    status: "Origin Base",
-    latency: "<5ms local",
-  },
-  {
-    id: "singapore",
-    lat: 1.3521,
-    lng: 103.8198,
-    name: "Liam Tan",
-    role: "Full-Stack Tech Lead SDE",
-    headline: "Shipping reactive Next.js 16 platforms with real-time SSE telemetry & WebSockets.",
-    city: "Singapore",
-    country: "Singapore",
-    avatar: "https://assets.aceternity.com/avatars/12.webp",
-    status: "Active Node",
-    latency: "68ms",
-  },
-  {
-    id: "tokyo",
-    lat: 35.6762,
-    lng: 139.6503,
-    name: "Kenji Sato",
-    role: "High-Throughput Go SDE",
-    headline: "Crafting zero-allocation streaming engines, memory-efficient parsers, and Redis caching.",
-    city: "Tokyo",
-    country: "Japan",
-    avatar: "https://assets.aceternity.com/avatars/3.webp",
-    status: "Active Node",
-    latency: "115ms",
-  },
-  {
-    id: "sydney",
-    lat: -33.8688,
-    lng: 151.2093,
-    name: "Chloe Mitchell",
-    role: "Backend Infrastructure SDE",
-    headline: "Designing serverless cloud workflows with AWS Step Functions and DynamoDB state machines.",
-    city: "Sydney",
-    country: "Australia",
-    avatar: "https://assets.aceternity.com/avatars/5.webp",
-    status: "Active Node",
-    latency: "135ms",
-  },
-];
+const originNode = connectionsData.find((c) => c.isOrigin) ?? connectionsData[0];
 
-// White flight lines radiating from New Delhi to all global engineering hubs
-const MAP_DOTS = [
-  {
-    start: { lat: 28.6139, lng: 77.209, label: "New Delhi" },
-    end: { lat: 37.7749, lng: -122.4194, label: "San Francisco" },
-  },
-  {
-    start: { lat: 28.6139, lng: 77.209, label: "New Delhi" },
-    end: { lat: 40.7128, lng: -74.006, label: "New York" },
-  },
-  {
-    start: { lat: 28.6139, lng: 77.209, label: "New Delhi" },
-    end: { lat: -23.5505, lng: -46.6333, label: "São Paulo" },
-  },
-  {
-    start: { lat: 28.6139, lng: 77.209, label: "New Delhi" },
-    end: { lat: 51.5074, lng: -0.1278, label: "London" },
-  },
-  {
-    start: { lat: 28.6139, lng: 77.209, label: "New Delhi" },
-    end: { lat: -33.9249, lng: 18.4241, label: "Cape Town" },
-  },
-  {
-    start: { lat: 28.6139, lng: 77.209, label: "New Delhi" },
-    end: { lat: 1.3521, lng: 103.8198, label: "Singapore" },
-  },
-  {
-    start: { lat: 28.6139, lng: 77.209, label: "New Delhi" },
-    end: { lat: 35.6762, lng: 139.6503, label: "Tokyo" },
-  },
-  {
-    start: { lat: 28.6139, lng: 77.209, label: "New Delhi" },
-    end: { lat: -33.8688, lng: 151.2093, label: "Sydney" },
-  },
-];
+// Dynamic flight lines radiating from New Delhi to all global engineering hubs
+const MAP_DOTS = connectionsData
+  .filter((c) => !c.isOrigin)
+  .map((c) => ({
+    start: { lat: originNode.lat, lng: originNode.lng, label: originNode.city },
+    end: { lat: c.lat, lng: c.lng, label: c.city },
+  }));
 
 export interface ContactConnectivitySectionProps {
   className?: string;
@@ -244,7 +95,7 @@ export function ContactConnectivitySection({
     <section
       id="contact"
       aria-label="Global Connectivity & Contact"
-      className={`relative z-20 w-full border-t border-[#f0f0f5]/[0.08] bg-transparent px-6 py-24 text-[#f0f0f5] sm:px-8 sm:py-32 lg:px-12 scroll-mt-20 ${className}`}
+      className={`relative z-20 w-full border-t border-[#f0f0f5]/[0.08] bg-transparent px-4 py-20 text-[#f0f0f5] sm:px-8 sm:py-32 lg:px-12 scroll-mt-20 ${className}`}
     >
       <div className="mx-auto max-w-6xl">
         {/* Section Header */}
@@ -260,7 +111,7 @@ export function ContactConnectivitySection({
           </div>
 
           <div className="flex items-center gap-2 rounded-xl border border-white/[0.08] bg-[#0e1526]/80 px-3.5 py-1.5 font-mono text-xs text-[#8b92a8]">
-            <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="h-2 w-2 rounded-full bg-sky-400 animate-pulse" />
             <span>Active Across Global Timezones</span>
           </div>
         </div>
@@ -271,31 +122,31 @@ export function ContactConnectivitySection({
           <div className="mb-6 flex flex-col justify-between gap-4 border-b border-[#f0f0f5]/[0.06] pb-5 sm:flex-row sm:items-center">
             <div>
               <div className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="h-2 w-2 rounded-full bg-sky-400 animate-pulse" />
                 <span className="font-mono text-xs font-semibold uppercase tracking-wider text-sky-400">
-                  Global Engineering Network
+                  Friends &amp; Fellow Builders
                 </span>
               </div>
               <h3 className="mt-1 font-display text-xl sm:text-2xl font-bold text-[#f0f0f5]">
-                Connections All Over the World
+                The Tech Fam &amp; Friends I Build With
               </h3>
               <p className="mt-1 font-mono text-xs text-[#8b92a8]">
-                Hover collaborator PFPs across 9 global technology hubs spanning 6 continents.
+                Hover on any profile to meet the brilliant engineers, analysts, and creators in my corner.
               </p>
             </div>
 
             {/* Collaborator Avatars Preview Stack */}
             <div className="flex items-center gap-3 self-start sm:self-center">
               <div className="flex -space-x-2 overflow-hidden py-1">
-                {COLLABORATOR_NODES.map((node) => (
+                {connectionsData.map((node) => (
                   <div
                     key={node.id}
                     className="relative inline-block h-7 w-7 rounded-full overflow-hidden shadow-xs transition-transform hover:scale-125 hover:z-20 cursor-pointer"
-                    title={`${node.name} (${node.city})`}
+                    title={`${node.title} (${node.city})`}
                   >
                     <Image
-                      src={node.avatar}
-                      alt={node.name}
+                      src={node.image}
+                      alt={node.title}
                       fill
                       sizes="28px"
                       className="object-cover"
@@ -304,54 +155,102 @@ export function ContactConnectivitySection({
                   </div>
                 ))}
               </div>
-              <span className="font-mono text-xs font-medium text-amber-400 shrink-0">
-                9 Active Hubs
+              <span className="font-mono text-xs font-semibold text-sky-300 bg-sky-400/10 px-2.5 py-0.5 rounded-full border border-sky-400/20 shrink-0">
+                {connectionsData.length} Amazing Friends
               </span>
             </div>
           </div>
 
           <div className="flex flex-col items-center justify-center">
             <div className="w-full">
-              <WorldMap dots={MAP_DOTS} nodes={COLLABORATOR_NODES} lineColor="#ffffff" />
+              <WorldMap dots={MAP_DOTS} nodes={connectionsData as MapUserNode[]} lineColor="#ffffff" />
             </div>
           </div>
         </div>
 
         {/* Contact Me & Collaboration Action Cards */}
         <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-12">
-          {/* Availability & Info Card (7 Cols) */}
-          <div className="flex flex-col justify-between rounded-3xl border border-[#f0f0f5]/[0.08] bg-[#0e1526]/80 p-6 shadow-[0_24px_60px_-15px_rgba(0,0,0,0.6)] backdrop-blur-2xl sm:p-8 lg:col-span-7">
+          {/* Availability & Direct Contact Card (7 Cols) */}
+          <div className="flex flex-col justify-between rounded-3xl border border-[#f0f0f5]/[0.08] bg-[#0c1220]/90 p-6 shadow-[0_24px_60px_-15px_rgba(0,0,0,0.6)] backdrop-blur-2xl sm:p-8 lg:col-span-7">
             <div>
-              <h3 className="font-display text-2xl font-bold tracking-tight text-[#f0f0f5] sm:text-3xl">
-                Let’s Build Great Software Together
+              {/* Active Availability Badge (Cohesive Dark/Sky Palette) */}
+              <div className="inline-flex items-center gap-2 rounded-full border border-sky-400/25 bg-sky-400/10 px-3 py-1 text-xs font-mono text-sky-300">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-60" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-sky-400" />
+                </span>
+                <span className="text-[#f0f0f5] font-medium">Available for SDE Roles</span>
+                <span className="text-sky-400/40">·</span>
+                <span className="text-sky-300 font-semibold">Immediate Joiner</span>
+              </div>
+
+              {/* Minimal Headline & Clean Lead */}
+              <h3 className="mt-4 font-display text-2xl sm:text-3xl font-bold tracking-tight text-[#f0f0f5]">
+                Let’s build something impactful together.
               </h3>
-              <p className="mt-3 text-sm leading-relaxed text-[#8b92a8]">
-                Available immediately for internships and full-time Software Engineering roles (Remote or On-site). Experienced across scalable Cloud Backends, Full-Stack Web/Mobile Apps, and Production AI Systems.
+              <p className="mt-2.5 text-sm sm:text-[15px] leading-relaxed text-[#a3a9b8]">
+                Open for full-time Software Engineer positions across backend, full-stack, and AI systems. Have an opportunity or want to collaborate? Reach out directly.
               </p>
 
-              {/* Status Points */}
-              <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 text-xs">
-                <div className="flex items-center gap-3 rounded-xl border border-[#f0f0f5]/[0.06] bg-[#0a0e1a]/80 p-3.5">
-                  <Clock className="h-4 w-4 text-[#ff2d7b] shrink-0" />
-                  <div>
-                    <span className="font-medium text-[#f0f0f5] block">
-                      Timezone Flexibility
-                    </span>
-                    <span className="font-mono text-[11px] text-[#5a6380]">
-                      IST (UTC+5:30) · Overlaps US, EU &amp; APAC
-                    </span>
-                  </div>
+              {/* Fast-Track Collaboration Timeline */}
+              <div className="mt-6 border-t border-[#f0f0f5]/[0.06] pt-5">
+                <div className="flex items-center justify-between mb-3.5">
+                  <span className="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#8b92a8]">
+                    Collaboration Timeline
+                  </span>
+                  <span className="font-mono text-[11px] text-sky-300 flex items-center gap-1.5">
+                    <span className="h-1.5 w-1.5 rounded-full bg-sky-400 animate-pulse" />
+                    <span>Fast-Track Onboarding</span>
+                  </span>
                 </div>
 
-                <div className="flex items-center gap-3 rounded-xl border border-[#f0f0f5]/[0.06] bg-[#0a0e1a]/80 p-3.5">
-                  <MapPin className="h-4 w-4 text-sky-400 shrink-0" />
-                  <div>
-                    <span className="font-medium text-[#f0f0f5] block">
-                      Availability
-                    </span>
-                    <span className="font-mono text-[11px] text-[#5a6380]">
-                      Remote or On-site · Immediate Start
-                    </span>
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                  {/* Step 1: Hot Pink Accent */}
+                  <div className="group rounded-2xl border border-[#ff2d7b]/20 bg-[#ff2d7b]/[0.03] p-3.5 backdrop-blur-md transition-all hover:border-[#ff2d7b]/40 hover:bg-[#ff2d7b]/[0.06]">
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono text-xs font-bold text-[#ff2d7b]">01</span>
+                      <span className="font-mono text-[10px] text-[#ff2d7b] bg-[#ff2d7b]/10 px-2 py-0.5 rounded-md border border-[#ff2d7b]/20 font-medium">
+                        &lt;2h SLA
+                      </span>
+                    </div>
+                    <h4 className="mt-2 font-display text-sm font-bold text-[#f0f0f5]">
+                      First Contact
+                    </h4>
+                    <p className="mt-1 font-mono text-[11px] text-[#8b92a8] leading-relaxed">
+                      Drop an email or call. Fast async intro and role alignment.
+                    </p>
+                  </div>
+
+                  {/* Step 2: Monochromatic Slate / White */}
+                  <div className="group rounded-2xl border border-white/[0.08] bg-[#080d17]/70 p-3.5 backdrop-blur-md transition-all hover:border-white/20 hover:bg-[#0c1220]">
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono text-xs font-bold text-[#f0f0f5]">02</span>
+                      <span className="font-mono text-[10px] text-[#8b92a8] bg-white/[0.05] px-2 py-0.5 rounded-md border border-white/10 font-medium">
+                        Deep Dive
+                      </span>
+                    </div>
+                    <h4 className="mt-2 font-display text-sm font-bold text-[#f0f0f5]">
+                      Technical Sync
+                    </h4>
+                    <p className="mt-1 font-mono text-[11px] text-[#8b92a8] leading-relaxed">
+                      System design discussion, stack fit, and live code walkthrough.
+                    </p>
+                  </div>
+
+                  {/* Step 3: Electric Sky */}
+                  <div className="group rounded-2xl border border-sky-400/25 bg-sky-400/[0.04] p-3.5 backdrop-blur-md transition-all hover:border-sky-400/40 hover:bg-sky-400/[0.08]">
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono text-xs font-bold text-sky-300">03</span>
+                      <span className="font-mono text-[10px] text-sky-200 bg-sky-400/15 px-2 py-0.5 rounded-md border border-sky-400/30 font-medium">
+                        Day 1 Ready
+                      </span>
+                    </div>
+                    <h4 className="mt-2 font-display text-sm font-bold text-[#f0f0f5]">
+                      Ship to Prod
+                    </h4>
+                    <p className="mt-1 font-mono text-[11px] text-[#8b92a8] leading-relaxed">
+                      Zero lead time. Immediate start building production systems.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -361,16 +260,16 @@ export function ContactConnectivitySection({
             <div className="mt-8 border-t border-[#f0f0f5]/[0.06] pt-6 space-y-3">
               {/* Email Row */}
               <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center">
-                <div className="flex flex-1 items-center justify-between rounded-xl border border-[#f0f0f5]/[0.08] bg-[#111827] px-3.5 py-2.5">
-                  <div className="flex items-center gap-2 font-mono text-xs text-[#f0f0f5]">
-                    <Mail className="h-4 w-4 text-[#8b92a8]" />
-                    <span>{emailAddress}</span>
+                <div className="flex flex-1 items-center justify-between gap-2 rounded-xl border border-[#f0f0f5]/[0.08] bg-[#111827] px-3.5 py-2.5 min-w-0">
+                  <div className="flex items-center gap-2 font-mono text-xs text-[#f0f0f5] min-w-0">
+                    <Mail className="h-4 w-4 text-[#8b92a8] shrink-0" />
+                    <span className="truncate">{emailAddress}</span>
                   </div>
 
                   <button
                     type="button"
                     onClick={handleCopyEmail}
-                    className="flex items-center gap-1 rounded-lg border border-[#f0f0f5]/[0.1] bg-[#0a0e1a] px-2.5 py-1 font-mono text-xs text-[#8b92a8] transition-colors hover:border-[#ff2d7b]/40 hover:text-[#ff2d7b] cursor-pointer"
+                    className="flex items-center gap-1 rounded-lg border border-[#f0f0f5]/[0.1] bg-[#0a0e1a] px-2.5 py-1 font-mono text-xs text-[#8b92a8] transition-colors hover:border-[#ff2d7b]/40 hover:text-[#ff2d7b] cursor-pointer shrink-0"
                   >
                     {copied ? (
                       <>
@@ -397,16 +296,16 @@ export function ContactConnectivitySection({
 
               {/* Phone Row */}
               <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center">
-                <div className="flex flex-1 items-center justify-between rounded-xl border border-[#f0f0f5]/[0.08] bg-[#111827] px-3.5 py-2.5">
-                  <div className="flex items-center gap-2 font-mono text-xs text-[#f0f0f5]">
-                    <span className="text-sky-400 font-mono text-xs">TEL:</span>
-                    <span>{phoneNumber}</span>
+                <div className="flex flex-1 items-center justify-between gap-2 rounded-xl border border-[#f0f0f5]/[0.08] bg-[#111827] px-3.5 py-2.5 min-w-0">
+                  <div className="flex items-center gap-2 font-mono text-xs text-[#f0f0f5] min-w-0">
+                    <span className="text-sky-400 font-mono text-xs shrink-0">TEL:</span>
+                    <span className="truncate">{phoneNumber}</span>
                   </div>
 
                   <button
                     type="button"
                     onClick={handleCopyPhone}
-                    className="flex items-center gap-1 rounded-lg border border-[#f0f0f5]/[0.1] bg-[#0a0e1a] px-2.5 py-1 font-mono text-xs text-[#8b92a8] transition-colors hover:border-[#ff2d7b]/40 hover:text-[#ff2d7b] cursor-pointer"
+                    className="flex items-center gap-1 rounded-lg border border-[#f0f0f5]/[0.1] bg-[#0a0e1a] px-2.5 py-1 font-mono text-xs text-[#8b92a8] transition-colors hover:border-[#ff2d7b]/40 hover:text-[#ff2d7b] cursor-pointer shrink-0"
                   >
                     {copiedPhone ? (
                       <>
@@ -549,7 +448,7 @@ export function ContactConnectivitySection({
 
                 {/* Resume PDF Link */}
                 <a
-                  href="/resume.pdf"
+                  href="/Ashish_Yadav_Resume.pdf"
                   target="_blank"
                   rel="noreferrer"
                   className="group flex items-center justify-between rounded-2xl border border-[#ff2d7b]/30 bg-[#162035] p-3.5 transition-all hover:border-[#ff2d7b]/60 hover:bg-[#1a2540]"

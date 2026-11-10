@@ -131,7 +131,7 @@ export function ExperienceSection({ className = "" }: { className?: string }) {
     <section
       id="experience"
       aria-label="Work Experience"
-      className={`relative z-20 w-full border-t border-[#f0f0f5]/[0.08] bg-transparent px-6 py-24 text-[#f0f0f5] sm:px-8 sm:py-32 lg:px-12 scroll-mt-20 ${className}`}
+      className={`relative z-20 w-full border-t border-[#f0f0f5]/[0.08] bg-transparent px-4 py-20 text-[#f0f0f5] sm:px-8 sm:py-32 lg:px-12 scroll-mt-20 ${className}`}
     >
       <div className="mx-auto max-w-6xl">
         {/* Section Heading */}
@@ -152,7 +152,7 @@ export function ExperienceSection({ className = "" }: { className?: string }) {
         </div>
 
         {/* Company & Role Card */}
-        <div className="mt-10 rounded-2xl border border-[#f0f0f5]/[0.08] bg-[#0c1220]/80 p-6 sm:p-8 backdrop-blur-xl">
+        <div className="mt-10 rounded-2xl border border-[#f0f0f5]/[0.08] bg-[#0c1220]/80 p-5 sm:p-8 backdrop-blur-xl">
           <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center border-b border-[#f0f0f5]/[0.06] pb-6">
             <div>
               <div className="flex flex-wrap items-baseline gap-3">
@@ -225,19 +225,19 @@ export function ExperienceSection({ className = "" }: { className?: string }) {
           </div>
 
           {/* Right Column: Detailed Architecture Showcase */}
-          <div className="lg:col-span-7 rounded-2xl border border-[#f0f0f5]/[0.08] bg-[#0c1220]/90 p-6 sm:p-8 backdrop-blur-xl flex flex-col justify-between">
+          <div className="lg:col-span-7 rounded-2xl border border-[#f0f0f5]/[0.08] bg-[#0c1220]/90 p-5 sm:p-8 backdrop-blur-xl flex flex-col justify-between">
             <div>
               {/* Header */}
-              <div className="flex items-start justify-between gap-4 border-b border-[#f0f0f5]/[0.06] pb-4">
-                <div>
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 sm:gap-4 border-b border-[#f0f0f5]/[0.06] pb-4">
+                <div className="min-w-0 flex-1">
                   <span className="font-mono text-xs font-semibold text-[#ff2d7b]">
                     Deliverable {activeDeliverable.number} · {activeDeliverable.systemTag}
                   </span>
-                  <h4 className="mt-1 font-display text-xl sm:text-2xl font-bold text-[#f0f0f5]">
+                  <h4 className="mt-1 font-display text-xl sm:text-2xl font-bold text-[#f0f0f5] break-words">
                     {activeDeliverable.title}
                   </h4>
                 </div>
-                <span className="rounded-lg border border-sky-400/30 bg-sky-400/10 px-3 py-1 font-mono text-xs font-semibold text-sky-300 shrink-0">
+                <span className="self-start sm:self-auto rounded-lg border border-sky-400/30 bg-sky-400/10 px-3 py-1 font-mono text-xs font-semibold text-sky-300 shrink-0 max-w-full">
                   {activeDeliverable.metric}
                 </span>
               </div>
@@ -253,7 +253,7 @@ export function ExperienceSection({ className = "" }: { className?: string }) {
               </div>
 
               {/* Verified Production Impact */}
-              <div className="mt-6 grid grid-cols-2 gap-4">
+              <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <div className="rounded-xl border border-[#f0f0f5]/[0.06] bg-[#0e1526]/50 p-4">
                   <span className="font-mono text-[11px] text-[#5a6380] block">
                     Execution Status

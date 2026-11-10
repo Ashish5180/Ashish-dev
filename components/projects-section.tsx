@@ -199,7 +199,7 @@ export function ProjectsSection({ className = "" }: { className?: string }) {
     <section
       id="projects"
       aria-label="Featured Engineering Projects"
-      className={`relative z-20 w-full border-t border-[#f0f0f5]/[0.08] bg-transparent px-6 py-24 text-[#f0f0f5] sm:px-8 sm:py-32 lg:px-12 scroll-mt-20 ${className}`}
+      className={`relative z-20 w-full border-t border-[#f0f0f5]/[0.08] bg-transparent px-4 py-20 text-[#f0f0f5] sm:px-8 sm:py-32 lg:px-12 scroll-mt-20 ${className}`}
     >
       <div className="mx-auto max-w-6xl">
         {/* Section Heading */}
@@ -244,7 +244,7 @@ export function ProjectsSection({ className = "" }: { className?: string }) {
             return (
               <article
                 key={project.id}
-                className={`rounded-2xl border transition-all p-6 sm:p-8 ${
+                className={`rounded-2xl border transition-all p-5 sm:p-8 ${
                   project.isFlagship
                     ? "border-[#f0f0f5]/[0.1] bg-[#0c1220]/90 shadow-[0_20px_50px_-15px_rgba(0,0,0,0.6)]"
                     : "border-[#f0f0f5]/[0.06] bg-[#0a0e1a]/60 hover:border-[#f0f0f5]/[0.12]"
@@ -275,8 +275,8 @@ export function ProjectsSection({ className = "" }: { className?: string }) {
                   </div>
 
                   {/* Actions & Metrics */}
-                  <div className="flex items-center gap-3 self-end sm:self-center">
-                    <div className="text-right hidden sm:block">
+                  <div className="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto pt-1 sm:pt-0">
+                    <div className="text-left sm:text-right">
                       <span className="block font-mono text-[10px] text-[#5a6380] uppercase tracking-wider">
                         {project.keyMetric.label}
                       </span>
@@ -289,7 +289,7 @@ export function ProjectsSection({ className = "" }: { className?: string }) {
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 rounded-lg border border-[#f0f0f5]/[0.08] bg-[#111827] px-3 py-1.5 font-mono text-xs text-[#f0f0f5] hover:border-[#ff2d7b]/50 hover:text-[#ff2d7b] transition-colors"
+                      className="inline-flex items-center gap-1.5 rounded-lg border border-[#f0f0f5]/[0.08] bg-[#111827] px-3 py-1.5 font-mono text-xs text-[#f0f0f5] hover:border-[#ff2d7b]/50 hover:text-[#ff2d7b] transition-colors shrink-0"
                       aria-label={`View ${project.title} on GitHub`}
                     >
                       <GithubIcon className="h-3.5 w-3.5" />
