@@ -768,7 +768,7 @@ export function HeroSystemCockpit() {
             </p>
           </div>
 
-          <div className="flex items-center gap-3 shrink-0 pt-1 sm:pt-0">
+          <div className="flex flex-wrap sm:flex-nowrap items-center gap-3 pt-2 sm:pt-0">
             {currentTab.annotation.stats.map((stat, i) => (
               <div key={i} className="text-right">
                 <span className="block text-[10px] font-mono text-[#5a6380]">

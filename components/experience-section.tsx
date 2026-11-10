@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Cpu, Smartphone, Cloud, Bot, ShieldCheck, Layers } from "lucide-react";
+import { Cpu, Smartphone, Cloud, Bot, ShieldCheck, Layers, FileText, ArrowUpRight } from "lucide-react";
 
 export interface EngineeringDeliverable {
   id: string;
@@ -145,9 +145,22 @@ export function ExperienceSection({ className = "" }: { className?: string }) {
             </p>
           </div>
 
-          <div className="flex items-center gap-2 font-mono text-xs text-[#8b92a8]">
-            <span className="h-2 w-2 rounded-full bg-sky-400" />
-            <span>Active Production Role · Remote</span>
+          <div className="flex flex-wrap items-center gap-3 font-mono text-xs">
+            <div className="flex items-center gap-2 text-[#8b92a8]">
+              <span className="h-2 w-2 rounded-full bg-sky-400" />
+              <span>Active Production Role · Remote</span>
+            </div>
+            <a
+              href="/Ashish_Yadav_Resume.pdf"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-[#f0f0f5]/[0.1] bg-[#111827] px-3 py-1 text-xs font-semibold text-[#f0f0f5] hover:border-[#ff2d7b]/50 hover:text-[#ff2d7b] transition-colors"
+              title="Download Ashish's Resume (PDF)"
+            >
+              <FileText className="h-3 w-3" />
+              <span>Resume (PDF)</span>
+              <ArrowUpRight className="h-3 w-3" />
+            </a>
           </div>
         </div>
 
@@ -225,21 +238,21 @@ export function ExperienceSection({ className = "" }: { className?: string }) {
           </div>
 
           {/* Right Column: Detailed Architecture Showcase */}
-          <div className="lg:col-span-7 rounded-2xl border border-[#f0f0f5]/[0.08] bg-[#0c1220]/90 p-5 sm:p-8 backdrop-blur-xl flex flex-col justify-between">
+          <div className="lg:col-span-7 rounded-2xl border border-[#f0f0f5]/[0.08] bg-[#0c1220]/90 p-5 sm:p-8 backdrop-blur-xl flex flex-col justify-between overflow-hidden">
             <div>
               {/* Header */}
-              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 sm:gap-4 border-b border-[#f0f0f5]/[0.06] pb-4">
-                <div className="min-w-0 flex-1">
+              <div className="flex flex-col gap-3 border-b border-[#f0f0f5]/[0.06] pb-4">
+                <div className="flex flex-wrap items-center justify-between gap-2">
                   <span className="font-mono text-xs font-semibold text-[#ff2d7b]">
                     Deliverable {activeDeliverable.number} · {activeDeliverable.systemTag}
                   </span>
-                  <h4 className="mt-1 font-display text-xl sm:text-2xl font-bold text-[#f0f0f5] break-words">
-                    {activeDeliverable.title}
-                  </h4>
+                  <span className="rounded-full border border-sky-400/30 bg-sky-400/10 px-3 py-1 font-mono text-xs font-semibold text-sky-300">
+                    {activeDeliverable.metric}
+                  </span>
                 </div>
-                <span className="self-start sm:self-auto rounded-lg border border-sky-400/30 bg-sky-400/10 px-3 py-1 font-mono text-xs font-semibold text-sky-300 shrink-0 max-w-full">
-                  {activeDeliverable.metric}
-                </span>
+                <h4 className="font-display text-xl sm:text-2xl font-bold text-[#f0f0f5] leading-snug break-words">
+                  {activeDeliverable.title}
+                </h4>
               </div>
 
               {/* What I Built */}
